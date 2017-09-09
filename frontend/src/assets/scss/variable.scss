@@ -1,0 +1,119 @@
+/* ------------------------------------------------------------------------
+  - Global Color Variable
+-------------------------------------------------------------------------- */
+$black: #232323;
+$light-black: lighten($black, 30%);
+$dark-black: darken($black, 2%);
+$darker-black: darken($dark-black, 3%);
+
+$white: #ffffff;
+$light-white: lighten($white, 30%);
+$dark-white: darken($white, 2%);
+$darker-white: darken($dark-white, 3%);
+
+$gray: #868e96;
+$light-gray: lighten($gray, 30%);
+$dark-gray: darken($gray, 2%);
+$darker-gray: darken($dark-gray, 3%);
+
+$ocean: #0080ff;
+$light-ocean: lighten($ocean, 30%);
+$dark-ocean: darken($ocean, 2%);
+$darker-ocean: darken($dark-ocean, 3%);
+
+/* ------------------------------------------------------------------------
+  - Global Grid Size Variable
+-------------------------------------------------------------------------- */
+$header-height: 80px;
+
+
+/* ------------------------
+  - Dom Css Using Global Color Variable
+  # Background And Function Dom Color Variable using $Color Variable
+  # 'Function Dom' are Input, Button and another elements.
+------------------------ */
+$bg-color: $white !default
+$bg-font-color: $light-black;
+$bg-color-hover: $light-white;
+$bg-color-shadow: $dark-white;
+
+$fc-color: $ocean !default
+$fc-font-color: $white !default
+$fc-color-hover: $light-ocean !default
+$fc-color-shadow: $darker-ocean !default
+
+$sub-fc-color: $gray !default
+$sub-fc-font-color: $black !default
+$sub-fc-color-hover: $light-gray !default
+$sub-fc-color-shadow: $darker-gray !default
+
+
+/* ------------------------------------------------------------------------
+  - Global For Function SCSS Start
+-------------------------------------------------------------------------- */
+/* ------------------------
+  Width Coverage
+  # .width-1 ~ width-100 css
+------------------------ */
+$width-class: width- !default
+@for $i from 1 through 100 {
+  .#{$width-class}#{$i} {
+    width: 0% + $i;
+  }
+}
+
+/* ------------------------
+  Height Coverage
+  # .Height-50 ~ Height-500 css
+------------------------ */
+$height-class: height- !default
+@for $i from 50 through 500 {
+  .#{$height-class}#{$i} {
+    height: 0px + $i;
+  }
+}
+
+/* ------------------------
+  h1 ~ h5 CSS
+------------------------ */
+$h-size: h !default
+@for $i from 1 through 5 {
+  #{$h-size}#{$i} {
+    font-weight: 500;
+    font-size: 15px + (30 / $i);
+    padding: 15px 0px;
+  }
+}
+
+/* ------------------------
+  padding-10 ~ padding-60 CSS
+------------------------ */
+$padding: padding- !default
+@for $i from 1 through 6 {
+  .#{$padding}#{$i*10} {
+    padding: 10px * $i;
+  }
+}
+
+/* ------------------------
+  margin-10 ~ margin-60 CSS
+------------------------ */
+$margin: margin- !default
+@for $i from 1 through 6 {
+  .#{$margin}#{$i*10} {
+    margin: 10px * $i 0px;
+  }
+}
+
+/* ------------------------------------------------------------------------
+  - Media Size Variable
+-------------------------------------------------------------------------- */
+$media-medium: 1024px;
+$media-small: 640px;
+
+
+/* ------------------------------------------------------------------------
+  - Global Boolean Variable
+-------------------------------------------------------------------------- */
+$boolean: true !default
+
