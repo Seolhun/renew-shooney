@@ -1,0 +1,91 @@
+@import "variable";
+
+/* ------------------------
+  Global Tag CSS
+------------------------ */
+
+body {
+  background: $bg-color;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  color: $fc-color;
+}
+
+button.fc-btn {
+  background: $fc-color;
+  color: $fc-font-color;
+  border-radius: 5px;
+  border: 0;
+  font-size: 16px;
+  padding: 10px 20px;
+  display: inline-block;
+  outline: 0;
+
+  &:hover {
+    background: $fc-color-hover;
+    font-weight: bold;
+  }
+
+  &:active {
+    box-shadow: none;
+    margin-top: 5px;
+  }
+}
+
+/* ------------------------
+  Global Tag CSS
+------------------------ */
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.gradient-fc {
+  background: linear-gradient(180deg, #66a5ff, #0069ff);
+  color: $bg-color;
+
+  button.fc-btn {
+    background: $bg-color;
+    color: $sub-fc-font-color;
+    border-radius: 5px;
+    font-weight: bold;
+
+    &:hover {
+      background: $sub-fc-color-hover;
+      font-weight: bold;
+    }
+
+    &:active {
+      box-shadow: none;
+      margin-top: 5px;
+    }
+  }
+}
+
+/* ------------------------
+  Global ID CSS
+------------------------ */
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

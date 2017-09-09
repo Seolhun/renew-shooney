@@ -1,0 +1,15 @@
+@import "../variable";
+
+.footer {
+  -ms-flex: none;
+  flex: none;
+  background-color: $black;
+}
+
+.footer-header {
+  color: $bg-color;
+}
+
+.footer-header-a > li > a{
+  color: $fc-color;
+}

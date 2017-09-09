@@ -8,7 +8,7 @@
 - Why use this?
 	1. To search and connect stacks information developers want to know
 	2. To see stacks statistics How many people search and access it.
-	3. To give information you want to know or Connect with others same situation like you.
+	3. To give information you want to know about stacks or Connect with others same situation like you.
 
 ## Enviroment
 - Back-end
