@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/news")
+@RequestMapping(value = "/api/{version}/news")
 public class NewsDataRestController {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDataRestController.class);
 
@@ -38,20 +38,20 @@ public class NewsDataRestController {
         this.newsDataService = newsDataService;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public Result<NewsData> saveNews(@PathVariable long id) {
+    @RequestMapping(value = "/{idx}", method = RequestMethod.POST)
+    public Result<NewsData> saveNews(@PathVariable String version, @PathVariable long idx) {
         LOG.info("where : saveNews");
         Result<NewsData> result = new Result<>();
 
-        getNewsThread(id).start();
+        getNewsThread(idx).start();
 
         result.setMessage("success");
         return result;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public NewsData getNewsDetail(@PathVariable long id) {
-        return newsDataService.findById(id);
+    @RequestMapping(value = "/{idx}", method = RequestMethod.GET)
+    public NewsData getNewsDetail(@PathVariable String version, @PathVariable long idx) {
+        return newsDataService.findById(idx);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -120,8 +120,8 @@ public class NewsDataRestController {
                         String tag = tagName.html();
                         tags.add(tag);
                     }
-                    newsData.setId(i);
-                    newsData.setIdx(webSiteName + "_" + i);
+                    newsData.setId(webSiteName + "_" + i);
+                    newsData.setIdx(i);
                     newsData.setTitle(newsTitle);
                     newsData.setCreatedBy(newsWriter);
                     newsData.setFromSource(newsSource);

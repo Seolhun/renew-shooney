@@ -2,6 +2,7 @@ package com.hun.blog.service.news;
 
 import com.hun.blog.domain.news.NewsData;
 import com.hun.blog.domain.news.NewsDataRepository;
+import com.hun.blog.service.CommonRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class NewsDataServiceImpl implements NewsDataService {
+public class NewsDataServiceImpl implements CommonRestService<NewsData>, NewsDataService {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDataServiceImpl.class);
 
     @Autowired
@@ -71,5 +72,40 @@ public class NewsDataServiceImpl implements NewsDataService {
     @Override
     public List<NewsData> selectList() {
         return newsDataRepository.findAll();
+    }
+
+    @Override
+    public List<NewsData> findByList() {
+        return null;
+    }
+
+    @Override
+    public Page<NewsData> findByPage(NewsData newsData, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public NewsData findOneById(String id) {
+        return null;
+    }
+
+    @Override
+    public void insert(NewsData newsData) {
+
+    }
+
+    @Override
+    public void updateById(String id) {
+
+    }
+
+    @Override
+    public void deleteById(String id) {
+
+    }
+
+    @Override
+    public long count(NewsData newsData) {
+        return 0;
     }
 }
