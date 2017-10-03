@@ -1,4 +1,4 @@
-# Goal of My-Home Blog Project
+# Goal of Shooney Blog Project
 
 
 - Author : [Seol Hun](https://github.com/Seolhun)
@@ -13,8 +13,8 @@
 ## Enviroment
 - Back-end
 	1. Spring-Boot
-	2. JPA, Hibernate
-	3. Security
+	2. Spring Security
+	3. JPA, Hibernate
 	4. Oauth2 (Google, Facebook)
 	5. Actuator
 
@@ -42,6 +42,7 @@
 
 ## Domain
 - Stacks
+- News
 - QA(Question and Answer)
 - User
 - LOG(Searching Data, Accessing user info, QA Content)

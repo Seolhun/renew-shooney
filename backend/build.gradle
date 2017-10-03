@@ -30,7 +30,7 @@ dependencies {
     compile project(':frontend')
 
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
-    compile('org.springframework.boot:spring-boot-starter-data-redis')
+//    compile('org.springframework.boot:spring-boot-starter-data-redis')
 
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
@@ -43,7 +43,7 @@ dependencies {
     // Test
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("junit:junit")
-    optional "org.springframework.boot:spring-boot-configuration-processor"
+//    optional "org.springframework.boot:spring-boot-configuration-processor"
 }
 
-compileJava.dependsOn(processResources)
+//compileJava.dependsOn(processResources)
