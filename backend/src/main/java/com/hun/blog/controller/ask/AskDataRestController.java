@@ -49,6 +49,8 @@ public class AskDataRestController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<AskData> getAsk(@PathVariable String version, @PathVariable String id) {
+        LOG.info("param : getAsk {}", id);
+
         AskData askData = askDataService.findOneById(id);
         return new ResponseEntity<>(askData, HttpStatus.OK);
     }
