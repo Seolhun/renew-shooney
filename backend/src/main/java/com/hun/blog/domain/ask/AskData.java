@@ -1,4 +1,4 @@
-package com.hun.blog.domain.news;
+package com.hun.blog.domain.ask;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,27 +11,23 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@Document(collection = "news")
+@Document(collection = "ask")
 @Getter
 @Setter
-public class NewsData implements Serializable {
+public class AskData implements Serializable {
     @Id
     private String id;
 
     @Indexed(unique = true)
-    private long idx;
+    private long index;
 
-    private String headerImage;
+    private String where;
 
     private String title;
 
     private String content;
 
     private List<String> tags;
-
-    private List<String> images;
-
-    private String fromSource;
 
     private Date createdDate;
 
@@ -44,7 +40,7 @@ public class NewsData implements Serializable {
     private boolean isDeleted;
 
     /*
-     * Paging Part
+    * Paging Part
     */
     @Transient
     private int pageIndex;
