@@ -16,9 +16,10 @@ servers:
   - www.xyz.com
 
 ---
-#mongodb
+
 spring:
   data:
+    #mongodb
     mongodb:
       host: 127.0.0.1
       port: 27017
@@ -28,9 +29,24 @@ spring:
     redis:
       repositories:
         enabled: false
+#  #Redis
+#  redis:
+#    host: 127.0.0.1
+#    password:
+#    port: 6379
+#    ssl: true
+#    timeout: 600000
+#    pool:
+#      max-active: 10
+#      max-idle: 8
+#      max-wait: 4
+
+  #Java Mail
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
     username: onm10114@gmail.com
     password: blue1220
     port: 587
+
+

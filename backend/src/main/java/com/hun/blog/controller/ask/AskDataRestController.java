@@ -1,7 +1,7 @@
 package com.hun.blog.controller.ask;
 
 import com.hun.blog.domain.ask.AskData;
-import com.hun.blog.domain.sequence.CustomSequences;
+import com.hun.blog.domain.sequence.CustomSequence;
 import com.hun.blog.service.ask.AskDataService;
 import com.hun.blog.service.sequence.SequenceService;
 import org.slf4j.Logger;
@@ -32,8 +32,7 @@ public class AskDataRestController {
     public ResponseEntity<AskData> postAsk(@PathVariable String version, @RequestBody AskData ask) {
         LOG.info("param : postAsk {}", version);
 
-        CustomSequences sequence = sequenceService.findByKey(SEQ_KEY);
-        ask.setId(sequence.getHospitalIdx()+"-"+sequence.getId());
+        CustomSequence sequence = sequenceService.findByKey(SEQ_KEY);
         ask.setIndex(sequence.getId());
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -51,7 +50,7 @@ public class AskDataRestController {
     public ResponseEntity<AskData> getAsk(@PathVariable String version, @PathVariable String id) {
         LOG.info("param : getAsk {}", id);
 
-        AskData askData = askDataService.findOneById(id);
+        AskData askData = askDataService.findById(id);
         return new ResponseEntity<>(askData, HttpStatus.OK);
     }
 
@@ -64,7 +63,7 @@ public class AskDataRestController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<AskData> deleteAsk(@PathVariable String version, @PathVariable String id) {
-        AskData askData = askDataService.findOneById(id);
+        AskData askData = askDataService.findById(id);
         return new ResponseEntity<>(askData, HttpStatus.OK);
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface NewsDataRepository extends MongoRepository<NewsData, String> {
 
-	NewsData findById(long id);
+	NewsData findById(String id);
 
 	long count();
 	

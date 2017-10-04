@@ -1,10 +1,9 @@
 package com.hun.blog.service.sequence;
 
-import com.hun.blog.domain.sequence.CustomSequences;
-
-import javax.servlet.http.HttpSession;
+import com.hun.blog.domain.sequence.CustomSequence;
 
 public interface SequenceService {
+    CustomSequence save(CustomSequence sequence);
 
-	CustomSequences findByKey(String key);
+    CustomSequence findByKey(String key);
 }

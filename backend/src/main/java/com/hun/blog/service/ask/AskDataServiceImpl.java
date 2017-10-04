@@ -20,7 +20,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class AskDataServiceImpl implements CommonRestService<AskData>, AskDataService {
+public class AskDataServiceImpl implements AskDataService {
     private static final Logger LOG = LoggerFactory.getLogger(AskDataServiceImpl.class);
 
     @Autowired
@@ -38,7 +38,7 @@ public class AskDataServiceImpl implements CommonRestService<AskData>, AskDataSe
     }
 
     @Override
-    public AskData findOneById(String id) {
+    public AskData findById(String id) {
         return null;
     }
 
@@ -48,7 +48,7 @@ public class AskDataServiceImpl implements CommonRestService<AskData>, AskDataSe
     }
 
     @Override
-    public void updateById(String id) {
+    public void update(AskData askData) {
 
     }
 

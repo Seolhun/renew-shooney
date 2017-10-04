@@ -43,4 +43,6 @@ public interface CommonService {
     JsonObject getResponseAPI(String apiUrl) throws IOException;
 
     List<String> extractImgSrc(String content);
+
+    String removeTags(String content);
 }

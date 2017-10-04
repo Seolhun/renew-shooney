@@ -2,140 +2,108 @@ package com.hun.blog.controller.news;
 
 import com.hun.blog.common.domain.Paging;
 import com.hun.blog.domain.news.NewsData;
-import com.hun.blog.domain.news.NewsWebSite;
+import com.hun.blog.domain.sequence.CustomSequence;
 import com.hun.blog.service.news.NewsDataService;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import com.hun.blog.service.sequence.SequenceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+/**
+ * The type News data rest controller.
+ * author : HunSeol
+ */
 @RestController
 @RequestMapping(value = "/api/{version}/news")
 public class NewsDataRestController {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDataRestController.class);
 
     private NewsDataService newsDataService;
+    private SequenceService sequenceService;
 
+    /**
+     * Instantiates a new News data rest controller.
+     *
+     * @param newsDataService the news data service
+     * @param sequenceService the sequence service
+     */
     @Autowired
-    public NewsDataRestController(NewsDataService newsDataService) {
+    public NewsDataRestController(NewsDataService newsDataService, SequenceService sequenceService) {
         this.newsDataService = newsDataService;
+        this.sequenceService = sequenceService;
     }
 
-    @RequestMapping(value = "/{idx}", method = RequestMethod.POST)
-    public Result<NewsData> saveNews(@PathVariable String version, @PathVariable long idx) {
+    /**
+     * Save news response entity.
+     *
+     * @param version the version
+     * @return the response entity
+     */
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ResponseEntity<NewsData> saveNews(@PathVariable String version) {
         LOG.info("where : saveNews");
-        Result<NewsData> result = new Result<>();
 
-        getNewsThread(idx).start();
-
-        result.setMessage("success");
-        return result;
+        CustomSequence customSequence = sequenceService.findByKey("news");
+        newsDataService.getNewsThread(customSequence.getId()).start();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{idx}", method = RequestMethod.GET)
-    public NewsData getNewsDetail(@PathVariable String version, @PathVariable long idx) {
-        return newsDataService.findById(idx);
+    /**
+     * Save news response entity.
+     *
+     * @param version the version
+     * @param idx     the idx
+     * @return the response entity
+     */
+    @RequestMapping(value = "{idx}", method = RequestMethod.POST)
+    public ResponseEntity<NewsData> saveNewsByIdx(@PathVariable String version, @PathVariable long idx) {
+        LOG.info("where : saveNews");
+        newsDataService.getNewsThread(idx).start();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Gets news list data.
+     *
+     * @param paging the paging
+     * @return the news list data
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Map<String, Object> getNewsListData() {
-        //Paging
-        Paging paging = new Paging();
-
+    public ResponseEntity<Page<NewsData>> getNewsListData(Paging<NewsData> paging) {
         // 전체 게시판 갯수 확인
-        long totalCount = newsDataService.count();
-        paging.setTotalCount((int) totalCount);
-
-        PageRequest pageRequest = new PageRequest(paging.getCurrentPage(), paging.getLimit(), Direction.DESC, "NEWS_IDX");
-        Page<NewsData> newsDatas = newsDataService.findAll(pageRequest);
-        for (NewsData news : newsDatas) {
-            LOG.info("return : news {}", news.toString());
-        }
-
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("newsDatas", newsDatas);
-        resultMap.put("paging", paging);
-        return resultMap;
+        PageRequest pageRequest = new PageRequest(paging.getPageIndex(), paging.getLimit(), Direction.DESC, "idx");
+        Page<NewsData> newsDatas = newsDataService.findByPage(paging.getE(), pageRequest);
+        return new ResponseEntity<>(newsDatas, HttpStatus.OK);
     }
 
+    /**
+     * Gets news detail.
+     *
+     * @param version the version
+     * @param id      the id
+     * @return the news detail
+     */
+    @RequestMapping(value = "/{idx}", method = RequestMethod.GET)
+    public NewsData getNewsDetail(@PathVariable String version, @PathVariable String id) {
+        return newsDataService.findById(id);
+    }
+
+    /**
+     * Stop thread news response entity.
+     *
+     * @return the response entity
+     */
     @RequestMapping(value = "/stop", method = RequestMethod.GET)
-    public Result<NewsData> stopThreadNews(
-            Result<NewsData> result) {
+    public ResponseEntity<NewsData> stopThreadNews() {
         LOG.info("where : stopThreadNews");
         stopNewsThread();
-        result.setMessage("success");
-        return result;
-    }
-
-    private Thread getNewsThread(long startNumber) {
-        return new Thread(() -> {
-            LOG.info("return : getNewsThread : Message");
-//				for (int i = 3100000; i<= 3182689; i++) {
-            for (long i = startNumber; i < 3100000; i++) {
-                // 리스트 가져오기
-                try {
-                    String webSiteName = "";
-
-                    Document doc = null;
-                    for (NewsWebSite newsWebSite : NewsWebSite.values()) {
-                        String address = newsWebSite.getWebAddress();
-                        webSiteName = newsWebSite.name();
-                        doc = Jsoup.connect(address + i).timeout(8000).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36").ignoreHttpErrors(true).get();
-                        //하나라도 신문기사가 있으면 포문을 종료시키고 넘어간다.
-                        if (doc != null)
-                            break;
-                    }
-
-                    //모두 돌았는데도 404일때 신문기사가 없으므로 돌아간다.(계속진행 시킨다.)
-                    if (doc == null) {
-                        continue;
-                    }
-
-                    NewsData newsData = new NewsData();
-                    String newsTitle = doc.getElementsByTag("title").html();
-                    String newsWriter = doc.select("meta[name=author]").attr("content");
-                    String newsSource = doc.select("meta[name=source]").attr("content");
-                    String newsHeadImage = doc.select("meta[name=parsely-image-url]").attr("content");
-                    String newsContent = doc.getElementById("drr-container").html();
-                    Elements newsTags = doc.getElementsByClass("tags").select("ul > li >a");
-                    List<String> tags = new ArrayList<>();
-                    for (Element tagName : newsTags) {
-                        String tag = tagName.html();
-                        tags.add(tag);
-                    }
-                    newsData.setId(webSiteName + "_" + i);
-                    newsData.setIdx(i);
-                    newsData.setTitle(newsTitle);
-                    newsData.setCreatedBy(newsWriter);
-                    newsData.setFromSource(newsSource);
-                    newsData.setHeaderImage(newsHeadImage);
-                    newsData.setContent(newsContent);
-                    newsData.setTags(tags);
-
-                    newsDataService.save(newsData);
-                } catch (NullPointerException e) {
-                    LOG.error("ERROR : NullPointerException");
-                } catch (IOException e) {
-                    LOG.error("ERROR : IOException");
-                }
-            }
-        });
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     private void stopNewsThread() {
@@ -145,5 +113,4 @@ public class NewsDataRestController {
         System.out.println("현재 쓰레드 이름 : " + name);
         thread.run();
     }
-
 }

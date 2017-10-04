@@ -31,13 +31,25 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type Common service.
+ */
 @Service
 @Transactional(transactionManager = "txManager")
 public class CommonServiceImpl implements CommonService {
     private static final Logger LOG = LoggerFactory.getLogger(CommonServiceImpl.class);
 
-    @Autowired
     private JavaMailSender mailSender;
+
+    /**
+     * Instantiates a new Common service.
+     *
+     * @param mailSender the mail sender
+     */
+    @Autowired
+    public CommonServiceImpl(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     private static final String FILE_PATH = "/Users/hunseol/Desktop/project/shooney/stack/";
 //    private static final String FILE_PATH="/opt/tomcat/files/";
@@ -52,30 +64,34 @@ public class CommonServiceImpl implements CommonService {
 	*/
 
     @Override
-    //Pattern에 틀리면 True || 맞으면 False
     public boolean validPattern(String parameter, String patternName) {
         boolean validation = false;
         switch (patternName) {
             case "password":
                 String passwordPattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+=-~`]).{8,20}";
                 validation = parameter.matches(passwordPattern);
+                break;
             case "email":
                 String emailPattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,3})$";
                 validation = parameter.matches(emailPattern);
+                break;
             case "id":
                 String idPattern = "^[A-Za-z0-9].{1,20}";
                 validation = parameter.matches(idPattern);
+                break;
             case "name":
                 String namePattern = ".[가-힣]{1,14}";
                 validation = parameter.matches(namePattern);
+                break;
             case "phone":
                 String phonePattern = "\\d{10,11}";
                 validation = parameter.matches(phonePattern);
+                break;
             case "tel":
                 String telPattern = "\\d{9,10}";
                 validation = parameter.matches(telPattern);
+                break;
         }
-        LOG.info("return : {}", validation);
         return validation;
     }
 
@@ -294,13 +310,6 @@ public class CommonServiceImpl implements CommonService {
 
     }
 
-    /**
-     * Get from Img using Jsoup
-     * <p>
-     * param Img SRc
-     * return
-     * throws IOException
-     */
     @Override
     public String getImgUsingJsoup(String imgSrc, String savedDirectoryName) throws IOException, StringIndexOutOfBoundsException {
         int indexName = imgSrc.lastIndexOf("/");
@@ -347,7 +356,7 @@ public class CommonServiceImpl implements CommonService {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
             //String output;
-            String jsonStr = null;
+            String jsonStr;
             while ((jsonStr = bufferedReader.readLine()) != null) {
                 jsonObject = parser.parse(jsonStr).getAsJsonObject();
                 LOG.info("return API output : {}", jsonObject);
@@ -363,7 +372,6 @@ public class CommonServiceImpl implements CommonService {
     // content에서 img 태그의 src값만 추출
     @Override
     public List<String> extractImgSrc(String content) {
-
         List<String> result = new ArrayList<>();
         Pattern nonValidPattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
         Matcher matcher = nonValidPattern.matcher(content);
@@ -383,6 +391,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     // html tag를 모두 제거함
+    @Override
     public String removeTags(String content) {
         String noTags = content.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
         return noTags;

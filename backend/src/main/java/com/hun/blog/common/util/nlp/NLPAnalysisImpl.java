@@ -4,10 +4,14 @@ import org.openkoreantext.processor.KoreanTokenJava;
 import org.openkoreantext.processor.OpenKoreanTextProcessorJava;
 import org.openkoreantext.processor.phrase_extractor.KoreanPhraseExtractor;
 import org.openkoreantext.processor.tokenizer.KoreanTokenizer;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import scala.collection.Seq;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class NLPAnalysisImpl implements NLPAnalysis {
 
     @Override
