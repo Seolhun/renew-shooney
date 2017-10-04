@@ -1,7 +1,6 @@
 package com.hun.blog.controller.news;
 
 import com.hun.blog.common.domain.Paging;
-import com.hun.blog.common.domain.Result;
 import com.hun.blog.domain.news.NewsData;
 import com.hun.blog.domain.news.NewsWebSite;
 import com.hun.blog.service.news.NewsDataService;

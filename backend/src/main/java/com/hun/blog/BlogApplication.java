@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
 import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
+import org.springframework.scheduling.concurrent.ScheduledExecutorFactoryBean;
 
 @SpringBootApplication
 public class BlogApplication implements CommandLineRunner {
@@ -30,11 +31,19 @@ public class BlogApplication implements CommandLineRunner {
         app.run();
     }
 
-    //remove _class
+    //MongoDB Template
     @Bean
     public MongoTemplate mongoTemplate(MongoDbFactory mongoDbFactory, MongoMappingContext context) {
         MappingMongoConverter converter = new MappingMongoConverter(new DefaultDbRefResolver(mongoDbFactory), context);
         converter.setTypeMapper(new DefaultMongoTypeMapper(null));
         return new MongoTemplate(mongoDbFactory, converter);
+    }
+
+    //Cron Factory bean
+    @Bean
+    public ScheduledExecutorFactoryBean schedulerExecutor() {
+        ScheduledExecutorFactoryBean scheduledExecutorFactoryBean = new ScheduledExecutorFactoryBean();
+        scheduledExecutorFactoryBean.setPoolSize(10);
+        return scheduledExecutorFactoryBean;
     }
 }
