@@ -4,6 +4,8 @@ import com.hun.blog.domain.sequence.CustomSequence;
 import com.hun.blog.service.ask.AskDataService;
 import com.hun.blog.service.news.NewsDataService;
 import com.hun.blog.service.sequence.SequenceService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -13,13 +15,14 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class CronTable {
+    private static final Logger LOG = LoggerFactory.getLogger(CronTable.class);
 
     private NewsDataService newsDataService;
     private AskDataService askDataService;
     private SequenceService sequenceService;
 
     /**
-     * Instantiates a new Cron table.
+     * Instantiates a new Cron table to injection dependencies.
      *
      * @param newsDataService the news data service
      * @param askDataService  the ask data service
@@ -35,7 +38,7 @@ public class CronTable {
     /**
      * Gets news.
      */
-//매일 5시 30분 0초에 실행한다.
+    //매일 4시 30분 0초에 실행한다.
     @Scheduled(cron = "0 30 4 * * *")
     public void getNews() {
         CustomSequence customSequences = sequenceService.findByKey("news");

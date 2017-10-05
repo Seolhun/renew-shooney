@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/{version}/news")
 public class NewsDataRestController {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDataRestController.class);
+    private static final String SEQ_KEY = "news";
 
     private NewsDataService newsDataService;
     private SequenceService sequenceService;
@@ -89,7 +90,7 @@ public class NewsDataRestController {
      * @param id      the id
      * @return the news detail
      */
-    @RequestMapping(value = "/{idx}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public NewsData getNewsDetail(@PathVariable String version, @PathVariable String id) {
         return newsDataService.findById(id);
     }

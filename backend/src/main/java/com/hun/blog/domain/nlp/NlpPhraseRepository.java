@@ -1,4 +1,4 @@
-package com.hun.blog.domain.news;
+package com.hun.blog.domain.nlp;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -6,13 +6,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface NewsDataRepository extends MongoRepository<NewsData, String> {
+public interface NlpPhraseRepository extends MongoRepository<NlpPhrase, String> {
 
-	NewsData findById(String id);
-
-    NewsData findByIdx(long idx);
+    NlpPhrase findById(String id);
 
 	long count();
-
-    Page<NewsData> findAll(Pageable pageable);
+	
+    Page<NlpPhrase> findAll(Pageable pageable);
 }

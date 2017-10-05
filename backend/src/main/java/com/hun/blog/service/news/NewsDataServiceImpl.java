@@ -1,10 +1,10 @@
 package com.hun.blog.service.news;
 
-import com.hun.blog.common.util.nlp.NLPAnalysis;
 import com.hun.blog.domain.news.NewsData;
 import com.hun.blog.domain.news.NewsDataRepository;
 import com.hun.blog.domain.news.NewsWebSite;
 import com.hun.blog.domain.sequence.CustomSequence;
+import com.hun.blog.service.nlp.NlpPhraseService;
 import com.hun.blog.service.sequence.SequenceService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -32,13 +33,13 @@ public class NewsDataServiceImpl implements NewsDataService {
 
     private NewsDataRepository newsDataRepository;
     private SequenceService sequenceService;
-    private NLPAnalysis nlpAnalysis;
+    private NlpPhraseService nlpPhraseService;
 
     @Autowired
-    public NewsDataServiceImpl(NewsDataRepository newsDataRepository, SequenceService sequenceService, NLPAnalysis nlpAnalysis) {
+    public NewsDataServiceImpl(NewsDataRepository newsDataRepository, SequenceService sequenceService, NlpPhraseService nlpPhraseService) {
         this.newsDataRepository = newsDataRepository;
         this.sequenceService = sequenceService;
-        this.nlpAnalysis = nlpAnalysis;
+        this.nlpPhraseService = nlpPhraseService;
     }
 
 
@@ -59,8 +60,13 @@ public class NewsDataServiceImpl implements NewsDataService {
     }
 
     @Override
+    public NewsData findByIdx(long idx) {
+        return null;
+    }
+
+    @Override
     public void insert(NewsData newsData) {
-        LOG.info("param : save : {}", newsData.toString());
+        newsData.setCreatedDate(new Date());
         newsDataRepository.save(newsData);
     }
 
@@ -68,6 +74,7 @@ public class NewsDataServiceImpl implements NewsDataService {
     public void update(NewsData newsData) {
         NewsData dbNews = this.findById(newsData.getId());
         if (dbNews != null)
+            newsData.setModifiedDate(new Date());
             this.insert(newsData);
     }
 
@@ -85,11 +92,12 @@ public class NewsDataServiceImpl implements NewsDataService {
     public Thread getNewsThread(long id) {
         LOG.info("param id : {}", id);
         CustomSequence sequence = new CustomSequence(id, "news");
-        return new Thread(() -> {
-            LOG.info("return : getNewsThread : Message");
-            for (long i = id; i < 3300000; i++) {
-                LOG.info("param id : {}", i);
+        Thread thread = new Thread(() -> {
+            long i = id;
+            boolean isRight = true;
 
+            while (isRight) {
+                LOG.info("param index : {}", i);
                 // 리스트 가져오기
                 try {
                     String webSiteName = "";
@@ -134,14 +142,17 @@ public class NewsDataServiceImpl implements NewsDataService {
 
                     sequence.setId(i);
                     sequenceService.save(sequence);
-                    this.insert(newsData);
+
+                    newsDataRepository.insert(newsData);
                 } catch (NullPointerException e) {
                     LOG.error("ERROR : NullPointerException");
                 } catch (IOException e) {
                     LOG.error("ERROR : IOException");
                 }
+                i++;
             }
         });
+        return thread;
     }
 
 }
