@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import Root from '@/components/Root'
 import Blog from '@/components/blog/Blog'
-import Lotto from '@/components/lotto/Lotto'
+import Nlp from '@/components/nlp/Nlp'
 
 Vue.use(Router)
 export default new Router({
@@ -19,9 +19,9 @@ export default new Router({
       component: Blog
     },
     {
-      path: '/lotto',
-      name: 'Lotto',
-      component: Lotto
+      path: '/nlp',
+      name: 'Nlp',
+      component: Nlp
     }
   ]
 })

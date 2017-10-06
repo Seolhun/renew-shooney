@@ -1,7 +1,6 @@
 package com.hun.blog.domain.news;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -12,8 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Document(collection = "news")
-@Getter
-@Setter
+@Data
 public class NewsData implements Serializable {
     @Id
     private String id;
@@ -41,7 +39,7 @@ public class NewsData implements Serializable {
 
     private String modifiedBy;
 
-    private boolean isDeleted;
+    private boolean isActived;
 
     /*
      * Paging Part

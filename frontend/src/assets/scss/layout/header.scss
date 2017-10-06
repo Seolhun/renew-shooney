@@ -1,143 +1,143 @@
 @import "../variable";
 
 .header {
-  height: $header-height;
-  left: 0;
-  position: relative;
-  right: 0;
-  z-index: 50;
+    height: $header-height;
+    left: 0;
+    position: relative;
+    right: 0;
+    z-index: 50;
 }
 
 /* ------------------------
   Header Navigation Menu
 ------------------------ */
 .header-wrap {
-  height: $header-height;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: .9375rem;
-  padding-right: .9375rem;
-  position: relative;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  margin: 0 auto;
-  max-width: 1400px;
+    height: $header-height;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: .9375rem;
+    padding-right: .9375rem;
+    position: relative;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 1400px;
 }
 
 .header-logo img {
-  max-height: 35px;
-  position: relative;
+    max-height: 35px;
+    position: relative;
 }
 
 @media only screen and (min-width: $media-medium) {
-  .header-navigation {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 0;
-    flex: 1 1 0;
-    visibility: visible;
-    margin-left: 48px;
-  }
+    .header-navigation {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 0;
+        flex: 1 1 0;
+        visibility: visible;
+        margin-left: 48px;
+    }
 }
 
 .header-navigation {
-  margin-left: 48px;
-  display: inline-block;
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  overflow-y: auto;
-  vertical-align: top;
-  -webkit-transition: margin .2s, width .2s, -webkit-box-flex .2s;
-  transition: flex .2s, margin .2s, width .2s, -webkit-box-flex .2s, -ms-flex .2s;
+    margin-left: 48px;
+    display: inline-block;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    vertical-align: top;
+    -webkit-transition: margin .2s, width .2s, -webkit-box-flex .2s;
+    transition: flex .2s, margin .2s, width .2s, -webkit-box-flex .2s, -ms-flex .2s;
 }
 
 .header-navigation-wrap {
-  left: 0px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  overflow: hidden;
+    left: 0px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
 }
 
 .u-unstyled {
-  padding-left: 0;
-  list-style: none;
-  margin: 0;
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
 }
 
 .nav-toggle {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  width: 50px;
-  height: 50px;
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
 }
 
 .nav-toggle:before {
-  color: $fc-color; /* Edit this to change the icon color */
-  font: normal 55px/55px "responsivenav"; /* Edit font-size (28px) to change the icon size */
-  text-transform: none;
-  text-align: center;
-  position: absolute;
-  content: "\2261"; /* Hamburger icon */
-  text-indent: 0;
-  speak: none;
-  width: 100%;
+    color: $fc-color; /* Edit this to change the icon color */
+    font: normal 55px/55px "responsivenav"; /* Edit font-size (28px) to change the icon size */
+    text-transform: none;
+    text-align: center;
+    position: absolute;
+    content: "\2261"; /* Hamburger icon */
+    text-indent: 0;
+    speak: none;
+    width: 100%;
 }
 
 /* This is how it looks on mobile */
 .header-hide {
-  display: block;
-  visibility: visible;
+    display: block;
+    visibility: visible;
 }
 
 .header-show {
-  display: none;
-  visibility: hidden;
+    display: none;
+    visibility: hidden;
 }
 
 @media screen and (max-width: $media-small) {
-  .header-hide {
-    display: none;
-    visibility: hidden;
-  }
+    .header-hide {
+        display: none;
+        visibility: hidden;
+    }
 
-  .header-show {
-    text-align: right;
-    display: block;
-    visibility: visible;
-  }
+    .header-show {
+        text-align: right;
+        display: block;
+        visibility: visible;
+    }
 }
 
 .header-navigation .navigation-link {
-  border-bottom: 2px solid transparent;
-  font-weight: 400;
-  margin: 0;
-  padding: 0 1rem;
-  -webkit-transition: color .2s;
-  transition: color .2s;
-  font-size: .875rem;
+    border-bottom: 2px solid transparent;
+    font-weight: 400;
+    margin: 0;
+    padding: 0 1rem;
+    -webkit-transition: color .2s;
+    transition: color .2s;
+    font-size: .875rem;
 }
 
 .header a {
-  align-items: center;
-  color: $sub-fc-color;
-  height: 56px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  text-decoration: none;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  &:hover {
-    color: $sub-fc-color-hover;
-    font-weight: bold;
-  }
+    align-items: center;
+    color: $sub-fc-color;
+    height: 56px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    text-decoration: none;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    &:hover {
+        color: $sub-fc-color-hover;
+        font-weight: bold;
+    }
 }

@@ -1,7 +1,6 @@
 package com.hun.blog.domain.ask;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -12,14 +11,13 @@ import java.util.Date;
 import java.util.List;
 
 @Document(collection = "ask")
-@Getter
-@Setter
+@Data
 public class AskData implements Serializable {
     @Id
     private String id;
 
     @Indexed(unique = true)
-    private long index;
+    private long idx;
 
     private String where;
 

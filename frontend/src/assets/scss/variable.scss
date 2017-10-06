@@ -26,7 +26,6 @@ $darker-ocean: darken($dark-ocean, 3%);
 -------------------------------------------------------------------------- */
 $header-height: 80px;
 
-
 /* ------------------------
   - Dom Css Using Global Color Variable
   # Background And Function Dom Color Variable using $Color Variable
@@ -44,9 +43,7 @@ $fc-color-shadow: $darker-ocean !default
 
 $sub-fc-color: $gray !default
 $sub-fc-font-color: $black !default
-$sub-fc-color-hover: $light-gray !default
-$sub-fc-color-shadow: $darker-gray !default
-
+$sub-fc-color-hover: $light-gray !default$sub-fc-color-shadow: $darker-gray !default
 
 /* ------------------------------------------------------------------------
   - Global For Function SCSS Start
@@ -67,9 +64,11 @@ $width-class: width- !default
   # .Height-50 ~ Height-500 css
 ------------------------ */
 $height-class: height- !default
-@for $i from 50 through 500 {
-  .#{$height-class}#{$i} {
-    height: 0px + $i;
+@for $i from 1 through 20 {
+  .#{$height-class}#{$i*50} {
+    max-height: 0px + ($i*50);
+    word-break: keep-all;
+
   }
 }
 
@@ -91,7 +90,35 @@ $h-size: h !default
 $padding: padding- !default
 @for $i from 1 through 6 {
   .#{$padding}#{$i*10} {
-    padding: 10px * $i;
+    padding: (10px * $i);
+  }
+}
+
+$padding-top: padding-top- !default
+@for $i from 1 through 20 {
+  .#{$padding-top}#{$i*10} {
+    padding-top: (5px * $i) 0px 0px 0px;
+  }
+}
+
+$padding-bottom: padding-bottom- !default
+@for $i from 1 through 20 {
+  .#{$padding-bottom}#{$i*10} {
+    padding-bottom: 0px 0px (5px * $i) 0px;
+  }
+}
+
+$padding-right: padding-right- !default
+@for $i from 1 through 20 {
+  .#{$padding-right}#{$i*10} {
+    padding-right: 0px 0px (5px * $i) 0px;
+  }
+}
+
+$padding-left: padding-left- !default
+@for $i from 1 through 20 {
+  .#{$padding-left}#{$i*10} {
+    padding-left: 0px 0px (5px * $i) 0px;
   }
 }
 
@@ -99,9 +126,37 @@ $padding: padding- !default
   margin-10 ~ margin-60 CSS
 ------------------------ */
 $margin: margin- !default
-@for $i from 1 through 6 {
+@for $i from 1 through 20 {
   .#{$margin}#{$i*10} {
-    margin: 10px * $i 0px;
+    margin: (5px * $i);
+  }
+}
+
+$margin-top: margin-top- !default
+@for $i from 1 through 20 {
+  .#{$margin-top}#{$i*10} {
+    margin-top: (5px * $i) 0px 0px 0px;
+  }
+}
+
+$margin-bottom: margin-bottom- !default
+@for $i from 1 through 20 {
+  .#{$margin-bottom}#{$i*10} {
+    margin-bottom: 0px 0px (5px * $i) 0px;
+  }
+}
+
+$margin-right: margin-right- !default
+@for $i from 1 through 20 {
+  .#{$margin-right}#{$i*10} {
+    margin-right: 0px 0px (5px * $i) 0px;
+  }
+}
+
+$margin-left: margin-left- !default
+@for $i from 1 through 20 {
+  .#{$margin-left}#{$i*10} {
+    margin-left: 0px 0px (5px * $i) 0px;
   }
 }
 
@@ -110,7 +165,6 @@ $margin: margin- !default
 -------------------------------------------------------------------------- */
 $media-medium: 1024px;
 $media-small: 640px;
-
 
 /* ------------------------------------------------------------------------
   - Global Boolean Variable

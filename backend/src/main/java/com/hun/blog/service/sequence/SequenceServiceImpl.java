@@ -1,6 +1,6 @@
 package com.hun.blog.service.sequence;
 
-import com.hun.blog.domain.sequence.CustomSequences;
+import com.hun.blog.domain.sequence.CustomSequence;
 import com.hun.blog.domain.sequence.SequenceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,14 @@ public class SequenceServiceImpl implements SequenceService {
 
 	@Override
 	@Transactional
-	public CustomSequences findByKey(String key) {
+	public CustomSequence save(CustomSequence sequence) {
+		sequenceRepository.save(sequence);
+		return sequence;
+	}
+
+	@Override
+	@Transactional
+	public CustomSequence findByKey(String key) {
 		Query query = new Query();
 		query.with(new Sort(Sort.Direction.DESC, "_id"));
 		query.addCriteria(Criteria.where("key").is(key));
@@ -36,11 +43,11 @@ public class SequenceServiceImpl implements SequenceService {
 //		@Query("{ 'name' : { $regex: ?0 } }")
 		
 		query.limit(1);
-		CustomSequences sequence = mongoTemplate.findOne(query, CustomSequences.class);
+		CustomSequence sequence = mongoTemplate.findOne(query, CustomSequence.class);
 
 		//If null started 1
 		if(sequence == null){
-			sequence = new CustomSequences();
+			sequence = new CustomSequence();
 			sequence.setId(1);
 			sequence.setKey(key);
 		} else {
