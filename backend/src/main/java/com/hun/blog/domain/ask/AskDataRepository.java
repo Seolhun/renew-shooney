@@ -5,16 +5,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface AskDataRepository extends MongoRepository<AskData, String> {
+public interface AskDataRepository extends MongoRepository<AskData, AskData> {
 
-    AskData findById(long id);
+    AskData findById(String id);
+
+    AskData findByIdx(long idx);
 
 	long count();
-	
-    List<AskData> findAll();
-    
+
     Page<AskData> findAll(Pageable pageable);
 }

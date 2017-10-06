@@ -26,9 +26,18 @@
   import BlogTable from './BlogTable.vue'
 
   export default {
+    props: {
+
+    },
     components: {BlogTable},
     data () {
       return {
+        methods: {
+
+        },
+        computed: {
+
+        },
         watch: {
 
         }

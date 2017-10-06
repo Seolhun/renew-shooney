@@ -3,16 +3,29 @@
     <div class="row">
       <div class="col-sm-4">
         <b-form-fieldset horizontal label="Rows per page" :label-cols="6">
-          <b-form-select :options="pageOptions" v-model="perPage"/>
+          <b-form-select
+            :options="pageOptions"
+            v-model="perPage">
+          </b-form-select>
         </b-form-fieldset>
       </div>
       <div class="col-sm-6">
-        <b-form-fieldset horizontal label="Filter" :label-cols="3">
-          <b-form-input v-model="filter" placeholder="Type to Search"/>
+        <b-form-fieldset
+          horizontal
+          label="Filter"
+          :label-cols="3">
+          <b-form-input
+            v-model="filter"
+            placeholder="Type to Search">
+          </b-form-input>
         </b-form-fieldset>
       </div>
       <div class="col-sm-2 text-right">
-        <b-button :disabled="!sortBy" @click="sortBy = null">Clear Sort</b-button>
+        <b-button
+          :disabled="!sortBy"
+          @click="sortBy = null">
+          Clear Sort
+        </b-button>
       </div>
     </div>
 
@@ -27,23 +40,37 @@
              :sort-desc.sync="sortDesc"
              @filtered="onFiltered"
     >
-
-      <template slot="name" scope="row">
+      <template
+        slot="name"
+        scope="row">
         {{row.value.first}} {{row.value.last}}
       </template>
-      <template slot="isActive" scope="row">
+      <template
+        slot="isActive"
+        scope="row">
         {{row.value ? 'Yes :)' : 'No :('}}
       </template>
-      <template slot="actions" scope="row">
+      <template
+        slot="actions"
+        scope="row">
         <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-        <b-btn size="sm" @click.stop="details(row.item,row.index,$event.target)">Details</b-btn>
+        <b-button
+          size="sm"
+          @click.stop="details(row.item, row.index, $event.target)">
+          Details
+        </b-button>
       </template>
-
     </b-table>
 
     <div class="row">
       <div class="col-sm-12 text-center">
-        <b-pagination align="center" size="sm" :total-rows="totalRows" :per-page="perPage" v-model="currentPage"/>
+        <b-pagination
+          align="center"
+          size="sm"
+          :total-rows="totalRows"
+          :per-page="perPage"
+          v-model="currentPage">
+        </b-pagination>
         <p>
           Sort By: {{ sortBy || 'n/a' }}, Direction: {{ sortDesc ? 'descending' : 'ascending' }}
         </p>
@@ -70,7 +97,10 @@
     {isActive: false, age: 27, name: {first: 'Essie', last: 'Dunlap'}},
     {isActive: true, age: 40, name: {first: 'Thor', last: 'Macdonald'}},
     {
-      _cellVariants: {age: 'danger', isActive: 'warning'}, isActive: true, age: 87, name: {first: 'Larsen', last: 'Shaw'}
+      _cellVariants: {age: 'danger', isActive: 'warning'},
+      isActive: true,
+      age: 87,
+      name: {first: 'Larsen', last: 'Shaw'}
     },
     {isActive: false, age: 26, name: {first: 'Mitzi', last: 'Navarro'}},
     {isActive: false, age: 22, name: {first: 'Genevive', last: 'Wilson'}},
@@ -115,6 +145,12 @@
         this.totalRows = filteredItems.length
         this.currentPage = 1
       }
+    },
+    computed: {
+
+    },
+    watch: {
+
     }
   }
 </script>

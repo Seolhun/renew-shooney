@@ -16,22 +16,48 @@ servers:
   - www.xyz.com
 
 ---
-#mongodb
+
 spring:
   data:
+    #mongodb
     mongodb:
       host: 127.0.0.1
       port: 27017
       database: shooney
+#      username: shooney
+#      password: blue1220@
     redis:
       repositories:
         enabled: false
-#      username: shooney
-#      password: blue1220@
+#  #Redis
+#  redis:
+#    host: 127.0.0.1
+#    password:
+#    port: 6379
+#    ssl: true
+#    timeout: 600000
+#    pool:
+#      max-active: 10
+#      max-idle: 8
+#      max-wait: 4
 
+  #Java Mail
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: onm10114@gmail.com
+    password: blue1220
+    port: 587
 
-
-
-
-
-
+#security:
+#  oauth2:
+#    client:
+#      clientId: 233668646673605
+#      clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
+#      accessTokenUri: https://graph.facebook.com/oauth/access_token
+#      userAuthorizationUri: https://www.facebook.com/dialog/oauth
+#      tokenName: oauth_token
+#      authenticationScheme: query
+#      clientAuthenticationScheme: form
+#    resource:
+#      userInfoUri: https://graph.facebook.com/me
