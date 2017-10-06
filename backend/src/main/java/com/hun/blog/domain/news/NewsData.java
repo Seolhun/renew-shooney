@@ -39,7 +39,7 @@ public class NewsData implements Serializable {
 
     private String modifiedBy;
 
-    private boolean isDeleted;
+    private boolean isActived;
 
     /*
      * Paging Part

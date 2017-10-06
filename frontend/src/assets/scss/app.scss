@@ -6,7 +6,8 @@
 
 body {
   background: $bg-color;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Times New Roman", Times, serif;
+  //font-family: "Courier New", Courier, monospace
 }
 
 ul {
@@ -85,7 +86,6 @@ button.fc-btn {
   Global ID CSS
 ------------------------ */
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

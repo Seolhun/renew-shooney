@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-jumbotron class="gradient-fc" header="Blog" lead="Bootstrap 4 Components for Vue.js 2">
+    <b-jumbotron class="gradient-fc" header="Nlp">
       <div class="row margin-20">
         <div class="col-sm-12">
           <div class="text-right">
@@ -23,13 +23,10 @@
 </template>
 
 <script>
-  import BlogTable from './BlogTable.vue'
-
   export default {
     props: {
 
     },
-    components: {BlogTable},
     data () {
       return {
         methods: {

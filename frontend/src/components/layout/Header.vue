@@ -9,7 +9,6 @@
       </div>
 
 
-
       <nav class="header-navigation">
         <ul class="header-navigation-wrap u-unstyled header-show">
           <li>
@@ -23,12 +22,9 @@
           </li>
 
           <li>
-            <router-link :to="'lotto'" class="navigation-link">Lotto</router-link>
+            <router-link :to="'nlp'" class="navigation-link">NLP</router-link>
           </li>
 
-          <li>
-            <router-link :to="'lotto'" class="navigation-link">Contact</router-link>
-          </li>
           <!--
           <li>
             <router-link :to="{ path: 'register', query: { plan: 'private' }}" class="navigation-link">
