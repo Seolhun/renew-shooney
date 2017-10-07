@@ -2,22 +2,22 @@
   - Global Color Variable
 -------------------------------------------------------------------------- */
 $black: #232323;
-$light-black: lighten($black, 30%);
+$light-black: lighten($black, 15%);
 $dark-black: darken($black, 2%);
 $darker-black: darken($dark-black, 3%);
 
 $white: #ffffff;
-$light-white: lighten($white, 30%);
+$light-white: lighten($white, 15%);
 $dark-white: darken($white, 2%);
 $darker-white: darken($dark-white, 3%);
 
 $gray: #868e96;
-$light-gray: lighten($gray, 30%);
+$light-gray: lighten($gray, 15%);
 $dark-gray: darken($gray, 2%);
 $darker-gray: darken($dark-gray, 3%);
 
 $ocean: #0080ff;
-$light-ocean: lighten($ocean, 30%);
+$light-ocean: lighten($ocean, 15%);
 $dark-ocean: darken($ocean, 2%);
 $darker-ocean: darken($dark-ocean, 3%);
 
@@ -43,7 +43,8 @@ $fc-color-shadow: $darker-ocean !default
 
 $sub-fc-color: $gray !default
 $sub-fc-font-color: $black !default
-$sub-fc-color-hover: $light-gray !default$sub-fc-color-shadow: $darker-gray !default
+$sub-fc-color-hover: $light-gray !default
+$sub-fc-color-shadow: $darker-gray !default
 
 /* ------------------------------------------------------------------------
   - Global For Function SCSS Start
@@ -66,7 +67,7 @@ $width-class: width- !default
 $height-class: height- !default
 @for $i from 1 through 20 {
   .#{$height-class}#{$i*50} {
-    max-height: 0px + ($i*50);
+    height: 0px + ($i*50);
     word-break: keep-all;
 
   }
@@ -78,7 +79,7 @@ $height-class: height- !default
 $h-size: h !default
 @for $i from 1 through 5 {
   #{$h-size}#{$i} {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 15px + (30 / $i);
     padding: 15px 0px;
   }

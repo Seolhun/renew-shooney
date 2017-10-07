@@ -1,67 +1,41 @@
 <template>
   <div>
     <div class="row">
+      <div class="col-sm-12">
+        <h2></h2>
+      </div>
+    </div>
+
+    <!-- Selecting per Paging -->
+    <div class="row">
       <div class="col-sm-4">
-        <b-form-fieldset horizontal label="Rows per page" :label-cols="6">
+        <b-form-fieldset
+          horizontal
+          label="Rows per page"
+          :label-cols="6">
           <b-form-select
             :options="pageOptions"
             v-model="perPage">
           </b-form-select>
         </b-form-fieldset>
       </div>
-      <div class="col-sm-6">
-        <b-form-fieldset
-          horizontal
-          label="Filter"
-          :label-cols="3">
-          <b-form-input
-            v-model="filter"
-            placeholder="Type to Search">
-          </b-form-input>
-        </b-form-fieldset>
-      </div>
-      <div class="col-sm-2 text-right">
-        <b-button
-          :disabled="!sortBy"
-          @click="sortBy = null">
-          Clear Sort
-        </b-button>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 height-300 text-center" v-for="i in 10">
+        <div>
+          <img src="../../assets/img/logo.png"/>
+        </div>
+        <div class="text-left">
+          <h5>Example heading <b-badge pill variant="primary">New</b-badge></h5>
+        </div>
+        <div>
+
+        </div>
       </div>
     </div>
 
-    <!-- Main table element -->
-    <b-table striped hover show-empty
-      :items="items"
-      :fields="fields"
-      :current-page="currentPage"
-      :per-page="perPage"
-      :filter="filter"
-      :sort-by.sync="sortBy"
-      :sort-desc.sync="sortDesc"
-      @filtered="onFiltered"
-    >
-      <template
-        slot="name"
-        scope="row">
-        {{row.value.first}} {{row.value.last}}
-      </template>
-      <template
-        slot="isActive"
-        scope="row">
-        {{row.value ? 'Yes :)' : 'No :('}}
-      </template>
-      <template
-        slot="actions"
-        scope="row">
-        <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-        <b-button
-          size="sm"
-          @click.stop="details(row.item, row.index, $event.target)">
-          Details
-        </b-button>
-      </template>
-    </b-table>
-
+    <!-- Selecting No -->
     <div class="row">
       <div class="col-sm-12 text-center">
         <b-pagination
@@ -90,7 +64,7 @@
     {isActive: true, age: 40, name: {first: 'Dickerson', last: 'Macdonald'}},
     {isActive: false, age: 21, name: {first: 'Larsen', last: 'Shaw'}},
     {
-      _rowVariant: 'success', isActive: false, age: 9, name: {first: 'Mini', last: 'Navarro'}
+      isActive: false, age: 9, name: {first: 'Mini', last: 'Navarro'}, _rowVariant: 'success'
     },
     {isActive: false, age: 89, name: {first: 'Geneva', last: 'Wilson'}},
     {isActive: true, age: 38, name: {first: 'Jami', last: 'Carney'}},
