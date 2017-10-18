@@ -4,9 +4,11 @@
     <header-menu>
 
     </header-menu>
+
     <router-view>
 
     </router-view>
+
     <footer-menu>
 
     </footer-menu>

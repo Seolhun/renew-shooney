@@ -27,8 +27,8 @@ public abstract class AbstractCommon {
     @Column(name = "UPDATED_DATE", nullable = false)
     private Date updatedDate;
 
-    @Column(name = "DELETED_FLAG", length = 1)
-    private boolean isActived;
+    @Column(name = "ACTIVE", length = 1)
+    private boolean isActive;
 
     @Version
     @Column(name = "VERSION")
