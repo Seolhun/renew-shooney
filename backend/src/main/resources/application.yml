@@ -6,7 +6,6 @@ messages: This is a qa profile
 servers:
   - www.test.com
 ---
-
 spring:
   profiles: dev
 name: dev-YAML
@@ -15,7 +14,6 @@ messages: This is a dev profile
 servers:
   - www.dev.com
 ---
-
 spring:
   profiles: prod
 name: prod-YAML
@@ -23,7 +21,9 @@ environment: production
 servers:
   - www.product.com
 ---
-
+######################
+#### Spring       ####
+######################
 spring:
   data:
     #mongodb
@@ -60,12 +60,20 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/shooney
     username: hooney
     password: blue1220@
-  # JPA(Hibernate)
-  jpa:
-    hibernate:
-      ddl-auto: update
 
+######################
+#### AWS          ####
+######################
+amazon:
+  dynamodb:
+    endpoint: http://localhost:8000/
+  aws:
+    accesskey: AKIAJEK5RTYCEBDEBOLA
+    secretkey: q2n3eYuSJwthTz847hV5uRGM7w
 
+######################
+#### Securty      ####
+######################
 #security:
 #  oauth2:
 #    client:

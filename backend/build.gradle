@@ -32,18 +32,21 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter'
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-aop")
 
     //Security
     compile("org.springframework.boot:spring-boot-starter-security")
-//    compile("org.springframework.security.oauth:spring-security-oauth2")
+    compile("org.springframework.security.oauth:spring-security-oauth2")
 
-    //DataBase
+    //AWS
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.11.217'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.217'
+    compile group: 'com.github.derjust', name: 'spring-data-dynamodb', version: '4.5.0'
+
+
+    //DB
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-data-redis')
-
-    //MySql
-    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
 
     //Active MQ
     compile("org.springframework.boot:spring-boot-starter-activemq")
