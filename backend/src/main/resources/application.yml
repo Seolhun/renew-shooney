@@ -1,22 +1,29 @@
 spring:
-  profiles: test
-name: test-YAML
-environment: test
+  profiles: qa
+name: qa-YAML
+environment: qa
+messages: This is a qa profile
 servers:
-  - www.abc.test.com
-  - www.xyz.test.com
-
+  - www.test.com
+---
+spring:
+  profiles: dev
+name: dev-YAML
+environment: dev
+messages: This is a dev profile
+servers:
+  - www.dev.com
 ---
 spring:
   profiles: prod
 name: prod-YAML
 environment: production
 servers:
-  - www.abc.com
-  - www.xyz.com
-
+  - www.product.com
 ---
-
+######################
+#### Spring       ####
+######################
 spring:
   data:
     #mongodb
@@ -48,7 +55,23 @@ spring:
     username: onm10114@gmail.com
     password: blue1220
     port: 587
+  # MariaDB
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/shooney
+    username: hooney
+    password: blue1220@
 
+######################
+#### AWS          ####
+######################
+aws:
+  dynamo:
+    accesskey: AKIAJSM2WAHFMG25S4OQ
+    secretkey: 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
+
+######################
+#### Securty      ####
+######################
 #security:
 #  oauth2:
 #    client:

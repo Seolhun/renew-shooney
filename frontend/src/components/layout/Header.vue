@@ -1,5 +1,5 @@
 <template>
-  <header id="header container" class="header toolbar-shadow">
+  <header class="header toolbar-shadow">
     <div class="header-wrap row">
       <a href="#" id="menu-open" class="menu-open header-btn i-menu hide-after-lg"></a>
       <div class="header-logo">

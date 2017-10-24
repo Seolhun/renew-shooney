@@ -1,3 +1,4 @@
-include 'backend', 'frontend'
+include 'frontend'
+include 'backend'
 
 rootProject.name = 'renew-shooney'

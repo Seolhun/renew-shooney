@@ -31,14 +31,14 @@
 
     <!-- Main table element -->
     <b-table striped hover show-empty
-             :items="items"
-             :fields="fields"
-             :current-page="currentPage"
-             :per-page="perPage"
-             :filter="filter"
-             :sort-by.sync="sortBy"
-             :sort-desc.sync="sortDesc"
-             @filtered="onFiltered"
+      :items="items"
+      :fields="fields"
+      :current-page="currentPage"
+      :per-page="perPage"
+      :filter="filter"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+      @filtered="onFiltered"
     >
       <template
         slot="name"
@@ -114,7 +114,7 @@
       return {
         items: items,
         fields: {
-          name: {label: 'Person Full name', sortable: true},
+          title: {label: 'Person Full name', sortable: true},
           age: {label: 'Person age', sortable: true, 'class': 'text-center'},
           isActive: {label: 'is Active'},
           actions: {label: 'Actions'}
