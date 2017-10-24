@@ -1,16 +1,7 @@
-buildscript {
-    ext {
-        springBootVersion = '1.5.8.RELEASE'
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
+jar {
+  dependsOn ':frontend:npm_run_build'
 
-apply plugin: 'spring-boot'
-
-dependencies {
-    compile 'org.springframework.boot:spring-boot-starter'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+  into('static') {
+    from "${project(':frontend').projectDir}/dist"
+  }
 }

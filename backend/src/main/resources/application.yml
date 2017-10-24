@@ -64,12 +64,10 @@ spring:
 ######################
 #### AWS          ####
 ######################
-amazon:
-  dynamodb:
-    endpoint: http://localhost:8000/
-  aws:
-    accesskey: AKIAJEK5RTYCEBDEBOLA
-    secretkey: q2n3eYuSJwthTz847hV5uRGM7w
+aws:
+  dynamo:
+    accesskey: AKIAJSM2WAHFMG25S4OQ
+    secretkey: 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
 
 ######################
 #### Securty      ####

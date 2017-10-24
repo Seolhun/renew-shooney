@@ -1,9 +1,9 @@
 package hi.cord.com.common.util.cron;
 
-import hi.cord.com.domain.sequence.CustomSequence;
-import hi.cord.com.service.ask.AskDataService;
-import hi.cord.com.service.news.NewsDataService;
-import hi.cord.com.service.sequence.SequenceService;
+import hi.cord.com.mongo.domain.sequence.CustomSequence;
+import hi.cord.com.mongo.service.ask.AskDataService;
+import hi.cord.com.mongo.service.news.NewsDataService;
+import hi.cord.com.mongo.service.sequence.SequenceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

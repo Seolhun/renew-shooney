@@ -1,29 +1,49 @@
+// backend build.gradle
+
 buildscript {
-    ext {
-        springBootVersion = '1.5.6.RELEASE'
-    }
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        // spring
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE')
+        classpath('org.springframework:springloaded:1.2.6.RELEASE')
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse-wtp'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'war'
-
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
+eclipse {
+    classpath {
+        containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+        containers('org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8')
+    }
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("${buildDir}/classes/main/")
+    }
+}
+
+jar {
+    baseName = 'rewnew-shooneye'
+    version = '1.0'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 configurations {
-    providedRuntime
+    dev
 }
 
 dependencies {
@@ -35,24 +55,17 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-aop")
 
     //Security
-    compile("org.springframework.boot:spring-boot-starter-security")
-    compile("org.springframework.security.oauth:spring-security-oauth2")
+//    compile("org.springframework.boot:spring-boot-starter-security")
+//    compile("org.springframework.security.oauth:spring-security-oauth2")
 
     //AWS
     compile group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.11.217'
     compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.217'
     compile group: 'com.github.derjust', name: 'spring-data-dynamodb', version: '4.5.0'
 
-
     //DB
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-data-redis')
-
-    //Active MQ
-    compile("org.springframework.boot:spring-boot-starter-activemq")
-    compile("org.apache.activemq:activemq-broker")
-
-    compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '1.16'
 
     //Third party
     compileOnly('org.projectlombok:lombok')
@@ -70,5 +83,14 @@ dependencies {
     testCompile("junit:junit")
 //    optional "org.springframework.boot:spring-boot-configuration-processor"
 }
-
 //compileJava.dependsOn(processResources)
+
+// run spring boot app
+bootRun {
+    //addResources = true
+    classpath = sourceSets.main.runtimeClasspath + configurations.dev
+}
+
+// run all task
+task runAll {}
+runAll.dependsOn(bootRun)
