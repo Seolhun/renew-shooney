@@ -35,7 +35,6 @@ import java.util.regex.Pattern;
  * The type Common service.
  */
 @Service
-@Transactional(transactionManager = "txManager")
 public class CommonServiceImpl implements CommonService {
     private static final Logger LOG = LoggerFactory.getLogger(CommonServiceImpl.class);
 
@@ -62,34 +61,38 @@ public class CommonServiceImpl implements CommonService {
 		(?=\\S+$) no whitespace allowed in the entire string
 		.{8,} at least 8 characters
 	*/
-
     @Override
     public boolean validPattern(String parameter, String patternName) {
         boolean validation = false;
+        String pattern;
         switch (patternName) {
             case "password":
-                String passwordPattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+=-~`]).{8,20}";
-                validation = parameter.matches(passwordPattern);
+                pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+=-~`]).{8,20}";
+                validation = parameter.matches(pattern);
                 break;
             case "email":
-                String emailPattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,3})$";
-                validation = parameter.matches(emailPattern);
+                pattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,3})$";
+                validation = parameter.matches(pattern);
                 break;
             case "id":
-                String idPattern = "^[A-Za-z0-9].{1,20}";
-                validation = parameter.matches(idPattern);
+                pattern = "^[A-Za-z0-9].{1,20}";
+                validation = parameter.matches(pattern);
                 break;
             case "name":
-                String namePattern = ".[가-힣]{1,14}";
-                validation = parameter.matches(namePattern);
+                pattern= ".[가-힣]{1,14}";
+                validation = parameter.matches(pattern);
+                break;
+            case "nickname":
+                pattern = ".[A-Za-z0-9가-힣]{1,14}";
+                validation = parameter.matches(pattern);
                 break;
             case "phone":
-                String phonePattern = "\\d{10,11}";
-                validation = parameter.matches(phonePattern);
+                pattern = "\\d{10,13}";
+                validation = parameter.matches(pattern);
                 break;
             case "tel":
-                String telPattern = "\\d{9,10}";
-                validation = parameter.matches(telPattern);
+                pattern = "\\d{9,12}";
+                validation = parameter.matches(pattern);
                 break;
         }
         return validation;

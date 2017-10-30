@@ -38,7 +38,7 @@ public class AskData implements Serializable {
     private boolean isDeleted;
 
     /*
-    * Paging Part
+    * Pagination Part
     */
     @Transient
     private int pageIndex;

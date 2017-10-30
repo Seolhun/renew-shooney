@@ -21,7 +21,7 @@ public class NlpPhrase implements Serializable {
     private Date createdDate;
 
     /*
-     * Paging Part
+     * Pagination Part
     */
     @Transient
     private int pageIndex;

@@ -6,8 +6,7 @@
 
 body {
   background: $bg-color;
-  font-family: "Times New Roman", Times, serif;
-  //font-family: "Courier New", Courier, monospace
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
 }
 
 ul {
@@ -46,7 +45,7 @@ button.fc-btn {
 }
 
 /* ------------------------
-  Global Tag CSS
+  Global Class CSS
 ------------------------ */
 .text-right {
   text-align: right;
@@ -82,10 +81,20 @@ button.fc-btn {
   }
 }
 
+.shadow-box {
+  box-shadow: -10px -10px 10px 10px $gray;
+}
+
+
 /* ------------------------
   Global ID CSS
 ------------------------ */
 #app {
+  font-family: $font-main-1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* ------------------------
+  Customize Element-UI CSS
+------------------------ */

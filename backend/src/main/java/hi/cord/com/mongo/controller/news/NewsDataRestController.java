@@ -1,6 +1,6 @@
 package hi.cord.com.mongo.controller.news;
 
-import hi.cord.com.common.domain.Paging;
+import hi.cord.com.common.domain.Pagination;
 import hi.cord.com.mongo.domain.news.NewsData;
 import hi.cord.com.mongo.domain.sequence.CustomSequence;
 import hi.cord.com.mongo.service.news.NewsDataService;
@@ -72,14 +72,14 @@ public class NewsDataRestController {
     /**
      * Gets news list data.
      *
-     * @param paging the paging
+     * @param pagination the pagination
      * @return the news list data
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<Page<NewsData>> getNewsListData(Paging<NewsData> paging) {
+    public ResponseEntity<Page<NewsData>> getNewsListData(Pagination<NewsData> pagination) {
         // 전체 게시판 갯수 확인
-        PageRequest pageRequest = new PageRequest(paging.getPageIndex(), paging.getLimit(), Direction.DESC, "idx");
-        Page<NewsData> newsDatas = newsDataService.findByPage(paging.getE(), pageRequest);
+        PageRequest pageRequest = new PageRequest(pagination.getPageIndex(), pagination.getLimit(), Direction.DESC, "idx");
+        Page<NewsData> newsDatas = newsDataService.findByPage(pagination.getE(), pageRequest);
         return new ResponseEntity<>(newsDatas, HttpStatus.OK);
     }
 

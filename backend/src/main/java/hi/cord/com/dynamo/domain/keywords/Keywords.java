@@ -42,7 +42,7 @@ public class Keywords implements Serializable {
     private boolean isActived;
 
     /*
-     * Paging Part
+     * Pagination Part
     */
     @Transient
     private int pageIndex;

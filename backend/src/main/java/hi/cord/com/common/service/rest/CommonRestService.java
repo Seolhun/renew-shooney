@@ -6,17 +6,21 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface CommonRestService<E> {
-    void insert(E e);
+    E insert(E e);
 
     List<E> findByList();
     
     Page<E> findByPage(E e, Pageable pageable);
 
-    E findById(String pk);
+    E findById(String id);
 
-    void deleteById(String pk);
+    E findById(long id);
 
-    void update(E e);
+    boolean deleteById(String id);
+
+    boolean deleteById(long id);
+
+    E update(E e);
 
     long count(E e);
 }

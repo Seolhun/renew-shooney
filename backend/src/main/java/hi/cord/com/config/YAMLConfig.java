@@ -9,23 +9,21 @@ import java.util.List;
 
 @Component
 @EnableConfigurationProperties
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "shun")
 public class YAMLConfig {
-
-    private String name;
-    private String environment;
-    private List<String> servers = new ArrayList<>();
-
-    // standard getters and setters
 
     @Override
     public String toString() {
-        return "YAMLConfig{" +
+        return "param : YAMLConfig{" +
                 "name='" + name + '\'' +
-                ", environment='" + environment + '\'' +
+                ", message='" + message + '\'' +
                 ", servers=" + servers +
                 '}';
     }
+
+    private String name;
+    private String message;
+    private List<String> servers = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -35,12 +33,12 @@ public class YAMLConfig {
         this.name = name;
     }
 
-    public String getEnvironment() {
-        return environment;
+    public String getMessage() {
+        return message;
     }
 
-    public void setEnvironment(String environment) {
-        this.environment = environment;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public List<String> getServers() {
@@ -50,4 +48,5 @@ public class YAMLConfig {
     public void setServers(List<String> servers) {
         this.servers = servers;
     }
+
 }
