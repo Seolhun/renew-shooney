@@ -17,8 +17,9 @@ import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 import org.springframework.scheduling.concurrent.ScheduledExecutorFactoryBean;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 //@EnableOAuth2Sso
@@ -44,14 +45,6 @@ public class BlogApplication implements CommandLineRunner {
         app.run();
     }
 
-    //MongoDB Template
-    @Bean
-    public MongoTemplate mongoTemplate(MongoDbFactory mongoDbFactory, MongoMappingContext context) {
-        MappingMongoConverter converter = new MappingMongoConverter(new DefaultDbRefResolver(mongoDbFactory), context);
-        converter.setTypeMapper(new DefaultMongoTypeMapper(null));
-        return new MongoTemplate(mongoDbFactory, converter);
-    }
-
     //Cron Factory bean
     @Bean
     public ScheduledExecutorFactoryBean schedulerExecutor() {
@@ -60,8 +53,10 @@ public class BlogApplication implements CommandLineRunner {
         return scheduledExecutorFactoryBean;
     }
 
-    @Bean("executorService")
-    public ExecutorService executorService() {
-        return Executors.newFixedThreadPool(10);
+    // Need Test
+    @Bean("threadPoolExecutor")
+    public ThreadPoolExecutor threadPoolExecutor() {
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(500, 1000, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(), new ThreadPoolExecutor.DiscardOldestPolicy());
+        return threadPoolExecutor;
     }
 }

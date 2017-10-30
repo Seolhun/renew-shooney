@@ -9,11 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.*;
 
-@Entity
-@Table(name="TB_USER_PROFILE")
-@Data
+@Entity(name="TB_USER_PROFILE")
+@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = true)
+@Getter
+@Setter
 public class UserProfile implements Serializable{
 	private static final long serialVersionUID = 3788477180129427170L;
 

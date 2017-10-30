@@ -1,6 +1,5 @@
 package hi.cord.com.mongo.domain.news;
 
-import hi.cord.com.mongo.domain.ask.AskData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;

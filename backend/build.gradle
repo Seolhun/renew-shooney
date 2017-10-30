@@ -72,6 +72,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-redis')
     // RDBMS - JPA
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
 
     //Third party
     compileOnly('org.projectlombok:lombok')

@@ -1,11 +1,10 @@
 package hi.cord.com.mongo.domain.sequence;
 
-import java.io.Serializable;
-
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.Data;
+import java.io.Serializable;
 
 /**
  * The type Custom sequence.

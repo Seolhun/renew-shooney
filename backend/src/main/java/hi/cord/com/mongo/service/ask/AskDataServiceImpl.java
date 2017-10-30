@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +25,6 @@ import java.util.List;
 
 
 @Service
-@Transactional
 public class AskDataServiceImpl implements AskDataService {
     private static final Logger LOG = LoggerFactory.getLogger(AskDataServiceImpl.class);
 
@@ -60,27 +58,39 @@ public class AskDataServiceImpl implements AskDataService {
     }
 
     @Override
+    public AskData findById(long id) {
+        return null;
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteById(long id) {
+        return false;
+    }
+
+    @Override
     public AskData findByIdx(long idx) {
         return askDataRepository.findByIdx(idx);
     }
 
     @Override
-    public void insert(AskData askData) {
+    public AskData insert(AskData askData) {
         askData.setCreatedDate(new Date());
         askDataRepository.insert(askData);
+        return askData;
     }
 
     @Override
-    public void update(AskData askData) {
+    public AskData update(AskData askData) {
         AskData dbAsk = this.findById(askData.getId());
         if (dbAsk != null)
             askData.setModifiedDate(new Date());
         this.insert(askData);
-    }
-
-    @Override
-    public void deleteById(String id) {
-
+        return askData;
     }
 
     @Override

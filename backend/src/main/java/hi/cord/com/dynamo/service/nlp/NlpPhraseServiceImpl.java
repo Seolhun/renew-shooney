@@ -1,30 +1,47 @@
 package hi.cord.com.dynamo.service.nlp;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import hi.cord.com.dynamo.domain.nlp.NlpPhrase;
-import hi.cord.com.dynamo.domain.nlp.NlpPhraseRepository;
 import org.openkoreantext.processor.KoreanTokenJava;
 import org.openkoreantext.processor.OpenKoreanTextProcessorJava;
 import org.openkoreantext.processor.phrase_extractor.KoreanPhraseExtractor;
 import org.openkoreantext.processor.tokenizer.KoreanTokenizer;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import scala.collection.Seq;
 
+import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.List;
 
 @Service
-@Transactional
 public class NlpPhraseServiceImpl implements NlpPhraseService {
 
-    private NlpPhraseRepository nlpPhraseRepository;
+    @Value("${aws.dynamo.accesskey}")
+    private String accesskey;
+    @Value("${aws.dynamo.secretkey}")
+    private String secretkey;
 
-    @Autowired
-    public NlpPhraseServiceImpl(NlpPhraseRepository nlpPhraseRepository) {
-        this.nlpPhraseRepository = nlpPhraseRepository;
+    private DynamoDBMapper mapper;
+
+    @PostConstruct
+    public void init() {
+        if (mapper == null) {
+            BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials(accesskey, secretkey);
+            AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
+                    .withRegion(Regions.AP_NORTHEAST_2)
+                    .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
+                    .build();
+
+            this.mapper = new DynamoDBMapper(client);
+        }
     }
 
     @Override
@@ -56,9 +73,10 @@ public class NlpPhraseServiceImpl implements NlpPhraseService {
     }
 
     @Override
-    public void insert(NlpPhrase nlpPhrase) {
+    public NlpPhrase insert(NlpPhrase nlpPhrase) {
         nlpPhrase.setCreatedDate(new Date());
-        nlpPhraseRepository.insert(nlpPhrase);
+        this.mapper.save(nlpPhrase);
+        return nlpPhrase;
     }
 
     @Override
@@ -77,13 +95,24 @@ public class NlpPhraseServiceImpl implements NlpPhraseService {
     }
 
     @Override
-    public void deleteById(String id) {
-
+    public NlpPhrase findById(long id) {
+        return null;
     }
 
     @Override
-    public void update(NlpPhrase nlpPhrase) {
+    public boolean deleteById(String id) {
+        return false;
+    }
 
+    @Override
+    public boolean deleteById(long id) {
+        return false;
+    }
+
+    @Override
+    public NlpPhrase update(NlpPhrase nlpPhrase) {
+
+        return nlpPhrase;
     }
 
     @Override

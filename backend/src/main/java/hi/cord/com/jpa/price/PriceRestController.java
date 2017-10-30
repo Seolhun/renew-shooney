@@ -1,7 +1,7 @@
 package hi.cord.com.jpa.price;
 
 import hi.cord.com.common.service.CommonService;
-import hi.cord.com.jpa.price.service.record.PriceRecordService;
+import hi.cord.com.jpa.price.service.history.PaidHistoryService;
 import hi.cord.com.jpa.price.service.price.PriceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +16,13 @@ public class PriceRestController {
     private static final Logger LOG = LoggerFactory.getLogger(PriceRestController.class);
 
 	private PriceService priceService;
-	private PriceRecordService priceRecordService;
+	private PaidHistoryService paidHistoryService;
 	private CommonService commonService;
 
 	@Autowired
-	public PriceRestController(PriceService priceService, PriceRecordService priceRecordService, CommonService commonService) {
+	public PriceRestController(PriceService priceService, PaidHistoryService paidHistoryService, CommonService commonService) {
 		this.priceService = priceService;
-		this.priceRecordService = priceRecordService;
+		this.paidHistoryService = paidHistoryService;
 		this.commonService = commonService;
 	}
 

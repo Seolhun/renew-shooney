@@ -5,6 +5,8 @@ import hi.cord.com.jpa.user.repository.attempts.UserAttemptsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,8 +25,23 @@ public class UserAttemptsServiceImpl implements UserAttemptsService {
 	@Override
 	public UserAttempts insert(UserAttempts userAttempts) {
 		LOG.info("param : insert {}", userAttempts.toString());
-		userAttemptsRepository.insert(userAttempts);
+		userAttemptsRepository.save(userAttempts);
 		return userAttempts;
+	}
+
+	@Override
+	public List<UserAttempts> findByList() {
+		return null;
+	}
+
+	@Override
+	public Page<UserAttempts> findByPage(UserAttempts userAttempts, Pageable pageable) {
+		return null;
+	}
+
+	@Override
+	public UserAttempts findById(String id) {
+		return null;
 	}
 
 	@Override
@@ -32,7 +49,17 @@ public class UserAttemptsServiceImpl implements UserAttemptsService {
 		LOG.info("param : findById", id);
 		return userAttemptsRepository.findById(id);
 	}
-	
+
+	@Override
+	public boolean deleteById(String id) {
+		return false;
+	}
+
+	@Override
+	public boolean deleteById(long id) {
+		return false;
+	}
+
 	@Override
 	public UserAttempts findByEmail(String email) {
 		LOG.info("param : findByEmail {}", email);
@@ -46,12 +73,6 @@ public class UserAttemptsServiceImpl implements UserAttemptsService {
     }
 
 	@Override
-	public List<UserAttempts> findAllBy(UserAttempts userAttempts) {
-		LOG.info("param : findAll {}", userAttempts.toString());
-		return userAttemptsRepository.findAllBy(userAttempts);
-	}
-
-	@Override
 	public UserAttempts update(UserAttempts userAttempts) {
 		LOG.info("param : update"+userAttempts.toString());
 		UserAttempts dbAttempts = userAttemptsRepository.findByEmail(userAttempts.getEmail());
@@ -63,8 +84,8 @@ public class UserAttemptsServiceImpl implements UserAttemptsService {
 		return userAttempts;
 	}
 
-    @Override
-    public void delete(long id) {
-        userAttemptsRepository.delete(id);
-    }
+	@Override
+	public long count(UserAttempts userAttempts) {
+		return 0;
+	}
 }

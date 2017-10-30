@@ -2,8 +2,11 @@ package hi.cord.com.jpa.user.domain;
 
 import hi.cord.com.common.domain.CommonDomainInfo;
 import hi.cord.com.common.domain.CommonState;
-import hi.cord.com.jpa.price.domain.PriceRecord;
-import lombok.Data;
+import hi.cord.com.jpa.price.domain.history.PaidHistory;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,19 +19,26 @@ import java.util.Set;
 /**
  * The type User.
  */
-@Entity
-@Data
-@Table(name = "TB_USER")
+@Entity(name = "TB_USER")
+@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = true)
+@Getter
+@Setter
 public class User extends CommonDomainInfo implements Serializable {
 	private static final long serialVersionUID = -3474096703802541016L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="USER_ID")
+	private long id;
+
 	// User, What did you paid money for service. or How many
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userPiadRecords", cascade=CascadeType.ALL)
-	private List<PriceRecord> paidList;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paidWhoHistory", cascade=CascadeType.ALL)
+	private List<PaidHistory> paidList;
 	
 	// User, How many have Privileges.
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "TB_PROFILE_REFER", foreignKey = @ForeignKey(name = "REFER_FK"), joinColumns = {
-			@JoinColumn(name = "ID", columnDefinition = "BIGINT(20)") }, inverseForeignKey = @ForeignKey(name = "PROFILE_REFER_FK"), inverseJoinColumns = {
+			@JoinColumn(name = "USER_ID", columnDefinition = "BIGINT(20)") }, inverseForeignKey = @ForeignKey(name = "PROFILE_REFER_FK"), inverseJoinColumns = {
 					@JoinColumn(name = "PROFILE_ID") })
 	private Set<UserProfile> profiles = new HashSet<>();
 
@@ -43,7 +53,7 @@ public class User extends CommonDomainInfo implements Serializable {
         User UK Nickname
     */
     @NotNull
-    @Column(name = "NICK_NAME", length = 60, unique = true, nullable = false)
+    @Column(name = "NICKNAME", length = 60, unique = true, nullable = false)
     private String nickname;
 
 	@Column(name = "NAME", length = 60)
@@ -56,10 +66,11 @@ public class User extends CommonDomainInfo implements Serializable {
 	// @Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+=-~`]).{8,20})",
 	// message="Invalid Password")
 	// User Bcrypt encod Password
+	@NotNull
 	@Column(name = "PASSWORD", length = 100, nullable = false)
 	private String password;
 
-    @Column(name = "PHONE", length = 60, unique = true)
+    @Column(name = "PHONE", length = 60)
     private String phone;
     /*
     About Address
@@ -96,25 +107,29 @@ public class User extends CommonDomainInfo implements Serializable {
 	User State detail
 	*/
 	// User, about Account state
-	@Column(name = "STATE", length = 20, nullable = false)
+	@Column(name = "STATE", length = 20)
 	private CommonState state;
 
 	// User, Boolean account is NON_EXPIRED or not.
-	@Column(name = "ACCOUNT_NON_EXPIRED", length = 1, nullable=false)
-	private boolean userAccountNonExpired;
+	@Column(name = "IS_ACCOUNT_NON_EXPIRED", length = 1)
+	private boolean isAccountNonExpired;
+
+	// User, Boolean account is NON_EXPIRED or not.
+	@Column(name = "IS_ACCOUNT_NON_LOCKED", length = 1)
+	private boolean isAccountNonLocked;
 
 	// User, Boolean account is CREDENTIALS_NON_EXPIRED or not.
-	@Column(name = "CREDENTIALS_NON_EXPIRED", length = 1, nullable=false)
-	private boolean userCredentialsNonExpired;
+	@Column(name = "IS_CREDENTIALS_NONEXPIRED", length = 1)
+	private boolean isCredentialsNonExpired;
 
 	// User, Boolean account is NON_LOCKED or not.
-	@Column(name = "ACCOUNT_NON_LOCKED", length = 1, nullable=false)
-	private boolean userAccountNonLocked;
+	@Column(name = "IS_ENABLED", length = 1)
+	private boolean isEnabled;
 
 	/*
 	If user locked encode PK value to send email
 	*/
-    @Column(name = "LOCKED_AUTH", length = 100, nullable = true)
+    @Column(name = "LOCKED_AUTH", length = 100)
     private String userLockedAuth;
 
 	/*

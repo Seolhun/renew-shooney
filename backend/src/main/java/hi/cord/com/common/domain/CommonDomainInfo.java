@@ -9,11 +9,6 @@ import java.util.Date;
 
 @Data
 public class CommonDomainInfo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID")
-    private long id;
-
     @Column(name = "CREATED_BY", length = 60)
     private String createdBy;
 
@@ -34,6 +29,6 @@ public class CommonDomainInfo {
     private boolean isActive;
 
     @Version
-    @Column(name = "VERSION", nullable=false)
+    @Column(name = "VERSION")
     private long version;
 }

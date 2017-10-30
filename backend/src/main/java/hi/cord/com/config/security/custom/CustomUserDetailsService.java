@@ -20,42 +20,36 @@ import java.util.List;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
+    private static final Logger LOG = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
-	private static final Logger LOG = LoggerFactory.getLogger(CustomUserDetailsService.class);
+    @Autowired
+    private UserService userService;
 
-	private UserService userService;
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        try {
+            User user = userService.findByEmail(email);
+            LOG.info("param - User : {}", user);
+            if (user == null) {
+                LOG.info("User not found");
+                throw new UsernameNotFoundException("User not found");
+            }
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getState() == (CommonState.ACTIVE), true, true, true, getGrantedAuthorities(user));
+        } catch (Exception e) {
+            throw new UsernameNotFoundException("Not user");
+        }
+    }
 
-	@Autowired
-	public CustomUserDetailsService(UserService userService) {
-		this.userService = userService;
-	}
+    private List<GrantedAuthority> getGrantedAuthorities(User user) {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-	@Transactional(readOnly = true)
-	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		try {
-			User user = userService.findByEmail(email);
-			LOG.info("param - User : {}", user);
-			if (user == null) {
-				LOG.info("User not found");
-				throw new UsernameNotFoundException("User not found");
-			}
-			return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getState() == (CommonState.ACTIVE), true, true, true, getGrantedAuthorities(user));
-		} catch (Exception e){
-			throw new UsernameNotFoundException("Not user");
-		}
-	}
+        for (UserProfile userProfile : user.getProfiles()) {
+            LOG.info("param - UserProfile : {}", userProfile.toString());
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + userProfile.getProfileType()));
+        }
 
-	private List<GrantedAuthority> getGrantedAuthorities(User user) {
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		
-		for (UserProfile userProfile : user.getProfiles()) {
-			LOG.info("param - UserProfile : {}", userProfile.toString());
-			authorities.add(new SimpleGrantedAuthority("ROLE_" + userProfile.getUserProfileType()));
-		}
-		
-		LOG.info("authorities : {}", authorities);
-		return authorities;
-	}
+        LOG.info("authorities : {}", authorities);
+        return authorities;
+    }
 
 }

@@ -3,6 +3,7 @@ package hi.cord.com.jpa2.board;
 import hi.cord.com.common.service.CommonService;
 import hi.cord.com.jpa2.board.domain.Board;
 import hi.cord.com.jpa2.board.service.BoardService;
+import hi.cord.com.jpa2.comment.service.CommentService;
 import hi.cord.com.jpa2.file.service.FileDataService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

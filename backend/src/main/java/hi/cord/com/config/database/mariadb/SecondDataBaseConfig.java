@@ -1,5 +1,5 @@
 
-package hi.cord.com.config.database;
+package hi.cord.com.config.database.mariadb;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -7,7 +7,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -19,33 +18,33 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = { "hi.cord.com.jpa" })
-public class PrimaryDataBaseConfig {
+@EnableJpaRepositories(
+        entityManagerFactoryRef = "shunEntityManagerFactory",
+        transactionManagerRef = "shunTransactionManager",
+        basePackages = {"hi.cord.com.jpa2"})
+public class SecondDataBaseConfig {
 
-    @Primary
-    @Bean(name = "dataSource")
-    @ConfigurationProperties(prefix="spring.datasource")
-    public DataSource dataSource() {
+    @Bean(name = "shunDataSource")
+    @ConfigurationProperties(prefix = "shun.datasource")
+    public DataSource shunDataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Primary
-    @Bean(name = "entityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+    @Bean(name = "shunEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean shunEntityManagerFactory(
             EntityManagerFactoryBuilder builder,
-            @Qualifier("dataSource") DataSource dataSource) {
+            @Qualifier("shunDataSource") DataSource shunDataSource) {
         return builder
-                .dataSource(dataSource)
-                .packages("hi.cord.com.jpa")
-                .persistenceUnit("spring")
+                .dataSource(shunDataSource)
+                .packages("hi.cord.com.jpa2.domain")
+                .persistenceUnit("jpa2")
                 .build();
     }
 
-    @Primary
-    @Bean(name = "txManager")
-    public PlatformTransactionManager transactionManager(
-            @Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
+    @Bean(name = "shunTransactionManager")
+    public PlatformTransactionManager shunTransactionManager(
+            @Qualifier("shunEntityManagerFactory") EntityManagerFactory shunEntityManagerFactory) {
+        return new JpaTransactionManager(shunEntityManagerFactory);
     }
 
 }

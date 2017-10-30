@@ -1,7 +1,7 @@
 package hi.cord.com.jpa.user;
 
 import hi.cord.com.common.service.CommonService;
-import hi.cord.com.jpa.price.service.record.PriceRecordService;
+import hi.cord.com.jpa.price.service.history.PaidHistoryService;
 import hi.cord.com.jpa.user.domain.User;
 import hi.cord.com.jpa.user.domain.UserProfile;
 import hi.cord.com.jpa.user.domain.UserProfileType;
@@ -34,16 +34,16 @@ public class UserRestController {
 
 	private UserService userService;
 	private UserProfileService userProfileService;
-	private PriceRecordService priceRecordService;
+	private PaidHistoryService paidHistoryService;
 	private MessageSource messageSource;
 	private PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
 	private AuthenticationTrustResolver authenticationTrustResolver;
 	private CommonService commonService;
 
 	@Autowired
-	public UserRestController(UserService userService, PriceRecordService priceRecordService, MessageSource messageSource, UserProfileService userProfileService, PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices, AuthenticationTrustResolver authenticationTrustResolver, CommonService commonService) {
+	public UserRestController(UserService userService, PaidHistoryService paidHistoryService, MessageSource messageSource, UserProfileService userProfileService, PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices, AuthenticationTrustResolver authenticationTrustResolver, CommonService commonService) {
 		this.userService = userService;
-		this.priceRecordService = priceRecordService;
+		this.paidHistoryService = paidHistoryService;
 		this.messageSource = messageSource;
 		this.userProfileService = userProfileService;
 		this.persistentTokenBasedRememberMeServices = persistentTokenBasedRememberMeServices;

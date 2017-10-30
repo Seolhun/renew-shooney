@@ -1,5 +1,6 @@
 package hi.cord.com.jpa.user.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,9 +10,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-@Table(name="TB_USER_PERSISTENT_LOGIN")
-@ToString
+@Entity(name="TB_USER_PERSISTENT_LOGIN")
+@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = true)
 @Getter
 @Setter
 public class PersistentLogin implements Serializable{

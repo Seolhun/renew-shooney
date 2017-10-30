@@ -46,8 +46,8 @@ shun:
   # MariaDB2
   datasource:
     url: jdbc:mysql://${server.address}:3306/shooney_common
-    username: hooney
-    password: blue1220@
+    username: developer
+    password: developer@
     driver-class-name: com.mysql.jdbc.Driver
     initialize: true
   jpa:
@@ -67,8 +67,8 @@ spring:
   # MariaDB1
   datasource:
     url: jdbc:mysql://${server.address}:3306/shooney
-    username: hooney
-    password: blue1220@
+    username: developer
+    password: developer@
     driver-class-name: com.mysql.jdbc.Driver
     initialize: true
   jpa:
@@ -126,7 +126,7 @@ aws:
 #################
 logging:
   level:
-    ROOT: INFO
+    ROOT: ERROR
     org:
       springframework:
         web: ERROR
@@ -135,7 +135,7 @@ logging:
     level:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-  file: /Users/HunSeol/log/vingle/
+  file: /Users/HunSeol/log/shooney/
 ---
 ######################
 #### Security     ####

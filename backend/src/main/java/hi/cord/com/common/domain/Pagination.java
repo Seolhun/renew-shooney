@@ -15,11 +15,11 @@ public class Pagination<E> implements Serializable {
 
     /** For Pagination Field */
     // current Page
-    private long pageIndex;
+    private int pageIndex;
     // Total Page
-    private long totalPage;
+    private long totalCount;
     // pagination limit count
-    private int limit;
+    private int pageSize;
 
     /** For searching Field */
     //To search PK
@@ -37,9 +37,17 @@ public class Pagination<E> implements Serializable {
 
     }
 
-    public Pagination(int pageIndex, long totalPage) {
+    public Pagination(int pageIndex, long totalCount, int pageSize) {
         this.pageIndex = pageIndex;
-        this.totalPage = totalPage;
+        this.totalCount = totalCount;
+        this.pageSize = pageSize;
+    }
+
+    public Pagination(E e, int pageIndex, long totalCount, int pageSize) {
+        this.e = e;
+        this.pageIndex = pageIndex;
+        this.totalCount = totalCount;
+        this.pageSize = pageSize;
     }
 
     private Pagination paging() {

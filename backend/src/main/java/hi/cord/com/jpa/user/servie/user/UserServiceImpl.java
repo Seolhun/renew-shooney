@@ -6,6 +6,8 @@ import hi.cord.com.jpa.user.repository.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,21 +31,30 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findById(long id) {
 		LOG.info("param : findById : {} ", id);
-		return userRepository.findById(id);
+		return null;
 	}
-	
+
+	@Override
+	public boolean deleteById(String id) {
+		return false;
+	}
+
+	@Override
+	public boolean deleteById(long id) {
+		return false;
+	}
+
 	@Override
 	public User findByEmail(String userEmail) {
 		LOG.info("param : findByEmail : {} ", userEmail);
 		return userRepository.findByEmail(userEmail);
 	}
-	
+
 	@Override
-	public User findByPhone(String userPhone) {
-		LOG.info("param : findByPhone : {} ", userPhone);
-		return userRepository.findByPhone(userPhone);
+	public User findByNickname(String nickname) {
+		return null;
 	}
-	
+
 	@Override
 	public User insert(User user) {
 		LOG.info("param : save : {} ", user.toString());
@@ -51,7 +62,22 @@ public class UserServiceImpl implements UserService {
 		user.setState(CommonState.ACTIVE);
 		return userRepository.save(user);
 	}
-	
+
+	@Override
+	public List<User> findByList() {
+		return null;
+	}
+
+	@Override
+	public Page<User> findByPage(User user, Pageable pageable) {
+		return null;
+	}
+
+	@Override
+	public User findById(String id) {
+		return null;
+	}
+
 	@Override
 	public User update(User user) {
 		LOG.info("param : update : {} ", user.toString());
@@ -61,15 +87,20 @@ public class UserServiceImpl implements UserService {
 		}
 		return user;
 	}
-	
+
+	@Override
+	public long count(User user) {
+		return 0;
+	}
+
 	@Override
 	public User deleteByEmail(String userEmail) {
 		LOG.info("param : deleteUserByEmail : {} ", userEmail);
 		return userRepository.deleteByEmail(userEmail);
 	}
-	
+
 	@Override
-	public List<User> findAll() {
-		return userRepository.findAll();
+	public User deleteByNickname(String nickname) {
+		return null;
 	}
 }

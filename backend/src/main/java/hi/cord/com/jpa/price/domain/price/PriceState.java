@@ -1,6 +1,6 @@
-package hi.cord.com.jpa.price.domain;
+package hi.cord.com.jpa.price.domain.price;
 
-public enum PriceRecordState {
+public enum PriceState {
 
     ACTIVE("active"),
     WAITING("waiting"),
@@ -9,7 +9,7 @@ public enum PriceRecordState {
 
     private String state;
 
-    PriceRecordState(final String state) {
+    PriceState(final String state) {
         this.state = state;
     }
 

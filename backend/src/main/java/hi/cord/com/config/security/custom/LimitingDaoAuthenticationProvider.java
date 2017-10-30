@@ -20,18 +20,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class LimitingDaoAuthenticationProvider extends DaoAuthenticationProvider {
     private static final Logger LOG = LoggerFactory.getLogger(LimitingDaoAuthenticationProvider.class);
 
-    private UserService userService;
-    private UserAttemptsService userAttemptsService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private CommonService commonService;
-
     @Autowired
-    public LimitingDaoAuthenticationProvider(UserService userService, UserAttemptsService userAttemptsService, BCryptPasswordEncoder bCryptPasswordEncoder, CommonService commonService) {
-        this.userService = userService;
-        this.userAttemptsService = userAttemptsService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.commonService = commonService;
-    }
+    private UserService userService;
+    @Autowired
+    private UserAttemptsService userAttemptsService;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private CommonService commonService;
 
     // 로그인 이후 성공 시 이전 시도 횟수를 초기화, 실패 시 catch 예외 처리
     @Override

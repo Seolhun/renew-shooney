@@ -18,7 +18,6 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +26,6 @@ import java.util.List;
 
 
 @Service
-@Transactional
 public class NewsDataServiceImpl implements NewsDataService {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDataServiceImpl.class);
 
@@ -40,6 +38,12 @@ public class NewsDataServiceImpl implements NewsDataService {
         this.newsDataRepository = newsDataRepository;
         this.sequenceService = sequenceService;
         this.nlpPhraseService = nlpPhraseService;
+    }
+
+    @Override
+    public NewsData insert(NewsData newsData) {
+        newsDataRepository.save(newsData);
+        return newsData;
     }
 
     @Override
@@ -59,27 +63,33 @@ public class NewsDataServiceImpl implements NewsDataService {
     }
 
     @Override
+    public NewsData findById(long id) {
+        return null;
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        return false;
+    }
+
+    @Override
     public NewsData findByIdx(long idx) {
         return null;
     }
 
     @Override
-    public void insert(NewsData newsData) {
-        newsData.setCreatedDate(new Date());
-        newsDataRepository.save(newsData);
-    }
-
-    @Override
-    public void update(NewsData newsData) {
+    public NewsData update(NewsData newsData) {
         NewsData dbNews = this.findById(newsData.getId());
         if (dbNews != null)
             newsData.setModifiedDate(new Date());
         this.insert(newsData);
+
+        return newsData;
     }
 
     @Override
-    public void deleteById(String pk) {
-
+    public boolean deleteById(long id) {
+        return false;
     }
 
     @Override

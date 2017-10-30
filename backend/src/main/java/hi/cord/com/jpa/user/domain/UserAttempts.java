@@ -1,21 +1,23 @@
 package hi.cord.com.jpa.user.domain;
 
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-@Table(name = "TB_ATTEMPTS")
-@Data
+@Entity(name = "TB_ATTEMPTS")
+@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = true)
+@Getter
+@Setter
 public class UserAttempts implements Serializable {
 	private static final long serialVersionUID = -6645634619910097302L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "ATTEMPTS_ID")
 	private Long id;
 
 	@Column(name = "ATTEMPTS_EMAIL", nullable = false)

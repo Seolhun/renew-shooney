@@ -16,16 +16,16 @@ import java.util.List;
 @Transactional
 @Service("fileDataService")
 public class FileDataServiceImpl implements FileDataService {
-	static final Logger log = LoggerFactory.getLogger(FileDataServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(FileDataServiceImpl.class);
 	
 	@Autowired
 	protected FileDataRepository fileDataRepository;
 
 	@Override
 	public FileData update(FileData fileData) {
-		log.info("param : "+fileData.toString());
+		LOG.info("param : "+fileData.toString());
 		FileData dbFileData = fileDataRepository.findById(fileData.getId());
-		log.info("return : "+dbFileData);
+		LOG.info("return : "+dbFileData);
 		if (dbFileData != null) {
 			dbFileData.setFileDataSavedPath(fileData.getFileDataSavedPath());
 			dbFileData.setFileDataOriginName(fileData.getFileDataOriginName());
@@ -42,7 +42,7 @@ public class FileDataServiceImpl implements FileDataService {
 
 	@Override
 	public FileData insert(FileData fileData) {
-		log.info("param : "+fileData.toString());
+		LOG.info("param : "+fileData.toString());
 		return fileDataRepository.insert(fileData);
 	}
 

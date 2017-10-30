@@ -10,10 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * The type News data rest controller.
@@ -78,7 +82,7 @@ public class NewsDataRestController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<Page<NewsData>> getNewsListData(Pagination<NewsData> pagination) {
         // 전체 게시판 갯수 확인
-        PageRequest pageRequest = new PageRequest(pagination.getPageIndex(), pagination.getLimit(), Direction.DESC, "idx");
+        PageRequest pageRequest = new PageRequest(pagination.getPageIndex(), pagination.getPageSize(), Direction.DESC, "idx");
         Page<NewsData> newsDatas = newsDataService.findByPage(pagination.getE(), pageRequest);
         return new ResponseEntity<>(newsDatas, HttpStatus.OK);
     }

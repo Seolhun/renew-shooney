@@ -2,20 +2,27 @@ package hi.cord.com.jpa2.file.domain;
 
 import hi.cord.com.common.domain.CommonDomainInfo;
 import hi.cord.com.jpa2.board.domain.Board;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "TB_FILE_DATA")
-@Getter
-@Setter
+@Entity(name = "TB_FILE_DATA")
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
+@Getter
+@Setter
 public class FileData extends CommonDomainInfo{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="FILE_ID")
+	private long id;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(foreignKey = @ForeignKey(name = "FILE_BOARD_FK"), name = "FILE_BOARD_ID", referencedColumnName = "BOARD_ID", nullable = false)
+	@JoinColumn(foreignKey = @ForeignKey(name = "FILE_BOARD_FK"), name = "FILE_ID", referencedColumnName = "BOARD_ID", nullable = false)
 	private Board boardInFile;
 
 	@NotEmpty

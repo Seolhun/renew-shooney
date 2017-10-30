@@ -62,13 +62,13 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public Comment update(Comment comment) {
-		Comment dbComment = commentRepository.findById(comment.getCommentId());
+		Comment dbComment = commentRepository.findById(comment.getId());
 		String createdBy=dbComment.getCreatedBy();
 		String modifyBy=comment.getModifiedBy();
 		if(createdBy.equals(modifyBy)){
 			if(comment.isActive()){
 				dbComment.setActive(false);
-				Board dbBoard= boardRepository.findById(dbComment.getBlogInComment().getId());
+				Board dbBoard= boardRepository.findById(dbComment.getBoardInComment().getId());
 				//읽을시 쿠키 읽기
 				if(dbBoard != null){
 					int commentCounts=dbBoard.getCommentCounts();
