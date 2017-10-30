@@ -11,7 +11,7 @@
 	3. To give information you want to know about stacks and Connect with others same situation like you.
 
 ## Enviroment
-#### Back-end
+### Back-end
 - Java
     1. Spring-Boot
     2. Spring Security
@@ -22,26 +22,27 @@
     1. Flask
     2. Flask REST
     3. NLP
----
-#### Front-end
+
+### Front-end
 1. Vue2 Cli
 2. Vuex
 3. D3.js
 4. TypeScript
----
-#### Server
+
+### Server
 1. AWS / EC2 || BeanStalk
 2. Lambda
----
-- Storage
+
+### Storage
 1. S3
----
-#### DB
+
+### DB
 1. DynamoDB
 2. MongoDB
 3. Redis
+
 ---
-#### Build & Integration System
+### Build & Integration System
 1. Gradle
 2. Docker
 3. Travis
@@ -50,6 +51,7 @@
 
 #### Util
 1. Post Man
+
 ---
 ## Domain
 - User
@@ -63,4 +65,4 @@
 
 ---
 ## Simple Architecture
-!<img src="readme/architecture.png" width="900" height="600">
+<img src="readme/architecture.png" width="900" height="600">
