@@ -1,9 +1,9 @@
 package hi.cord.com.jpa2.content;
 
 import hi.cord.com.common.service.CommonService;
+import hi.cord.com.jpa2.comment.service.CommentService;
 import hi.cord.com.jpa2.content.domain.Content;
 import hi.cord.com.jpa2.content.service.ContentService;
-import hi.cord.com.jpa2.comment.service.CommentService;
 import hi.cord.com.jpa2.file.service.FileDataService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +22,10 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * The type Content rest controller.
+ */
 @RestController
 public class ContentRestController {
     static final Logger LOG = LoggerFactory.getLogger(ContentRestController.class);
@@ -40,16 +44,15 @@ public class ContentRestController {
     }
 
     /**
-     * Content insert response entity.
+     * Cretae response entity.
      *
-     * @param content the content
-     * @param auth  the auth
-     * @return AjaxResult ajax result
-     *
-     * @throws Exception the exception
+     * @param nickname the nickname
+     * @param content  the content
+     * @param auth     the auth
+     * @return the response entity
      */
-    @PostMapping(value = "/{nickname}/board")
-    public ResponseEntity insert(@PathVariable String nickname, @RequestBody Content content, Authentication auth) throws Exception {
+    @PostMapping(value = "/{nickname}/content")
+    public ResponseEntity cretae(@PathVariable String nickname, @RequestBody Content content, Authentication auth) {
         if (content == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This is Null");
         }
@@ -67,7 +70,7 @@ public class ContentRestController {
      *
      * @throws Exception the exception
      */
-    @GetMapping(value = {"/board"})
+    @GetMapping(value = {"/content"})
     public Page<Content> findAll(Content content) throws Exception {
         Page<Content> boardPage = contentService.findByPage(content, new PageRequest(0, 10));
         return boardPage;
@@ -82,7 +85,7 @@ public class ContentRestController {
      *
      * @throws Exception the exception
      */
-    @GetMapping(value = "/board/{contentId}")
+    @GetMapping(value = "/content/{contentId}")
     public Content findOne(@PathVariable long contentId) throws Exception {
         Content dbContent = contentService.findById(contentId);
         return dbContent;

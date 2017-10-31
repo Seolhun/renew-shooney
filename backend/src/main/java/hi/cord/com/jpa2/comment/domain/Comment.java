@@ -37,7 +37,7 @@ public class Comment extends BaseEntity implements Serializable {
 	@JoinColumn(foreignKey = @ForeignKey(name = "CONTENT_COMMENT_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID", nullable=false)
 	private Content contentInContent;
 
-	@Column(name = "CONTENT", length=300 ,nullable = false)
+	@Column(name = "CONTENT", length=250 ,nullable = false)
 	private String content;
 
 	@Column(name = "LIKES")
