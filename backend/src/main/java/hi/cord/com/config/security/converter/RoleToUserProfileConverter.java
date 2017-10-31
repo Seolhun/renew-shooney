@@ -1,6 +1,6 @@
 package hi.cord.com.config.security.converter;
 
-import hi.cord.com.jpa.user.domain.UserProfile;
+import hi.cord.com.jpa.user.domain.profile.UserProfile;
 import hi.cord.com.jpa.user.servie.profile.UserProfileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

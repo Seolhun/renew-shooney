@@ -1,6 +1,9 @@
-package hi.cord.com.jpa.user.domain;
+package hi.cord.com.jpa.user.domain.attempts;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -24,7 +27,7 @@ public class UserAttempts implements Serializable {
 	private String email;
 
 	@Column(name = "ATTEMPTS_COUNTS", nullable = false)
-	private int userAttemptsCounts;
+	private int attemptsCounts;
 
 	@Column(name = "ATTEMPTS_CREATED_DATE", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -41,15 +44,15 @@ public class UserAttempts implements Serializable {
 
 	}
 
-	public UserAttempts(String email, int userAttemptsCounts, String ip) {
+	public UserAttempts(String email, int attemptsCounts, String ip) {
 		this.email = email;
-		this.userAttemptsCounts = userAttemptsCounts;
+		this.attemptsCounts = attemptsCounts;
 		this.ip = ip;
 	}
 
-	public UserAttempts(String email, int userAttemptsCounts, String ip, boolean isSuccess) {
+	public UserAttempts(String email, int attemptsCounts, String ip, boolean isSuccess) {
 		this.email = email;
-		this.userAttemptsCounts = userAttemptsCounts;
+		this.attemptsCounts = attemptsCounts;
 		this.ip = ip;
 		this.isSuccess = isSuccess;
 	}

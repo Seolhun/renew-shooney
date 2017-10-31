@@ -26,14 +26,12 @@ public class SequenceServiceImpl implements SequenceService {
     }
 
 	@Override
-	@Transactional
 	public CustomSequence save(CustomSequence sequence) {
 		sequenceRepository.save(sequence);
 		return sequence;
 	}
 
 	@Override
-	@Transactional
 	public CustomSequence findByKey(String key) {
 		Query query = new Query();
 		query.with(new Sort(Sort.Direction.DESC, "_id"));

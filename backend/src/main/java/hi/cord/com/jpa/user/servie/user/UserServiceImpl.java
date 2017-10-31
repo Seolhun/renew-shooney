@@ -1,8 +1,8 @@
 package hi.cord.com.jpa.user.servie.user;
 
 import hi.cord.com.common.domain.CommonState;
-import hi.cord.com.jpa.user.domain.User;
-import hi.cord.com.jpa.user.repository.user.UserRepository;
+import hi.cord.com.jpa.user.domain.user.User;
+import hi.cord.com.jpa.user.domain.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service("userService")
-@Transactional
 public class UserServiceImpl implements UserService {
 	private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 

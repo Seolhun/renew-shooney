@@ -12,9 +12,7 @@ public interface FileDataRepository extends JpaRepository<FileData, Long>{
 
 	FileData findById(Long id);
 
-	FileData insert(FileData finalData);
-
-	void delete(Long id);
+	boolean deleteById(long id);
 
 	long countBy(FileData finalData);
 

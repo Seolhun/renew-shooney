@@ -1,8 +1,8 @@
 package hi.cord.com.config.security.custom;
 
 import hi.cord.com.common.domain.CommonState;
-import hi.cord.com.jpa.user.domain.User;
-import hi.cord.com.jpa.user.domain.UserProfile;
+import hi.cord.com.jpa.user.domain.profile.UserProfile;
+import hi.cord.com.jpa.user.domain.user.User;
 import hi.cord.com.jpa.user.servie.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         for (UserProfile userProfile : user.getProfiles()) {
             LOG.info("param - UserProfile : {}", userProfile.toString());
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + userProfile.getProfileType()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + userProfile.getType()));
         }
 
         LOG.info("authorities : {}", authorities);

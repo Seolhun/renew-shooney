@@ -12,9 +12,7 @@ public interface PaidHistoryRepository extends JpaRepository<PaidHistory, Long> 
 
     PaidHistory findById(long id);
 
-    PaidHistory insert(PaidHistory paidHistory);
-
-    void delete(long id);
+    void deleteById(long id);
 
     long countBy(PaidHistory paidHistory);
 

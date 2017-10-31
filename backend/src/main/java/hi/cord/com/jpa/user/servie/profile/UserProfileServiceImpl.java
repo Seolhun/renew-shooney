@@ -1,8 +1,8 @@
 package hi.cord.com.jpa.user.servie.profile;
 
-import hi.cord.com.jpa.user.domain.UserAttempts;
-import hi.cord.com.jpa.user.domain.UserProfile;
-import hi.cord.com.jpa.user.repository.profile.UserProfileRepository;
+import hi.cord.com.jpa.user.domain.attempts.UserAttempts;
+import hi.cord.com.jpa.user.domain.profile.UserProfile;
+import hi.cord.com.jpa.user.domain.profile.UserProfileRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

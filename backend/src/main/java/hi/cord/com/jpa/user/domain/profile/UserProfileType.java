@@ -1,4 +1,4 @@
-package hi.cord.com.jpa.user.domain;
+package hi.cord.com.jpa.user.domain.profile;
 
 import java.io.Serializable;
 

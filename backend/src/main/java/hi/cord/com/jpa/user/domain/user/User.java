@@ -1,8 +1,9 @@
-package hi.cord.com.jpa.user.domain;
+package hi.cord.com.jpa.user.domain.user;
 
 import hi.cord.com.common.domain.CommonDomainInfo;
 import hi.cord.com.common.domain.CommonState;
 import hi.cord.com.jpa.price.domain.history.PaidHistory;
+import hi.cord.com.jpa.user.domain.profile.UserProfile;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

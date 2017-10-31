@@ -45,7 +45,7 @@ public class PaidHistoryServiceImpl implements PaidHistoryService {
 
     @Override
     public PaidHistory insert(PaidHistory paidHistory) {
-        return paidHistoryRepository.insert(paidHistory);
+        return paidHistoryRepository.save(paidHistory);
     }
 
     @Override

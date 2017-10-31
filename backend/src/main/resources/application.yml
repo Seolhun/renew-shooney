@@ -66,7 +66,7 @@ shun:
 spring:
   # MariaDB1
   datasource:
-    url: jdbc:mysql://${server.address}:3306/shooney
+    url: jdbc:mysql://${server.address}:3306/shooney_blog
     username: developer
     password: developer@
     driver-class-name: com.mysql.jdbc.Driver
@@ -126,7 +126,7 @@ aws:
 #################
 logging:
   level:
-    ROOT: ERROR
+    ROOT: INFO
     org:
       springframework:
         web: ERROR

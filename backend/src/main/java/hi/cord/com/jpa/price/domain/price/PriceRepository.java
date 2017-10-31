@@ -12,9 +12,7 @@ public interface PriceRepository extends JpaRepository<Price, Long> {
 
     Price findById(long id);
 
-    Price insert(Price price);
-
-    void delete(long id);
+    void deleteById(long id);
 
     long countBy(Price price);
 

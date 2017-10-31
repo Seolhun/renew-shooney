@@ -25,7 +25,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Board insert(Board board) {
 		LOG.info("param : {}", board.toString());
-		return boardRepository.insert(board);
+		return boardRepository.save(board);
 	}
 
     @Override

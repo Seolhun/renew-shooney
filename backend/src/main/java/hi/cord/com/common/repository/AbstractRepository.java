@@ -10,41 +10,41 @@ import java.lang.reflect.ParameterizedType;
 
 public abstract class AbstractRepository<PK extends Serializable, T> {
 
-	private final Class<T> persistentClass;
+    private final Class<T> persistentClass;
 
-	@SuppressWarnings("unchecked")
-	public AbstractRepository() {
-		this.persistentClass = (Class<T>) ((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
-	}
+    @SuppressWarnings("unchecked")
+    public AbstractRepository() {
+        this.persistentClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+    }
 
-	@Autowired
-	private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-	protected Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
+    protected Session getSession() {
+        return sessionFactory.getCurrentSession();
+    }
 
-	public T getByKey(PK id) {
-		return (T)getSession().get(persistentClass, id);
-	}
+    public T getByKey(PK id) {
+        return (T) getSession().get(persistentClass, id);
+    }
 
-	public T getByKeyByLong(Long id) {
-		return (T)getSession().get(persistentClass, id);
-	}
+    public T getByKeyByLong(Long id) {
+        return (T) getSession().get(persistentClass, id);
+    }
 
-	public void persist(T entity) {
-		getSession().persist(entity);
-	}
+    public void persist(T entity) {
+        getSession().persist(entity);
+    }
 
-	public void update(T entity) {
-		getSession().update(entity);
-	}
+    public void update(T entity) {
+        getSession().update(entity);
+    }
 
-	public void delete(T entity) {
-		getSession().delete(entity);
-	}
+    public void delete(T entity) {
+        getSession().delete(entity);
+    }
 
-	protected Criteria createEntityCriteria() {
-		return getSession().createCriteria(persistentClass);
-	}
+    protected Criteria createEntityCriteria() {
+        return getSession().createCriteria(persistentClass);
+    }
 }

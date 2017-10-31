@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import hi.cord.com.common.domain.CommonDomainInfo;
 import hi.cord.com.common.domain.Pagination;
 import hi.cord.com.jpa2.board.domain.Board;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,12 +24,9 @@ public class Comment extends CommonDomainInfo implements Serializable {
 	@Column(name = "COMMENT_ID")
 	private long id;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional=true, cascade=CascadeType.DETACH)
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.DETACH)
 	@JoinColumn(foreignKey = @ForeignKey(name = "BOARD_COMMENT_FK"), name = "BOARD_ID", referencedColumnName = "BOARD_ID", nullable=false)
 	private Board boardInComment;
-
-	@Column(name = "ENTITY_NAME", length=20, nullable = false)
-	private String entityName;
 
 	@Column(name = "CONTENT", length=300 ,nullable = false)
 	private String content;

@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
-@Transactional
 @Service("fileDataService")
 public class FileDataServiceImpl implements FileDataService {
 	private static final Logger LOG = LoggerFactory.getLogger(FileDataServiceImpl.class);
@@ -43,7 +42,7 @@ public class FileDataServiceImpl implements FileDataService {
 	@Override
 	public FileData insert(FileData fileData) {
 		LOG.info("param : "+fileData.toString());
-		return fileDataRepository.insert(fileData);
+		return fileDataRepository.save(fileData);
 	}
 
 	@Override

@@ -2,8 +2,8 @@ package hi.cord.com.config.security.custom;
 
 import hi.cord.com.common.domain.CommonState;
 import hi.cord.com.common.service.CommonService;
-import hi.cord.com.jpa.user.domain.User;
-import hi.cord.com.jpa.user.domain.UserAttempts;
+import hi.cord.com.jpa.user.domain.attempts.UserAttempts;
+import hi.cord.com.jpa.user.domain.user.User;
 import hi.cord.com.jpa.user.servie.attempts.UserAttemptsService;
 import hi.cord.com.jpa.user.servie.user.UserService;
 import org.slf4j.Logger;
@@ -75,7 +75,7 @@ public class LimitingDaoAuthenticationProvider extends DaoAuthenticationProvider
 
         //유저 로그인 시도를 실패한 정보가 있다면, 최고값을 찾아서 +1를 인서트해준다.
         if (userDBAttempts != null) {
-            Integer maxUserAttempts = userDBAttempts.getUserAttemptsCounts();
+            Integer maxUserAttempts = userDBAttempts.getAttemptsCounts();
             // 5 이하일 경우
             if (maxUserAttempts < 5) {
                 UserAttempts userAttempts = new UserAttempts(dbUser.getEmail(), maxUserAttempts + 1, ip, true);

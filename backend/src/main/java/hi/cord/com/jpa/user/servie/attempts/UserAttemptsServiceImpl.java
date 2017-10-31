@@ -1,7 +1,7 @@
 package hi.cord.com.jpa.user.servie.attempts;
 
-import hi.cord.com.jpa.user.domain.UserAttempts;
-import hi.cord.com.jpa.user.repository.attempts.UserAttemptsRepository;
+import hi.cord.com.jpa.user.domain.attempts.UserAttempts;
+import hi.cord.com.jpa.user.domain.attempts.UserAttemptsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,12 +65,6 @@ public class UserAttemptsServiceImpl implements UserAttemptsService {
 		LOG.info("param : findByEmail {}", email);
 		return userAttemptsRepository.findByEmail(email);
 	}
-
-    @Override
-    public UserAttempts findByNickname(String nickname) {
-        LOG.info("param : findByNickname {}", nickname);
-        return userAttemptsRepository.findByNickname(nickname);
-    }
 
 	@Override
 	public UserAttempts update(UserAttempts userAttempts) {

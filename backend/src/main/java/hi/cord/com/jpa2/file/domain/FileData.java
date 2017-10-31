@@ -1,6 +1,9 @@
 package hi.cord.com.jpa2.file.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import hi.cord.com.common.domain.CommonDomainInfo;
+import hi.cord.com.common.domain.Pagination;
 import hi.cord.com.jpa2.board.domain.Board;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,8 +24,8 @@ public class FileData extends CommonDomainInfo{
 	@Column(name="FILE_ID")
 	private long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(foreignKey = @ForeignKey(name = "FILE_BOARD_FK"), name = "FILE_ID", referencedColumnName = "BOARD_ID", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.DETACH)
+	@JoinColumn(foreignKey = @ForeignKey(name = "FILE_BOARD_FK"), name = "BOARD_ID", referencedColumnName = "BOARD_ID", nullable = false)
 	private Board boardInFile;
 
 	@NotEmpty
@@ -38,4 +41,9 @@ public class FileData extends CommonDomainInfo{
 
 	@Column(name = " FILE_TYPE", nullable = false, length = 20)
 	private String fileDataType;
+
+	@Transient
+	@JsonSerialize
+	@JsonDeserialize
+	private Pagination<FileData> pagination;
 }

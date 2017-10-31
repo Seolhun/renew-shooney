@@ -2,9 +2,9 @@ package hi.cord.com.jpa.user;
 
 import hi.cord.com.common.service.CommonService;
 import hi.cord.com.jpa.price.service.history.PaidHistoryService;
-import hi.cord.com.jpa.user.domain.User;
-import hi.cord.com.jpa.user.domain.UserProfile;
-import hi.cord.com.jpa.user.domain.UserProfileType;
+import hi.cord.com.jpa.user.domain.profile.UserProfile;
+import hi.cord.com.jpa.user.domain.profile.UserProfileType;
+import hi.cord.com.jpa.user.domain.user.User;
 import hi.cord.com.jpa.user.servie.profile.UserProfileService;
 import hi.cord.com.jpa.user.servie.user.UserService;
 import org.slf4j.Logger;
@@ -144,8 +144,8 @@ public class UserRestController {
 		// 유저 권한 넣기(프론트에서 값을 받지 않기때문에 백엔드에서 넣어준다.)
 		Set<UserProfile> upSet = new HashSet<>();
 		UserProfile userProfile = new UserProfile();
-		userProfile.setProfileId(UserProfileType.PLAYER.ordinal() + 1);
-		userProfile.setProfileType(UserProfileType.PLAYER.getType());
+		userProfile.setId(UserProfileType.PLAYER.ordinal() + 1);
+		userProfile.setType(UserProfileType.PLAYER);
 		upSet.add(userProfile);
 		user.setProfiles(upSet);
 		userService.insert(user);

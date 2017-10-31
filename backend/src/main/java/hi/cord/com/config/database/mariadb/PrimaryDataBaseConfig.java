@@ -36,7 +36,7 @@ public class PrimaryDataBaseConfig {
             @Qualifier("dataSource") DataSource dataSource) {
         return builder
                 .dataSource(dataSource)
-                .packages("hi.cord.com.jpa.domain")
+                .packages("hi.cord.com.jpa")
                 .persistenceUnit("jpa")
                 .build();
     }
@@ -47,5 +47,4 @@ public class PrimaryDataBaseConfig {
             @Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
-
 }

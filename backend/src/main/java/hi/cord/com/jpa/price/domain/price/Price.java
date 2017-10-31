@@ -39,6 +39,7 @@ public class Price extends CommonDomainInfo implements Serializable {
 	private int discountedPrice;
 
 	@Column(name = "STATE")
+	@Enumerated(EnumType.STRING)
 	private PriceState priceState;
 
 	@Column(name = "STARTED_DATE")

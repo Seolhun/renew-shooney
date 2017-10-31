@@ -36,7 +36,7 @@ public class SecondDataBaseConfig {
             @Qualifier("shunDataSource") DataSource shunDataSource) {
         return builder
                 .dataSource(shunDataSource)
-                .packages("hi.cord.com.jpa2.domain")
+                .packages("hi.cord.com.jpa2")
                 .persistenceUnit("jpa2")
                 .build();
     }
@@ -46,5 +46,4 @@ public class SecondDataBaseConfig {
             @Qualifier("shunEntityManagerFactory") EntityManagerFactory shunEntityManagerFactory) {
         return new JpaTransactionManager(shunEntityManagerFactory);
     }
-
 }

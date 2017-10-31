@@ -1,7 +1,7 @@
 package hi.cord.com.jpa.price.domain.history;
 
 import hi.cord.com.jpa.price.domain.price.Price;
-import hi.cord.com.jpa.user.domain.User;
+import hi.cord.com.jpa.user.domain.user.User;
 import lombok.Data;
 
 import javax.persistence.*;

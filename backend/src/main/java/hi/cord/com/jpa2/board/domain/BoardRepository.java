@@ -7,15 +7,12 @@ import java.util.List;
 
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long>{
-	
 	List<Board> findAllBy(Board board);
-	
+
 	Board findById(long id);
 
-	Board insert(Board board);
+	boolean deleteById(long id);
 
-	void delete(long id);
-	
 	long countBy(Board board);
 
 	long countDistinctBy(Board board);
