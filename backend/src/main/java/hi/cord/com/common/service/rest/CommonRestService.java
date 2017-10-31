@@ -16,9 +16,13 @@ public interface CommonRestService<E> {
 
     E findById(long id);
 
+    E findByIdx(long idx);
+
     boolean deleteById(String id);
 
     boolean deleteById(long id);
+
+    boolean deleteByIdx(long idx);
 
     E update(E e);
 

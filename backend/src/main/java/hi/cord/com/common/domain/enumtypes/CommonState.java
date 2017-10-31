@@ -1,4 +1,4 @@
-package hi.cord.com.common.domain;
+package hi.cord.com.common.domain.enumtypes;
 
 public enum CommonState {
 

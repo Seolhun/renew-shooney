@@ -73,6 +73,11 @@ public class AskDataServiceImpl implements AskDataService {
     }
 
     @Override
+    public boolean deleteByIdx(long idx) {
+        return false;
+    }
+
+    @Override
     public AskData findByIdx(long idx) {
         return askDataRepository.findByIdx(idx);
     }

@@ -1,4 +1,4 @@
-package hi.cord.com.common.domain;
+package hi.cord.com.common.domain.pagination;
 
 import lombok.Getter;
 import lombok.Setter;

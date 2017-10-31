@@ -93,6 +93,11 @@ public class NewsDataServiceImpl implements NewsDataService {
     }
 
     @Override
+    public boolean deleteByIdx(long idx) {
+        return false;
+    }
+
+    @Override
     public long count(NewsData newsData) {
         return newsDataRepository.count();
     }

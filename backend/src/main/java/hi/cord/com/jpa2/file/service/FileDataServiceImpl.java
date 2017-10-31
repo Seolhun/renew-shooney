@@ -68,6 +68,11 @@ public class FileDataServiceImpl implements FileDataService {
 	}
 
 	@Override
+	public FileData findByIdx(long idx) {
+		return null;
+	}
+
+	@Override
 	public boolean deleteById(String id) {
 		return false;
 	}
@@ -79,6 +84,11 @@ public class FileDataServiceImpl implements FileDataService {
 			fileDataRepository.delete(dbFileData.getId());
 			return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteByIdx(long idx) {
 		return false;
 	}
 }

@@ -1,6 +1,6 @@
 package hi.cord.com.config.security.custom;
 
-import hi.cord.com.common.domain.CommonState;
+import hi.cord.com.common.domain.enumtypes.CommonState;
 import hi.cord.com.jpa.user.domain.profile.UserProfile;
 import hi.cord.com.jpa.user.domain.user.User;
 import hi.cord.com.jpa.user.servie.user.UserService;

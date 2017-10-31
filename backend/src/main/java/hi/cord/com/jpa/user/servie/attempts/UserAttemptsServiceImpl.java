@@ -51,12 +51,22 @@ public class UserAttemptsServiceImpl implements UserAttemptsService {
 	}
 
 	@Override
+	public UserAttempts findByIdx(long idx) {
+		return null;
+	}
+
+	@Override
 	public boolean deleteById(String id) {
 		return false;
 	}
 
 	@Override
 	public boolean deleteById(long id) {
+		return false;
+	}
+
+	@Override
+	public boolean deleteByIdx(long idx) {
 		return false;
 	}
 

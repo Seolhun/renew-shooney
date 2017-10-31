@@ -27,6 +27,11 @@ public class PaidHistoryServiceImpl implements PaidHistoryService {
         return paidHistoryRepository.findById(id);
     }
 
+    @Override
+    public PaidHistory findByIdx(long idx) {
+        return null;
+    }
+
 
     @Override
     public PaidHistory findById(String id) {
@@ -40,6 +45,11 @@ public class PaidHistoryServiceImpl implements PaidHistoryService {
 
     @Override
     public boolean deleteById(long id) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteByIdx(long idx) {
         return false;
     }
 

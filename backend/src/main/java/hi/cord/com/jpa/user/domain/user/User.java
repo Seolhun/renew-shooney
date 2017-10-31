@@ -1,13 +1,17 @@
 package hi.cord.com.jpa.user.domain.user;
 
-import hi.cord.com.common.domain.CommonDomainInfo;
-import hi.cord.com.common.domain.CommonState;
+import hi.cord.com.common.domain.entity.BaseEntity;
+import hi.cord.com.common.domain.entity.CreatedByEntity;
+import hi.cord.com.common.domain.entity.ModifiedByEntity;
+import hi.cord.com.common.domain.enumtypes.CommonState;
 import hi.cord.com.jpa.price.domain.history.PaidHistory;
 import hi.cord.com.jpa.user.domain.profile.UserProfile;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,7 +29,7 @@ import java.util.Set;
 @ToString(callSuper = true)
 @Getter
 @Setter
-public class User extends CommonDomainInfo implements Serializable {
+public class User extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -3474096703802541016L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -143,6 +147,28 @@ public class User extends CommonDomainInfo implements Serializable {
 	// User, Boolean account is NON_LOCKED or not.
 	@Column(name = "SERVICE_AGREE", length = 1, nullable=false)
 	private boolean userServiceAgree;
+
+	@CreatedBy
+	@AssociationOverrides({
+			@AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "CREATED_BY"))
+	})
+	@AttributeOverrides({
+			@AttributeOverride(name = "user", column = @Column(name = "CREATED_BY")),
+			@AttributeOverride(name = "nickname", column = @Column(name = "CREATED_NICKNAME", length = 60))
+	})
+	@Embedded
+	private CreatedByEntity createdByEntity;
+
+	@LastModifiedBy
+	@AssociationOverrides({
+			@AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "LAST_MODIFIED_BY"))
+	})
+	@AttributeOverrides({
+			@AttributeOverride(name = "user", column = @Column(name = "LAST_MODIFIED_BY")),
+			@AttributeOverride(name = "nickname", column = @Column(name = "LAST_MODIFIED_NICKNAME", length = 60))
+	})
+	@Embedded
+	private ModifiedByEntity modifiedByEntity;
 
 	@Transient
     private String ip;

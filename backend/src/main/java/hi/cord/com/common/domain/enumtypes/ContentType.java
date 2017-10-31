@@ -1,14 +1,14 @@
-package hi.cord.com.jpa2.board.domain;
+package hi.cord.com.common.domain.enumtypes;
 
-public enum BoardType {
+public enum ContentType {
 	//향후 더 추가예정 /PathVariable에 쓸 수 있는 객체들을 사용한다.
 	Notice("notice"),
-	QnA("qna"),
-	Freeboard("freeboard");
+	Qna("qna"),
+	Essay("essay");
 	
 	private String type;
 	
-	private BoardType(String type){
+	private ContentType(String type){
 		this.type=type;
 	}
 	

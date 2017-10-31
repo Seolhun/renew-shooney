@@ -1,6 +1,6 @@
 package hi.cord.com.jpa.user.servie.user;
 
-import hi.cord.com.common.domain.CommonState;
+import hi.cord.com.common.domain.enumtypes.CommonState;
 import hi.cord.com.jpa.user.domain.user.User;
 import hi.cord.com.jpa.user.domain.user.UserRepository;
 import org.slf4j.Logger;
@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,12 +33,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public User findByIdx(long idx) {
+		return null;
+	}
+
+	@Override
 	public boolean deleteById(String id) {
 		return false;
 	}
 
 	@Override
 	public boolean deleteById(long id) {
+		return false;
+	}
+
+	@Override
+	public boolean deleteByIdx(long idx) {
 		return false;
 	}
 

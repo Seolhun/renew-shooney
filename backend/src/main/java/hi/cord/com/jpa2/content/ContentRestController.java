@@ -1,8 +1,8 @@
-package hi.cord.com.jpa2.board;
+package hi.cord.com.jpa2.content;
 
 import hi.cord.com.common.service.CommonService;
-import hi.cord.com.jpa2.board.domain.Board;
-import hi.cord.com.jpa2.board.service.BoardService;
+import hi.cord.com.jpa2.content.domain.Content;
+import hi.cord.com.jpa2.content.service.ContentService;
 import hi.cord.com.jpa2.comment.service.CommentService;
 import hi.cord.com.jpa2.file.service.FileDataService;
 import org.slf4j.Logger;
@@ -23,53 +23,53 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class BoardRestController {
-    static final Logger LOG = LoggerFactory.getLogger(BoardRestController.class);
+public class ContentRestController {
+    static final Logger LOG = LoggerFactory.getLogger(ContentRestController.class);
 
-    private BoardService boardService;
+    private ContentService contentService;
     private CommonService commonService;
     private CommentService commentService;
     private FileDataService fileDataService;
 
     @Autowired
-    public BoardRestController(BoardService boardService, CommonService commonService, CommentService commentService, FileDataService fileDataService) {
-        this.boardService = boardService;
+    public ContentRestController(ContentService contentService, CommonService commonService, CommentService commentService, FileDataService fileDataService) {
+        this.contentService = contentService;
         this.commonService = commonService;
         this.commentService = commentService;
         this.fileDataService = fileDataService;
     }
 
     /**
-     * Board insert response entity.
+     * Content insert response entity.
      *
-     * @param board the board
+     * @param content the content
      * @param auth  the auth
      * @return AjaxResult ajax result
      *
      * @throws Exception the exception
      */
     @PostMapping(value = "/{nickname}/board")
-    public ResponseEntity insert(@PathVariable String nickname, @RequestBody Board board, Authentication auth) throws Exception {
-        if (board == null) {
+    public ResponseEntity insert(@PathVariable String nickname, @RequestBody Content content, Authentication auth) throws Exception {
+        if (content == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This is Null");
         }
 
         //게시판 저장.
-        boardService.insert(board);
+        contentService.insert(content);
         return ResponseEntity.status(HttpStatus.OK).body("Success");
     }
 
     /**
      * Find all list.
      *
-     * @param board the board
+     * @param content the content
      * @return the list
      *
      * @throws Exception the exception
      */
     @GetMapping(value = {"/board"})
-    public Page<Board> findAll(Board board) throws Exception {
-        Page<Board> boardPage = boardService.findByPage(board, new PageRequest(0, 10));
+    public Page<Content> findAll(Content content) throws Exception {
+        Page<Content> boardPage = contentService.findByPage(content, new PageRequest(0, 10));
         return boardPage;
     }
 
@@ -77,34 +77,34 @@ public class BoardRestController {
     /**
      * Find one board.
      *
-     * @param boardId the board id
+     * @param contentId the board id
      * @return the board
      *
      * @throws Exception the exception
      */
-    @GetMapping(value = "/board/{boardId}")
-    public Board findOne(@PathVariable long boardId) throws Exception {
-        Board dbBoard = boardService.findById(boardId);
-        return dbBoard;
+    @GetMapping(value = "/board/{contentId}")
+    public Content findOne(@PathVariable long contentId) throws Exception {
+        Content dbContent = contentService.findById(contentId);
+        return dbContent;
     }
 
     /**
      * Update response entity.
      *
      * @param nickname the nickname
-     * @param boardId  the board id
-     * @param board    the board
+     * @param contentId  the content id
+     * @param content    the content
      * @return the response entity
      */
-    @PutMapping(value = {"/{nickname}/{boardId}"})
-    public ResponseEntity update(@PathVariable String nickname, @PathVariable long boardId, @Valid Board board) {
+    @PutMapping(value = {"/{nickname}/{contentId}"})
+    public ResponseEntity update(@PathVariable String nickname, @PathVariable long contentId, @Valid Content content) {
         return ResponseEntity.status(HttpStatus.OK).body("Fail");
     }
 
     /*----------- end 댓글 ---------------------------------------------------------------------*/
-    private boolean checkHitCookie(Board board, HttpServletRequest request, HttpServletResponse response) {
+    private boolean checkHitCookie(Content content, HttpServletRequest request, HttpServletResponse response) {
         boolean validHit = false;
-        long id = board.getId();
+        String id = content.getId();
         String[] tableNames = request.getRequestURI().split("/");
         String tableName = tableNames[2];
         tableName = commonService.buildSHA256(tableName).substring(0, 5);

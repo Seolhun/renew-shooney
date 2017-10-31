@@ -1,6 +1,6 @@
 package hi.cord.com.mongo.controller.news;
 
-import hi.cord.com.common.domain.Pagination;
+import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.mongo.domain.news.NewsData;
 import hi.cord.com.mongo.domain.sequence.CustomSequence;
 import hi.cord.com.mongo.service.news.NewsDataService;
@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,11 +1,11 @@
-package hi.cord.com.jpa2.board.service;
+package hi.cord.com.jpa2.content.service;
 
 import hi.cord.com.common.service.rest.CommonRestService;
-import hi.cord.com.jpa2.board.domain.Board;
+import hi.cord.com.jpa2.content.domain.Content;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(propagation=Propagation.REQUIRED, transactionManager="shunTransactionManager", noRollbackFor={NullPointerException.class})
-public interface BoardService extends CommonRestService<Board>{
+public interface ContentService extends CommonRestService<Content>{
 
 }
