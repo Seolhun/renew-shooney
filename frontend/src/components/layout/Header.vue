@@ -1,44 +1,39 @@
 <template>
-  <header class="header toolbar-shadow">
-    <div class="header-wrap row">
-      <a href="#" id="menu-open" class="menu-open header-btn i-menu hide-after-lg"></a>
-      <div class="header-logo">
-        <router-link :to="'/'" class="header-logo-link">
-          <img src="../../assets/img/logo3.png" alt="Site Logo">
-        </router-link>
-      </div>
-
-
-      <nav class="header-navigation">
-        <ul class="header-navigation-wrap u-unstyled header-show">
-          <li>
-            <a class="navigation-link nav-toggle active" aria-hidden="false">
-            </a>
-          </li>
-        </ul>
-        <ul class="header-navigation-wrap u-unstyled header-hide">
-          <li>
-            <router-link :to="'blog'" class="navigation-link">Blog</router-link>
-          </li>
-
-          <li>
-            <router-link :to="'nlp'" class="navigation-link">NLP</router-link>
-          </li>
-
-          <!--
-          <li>
-            <router-link :to="{ path: 'register', query: { plan: 'private' }}" class="navigation-link">
-              회원가입
+  <header id="header container row" class="header header-shadow-box">
+    <div class="container">
+      <div class="el-row">
+        <div class="header-wrap el-col-sm-24">
+          <a href="#" id="menu-open" class="menu-open header-btn i-menu hide-after-lg"></a>
+          <div class="header-logo">
+            <router-link :to="'/'" class="header-logo-link">
+              <img src="../../assets/img/logo3.png" alt="Site Logo">
             </router-link>
-          </li>
-          -->
-        </ul>
-      </nav>
+          </div>
 
-      <a href="#" id="search-btn" class="search-btn header-btn hide-after-md i-close i-search"></a>
+          <nav class="header-navigation">
+            <!---->
+            <ul class="header-navigation-wrap u-unstyled header-show">
+              <li>
+                <a class="navigation-link nav-toggle active" aria-hidden="false">
 
-      <div class="header-social hide-before-lg">
+                </a>
+              </li>
+            </ul>
+            <!-- Web -->
+            <ul class="header-navigation-wrap u-unstyled header-hide">
+              <router-link class="navigation-link" tag="li" :to="'notice'">Notice</router-link>
+              <router-link class="navigation-link" tag="li" :to="'supporters'">Supporters</router-link>
+              <router-link class="navigation-link" tag="li" :to="'blog'">Blog</router-link>
+              <router-link class="navigation-link" tag="li" :to="'aboutme'">About Me</router-link>
+            </ul>
+          </nav>
 
+          <a href="#" id="search-btn" class="search-btn header-btn hide-after-md i-close i-search"></a>
+
+          <div class="header-social hide-before-lg">
+
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -46,7 +41,7 @@
 
 <script>
   export default {
-    name: 'header-menu'
+    name: 'headerMenu'
   }
 </script>
 

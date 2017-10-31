@@ -5,17 +5,35 @@
         <div class="col-sm-6 col-xs-12 footer-header">
           <h4>Company</h4>
           <ul class="footer-header-a">
-            <li><a href="/company/about/">About</a></li>
-            <li><a href="/company/blog/">Blog</a></li>
-            <li><a href="/legal/terms/">Legal</a></li>
+            <li>
+              <router-link :to="'notice'" class="navigation-link">Notice</router-link>
+            </li>
+            <li>
+              <router-link :to="'supporters'" class="navigation-link">Supporters</router-link>
+            </li>
+            <li>
+              <router-link :to="'blog'" class="navigation-link">Blog</router-link>
+            </li>
+            <li>
+              <router-link :to="'aboutme'" class="navigation-link">About Me</router-link>
+            </li>
           </ul>
         </div>
         <div class="col-sm-6 col-xs-12 footer-header">
           <h4>Products</h4>
           <ul class="footer-header-a">
-            <li class="footer-header-a"><a href="/products/compute/">Compute</a></li>
-            <li><a href="/products/storage/">Storage</a></li>
-            <li><a href="/products/teams/">Teams</a></li>
+            <li>
+              <router-link :to="'notice'" class="navigation-link">Notice</router-link>
+            </li>
+            <li>
+              <router-link :to="'supporters'" class="navigation-link">Supporters</router-link>
+            </li>
+            <li>
+              <router-link :to="'blog'" class="navigation-link">Blog</router-link>
+            </li>
+            <li>
+              <router-link :to="'aboutme'" class="navigation-link">About Me</router-link>
+            </li>
           </ul>
         </div>
       </div>
@@ -25,7 +43,7 @@
 
 <script>
   export default {
-    name: 'footer-menu'
+    name: 'footerMenu'
   }
 </script>
 

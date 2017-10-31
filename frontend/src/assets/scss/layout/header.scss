@@ -6,7 +6,6 @@
   position: relative;
   right: 0;
   z-index: 50;
-  border-bottom: solid $light-gray 1px;
 }
 
 /* ------------------------
@@ -17,8 +16,6 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding-left: .9375rem;
-  padding-right: .9375rem;
   position: relative;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -82,12 +79,17 @@
 }
 
 .nav-toggle:before {
-  color: $fc-color; /* Edit this to change the icon color */
-  font: normal 55px/55px "responsivenav"; /* Edit font-size (28px) to change the icon size */
+  /* Edit this to change the icon color */
+  color: $fc-color;
+  /* Edit font-size (28px) to change the icon size */
+  font: normal 55px/55px "responsivenav";
   text-transform: none;
   text-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   position: absolute;
-  content: "\2261"; /* Hamburger icon */
+  /* Hamburger icon */
+  content: "\2261";
   text-indent: 0;
   speak: none;
   width: 100%;
@@ -104,6 +106,7 @@
   visibility: hidden;
 }
 
+// To Open header menu - When Media-small size
 @media screen and (max-width: $media-small) {
   .header-hide {
     display: none;
@@ -119,12 +122,18 @@
 
 .header-navigation .navigation-link {
   border-bottom: 2px solid transparent;
-  font-weight: 400;
+  font-weight: 300;
   margin: 0;
-  padding: 0 1rem;
+  padding: 0 30px;
   -webkit-transition: color .2s;
   transition: color .2s;
-  font-size: .875rem;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.router-link-active {
+  font-weight: 500;
+  color: $fc-color;
 }
 
 .header a {
@@ -137,9 +146,16 @@
   text-decoration: none;
   -webkit-box-align: center;
   -ms-flex-align: center;
-
   &:hover {
     color: $sub-fc-color-hover;
     font-weight: bold;
   }
+}
+
+
+/* ------------------------
+  Local Custom Class CSS
+------------------------ */
+.header-shadow-box {
+  box-shadow: -10px -10px 10px 10px $gray;
 }
