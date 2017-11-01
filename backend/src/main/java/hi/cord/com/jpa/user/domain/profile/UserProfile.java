@@ -2,6 +2,8 @@ package hi.cord.com.jpa.user.domain.profile;
 
 import hi.cord.com.common.domain.entity.CreatedByEntity;
 import hi.cord.com.common.domain.entity.ModifiedByEntity;
+import hi.cord.com.jpa.user.domain.privilege.ProfilePrivilege;
+import hi.cord.com.jpa.user.domain.privilege.ProfilePrivilegeType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +14,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The type User profile.
@@ -26,15 +30,24 @@ import java.io.Serializable;
 public class UserProfile implements Serializable {
     private static final long serialVersionUID = 3788477180129427170L;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PROFILE_ID")
     private long id;
 
-    @Column(name = "PROFILE_TYPE", length = 10, unique = true, nullable = false)
+    @Column(name = "PROFILE_TYPE", length = 20, unique = true, nullable = false)
     @Enumerated(EnumType.STRING)
     private UserProfileType type;
+
+    // User, How many have Privileges.
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "TB_PROFILE_REFER_PRIVILEGE",
+            foreignKey = @ForeignKey(name = "FK_PROFILE_ID"),
+            joinColumns = {@JoinColumn(name = "PROFILE_ID") },
+            inverseForeignKey = @ForeignKey(name = "FK_PRIVILEGE_ID"),
+            inverseJoinColumns = {@JoinColumn(name = "PRIVILEGE_ID") })
+    private Set<ProfilePrivilege> profiles = new HashSet<>();
+
 
     @CreatedBy
     @AssociationOverrides({
@@ -61,7 +74,7 @@ public class UserProfile implements Serializable {
     @PostConstruct
     private void init() {
         if (type == null) {
-            type = UserProfileType.PLAYER;
+            type = UserProfileType.GUEST;
         }
     }
 }

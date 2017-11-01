@@ -1,4 +1,4 @@
-package hi.cord.com.common.domain.enumtypes;
+package hi.cord.com.jpa2.content.domain;
 
 public enum ContentType {
 	//향후 더 추가예정 /PathVariable에 쓸 수 있는 객체들을 사용한다.

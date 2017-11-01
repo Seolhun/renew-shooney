@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface CommonRestService<E> {
+public interface AbstractRestService<E> {
     E insert(E e);
 
     List<E> findByList();
@@ -14,9 +14,10 @@ public interface CommonRestService<E> {
 
     E findById(String id);
 
-    E findById(long id);
-
+    // If you use String id, add long idx
     E findByIdx(long idx);
+
+    E findById(long id);
 
     boolean deleteById(String id);
 

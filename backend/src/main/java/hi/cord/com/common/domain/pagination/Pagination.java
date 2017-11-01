@@ -3,15 +3,18 @@ package hi.cord.com.common.domain.pagination;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @ToString
 public class Pagination<E> implements Serializable {
-    private E e;
+    private List<E> list;
+    private Page<E> page;
 
     /** For Pagination Field */
     // current Page
@@ -41,17 +44,5 @@ public class Pagination<E> implements Serializable {
         this.pageIndex = pageIndex;
         this.totalCount = totalCount;
         this.pageSize = pageSize;
-    }
-
-    public Pagination(E e, int pageIndex, long totalCount, int pageSize) {
-        this.e = e;
-        this.pageIndex = pageIndex;
-        this.totalCount = totalCount;
-        this.pageSize = pageSize;
-    }
-
-    private Pagination paging() {
-
-        return this;
     }
 }

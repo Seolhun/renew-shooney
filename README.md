@@ -65,4 +65,4 @@
 
 ---
 ## Simple Architecture
-<img src="readme/architecture.png" width="900" height="600">
+<img src="readme/B_architecture.png" width="900" height="600">

@@ -43,7 +43,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
         for (UserProfile userProfile : user.getProfiles()) {
-            LOG.info("param - UserProfile : {}", userProfile.toString());
+            LOG.info("param - ProfilePrivilege : {}", userProfile.toString());
             authorities.add(new SimpleGrantedAuthority("ROLE_" + userProfile.getType()));
         }
 

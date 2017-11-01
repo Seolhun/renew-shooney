@@ -23,7 +23,7 @@ public class RoleToUserProfileConverter implements Converter<Object, UserProfile
 	}
 
 	/**
-	 * Gets UserProfile by Id
+	 * Gets ProfilePrivilege by Id
 	 * 
 	 * @see Converter#convert(Object)
 	 */
