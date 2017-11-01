@@ -92,7 +92,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	@Override
-	public UserProfile update(UserProfile userProfile) {
+	public UserProfile updateById(UserProfile userProfile) {
 		return null;
 	}
 

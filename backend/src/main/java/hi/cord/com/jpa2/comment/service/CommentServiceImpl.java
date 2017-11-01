@@ -72,7 +72,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public Comment update(Comment comment) {
+	public Comment updateById(Comment comment) {
 		Comment dbComment = commentRepository.findById(comment.getId());
 		String createdBy=dbComment.getCreatedByEntity().getNickname();
 		String modifyBy=comment.getModifiedByEntity().getNickname();

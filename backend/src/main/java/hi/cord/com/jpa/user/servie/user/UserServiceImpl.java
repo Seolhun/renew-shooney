@@ -64,6 +64,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public User updateByNickname(User user) {
+		LOG.info("param : update : {} ", user.toString());
+		User dbUser = userRepository.findByNickname(user.getNickname());
+		if (dbUser != null) {
+			dbUser.setName(user.getName());
+		}
+		return user;
+	}
+
+	@Override
 	public User insert(User user) {
 		LOG.info("param : save : {} ", user.toString());
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -87,14 +97,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User update(User user) {
-		LOG.info("param : update : {} ", user.toString());
+	public User updateById(User user) {
 		User dbUser = userRepository.findByEmail(user.getEmail());
-		if (dbUser != null) {
-			dbUser.setName(user.getName());
+		if (dbUser == null) {
+			return null;
 		}
+
+		dbUser.setName(user.getName());
 		return user;
 	}
+
+
 
 	@Override
 	public long count(User user) {

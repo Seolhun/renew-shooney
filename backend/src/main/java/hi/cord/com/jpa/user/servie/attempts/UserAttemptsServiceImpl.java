@@ -77,7 +77,7 @@ public class UserAttemptsServiceImpl implements UserAttemptsService {
 	}
 
 	@Override
-	public UserAttempts update(UserAttempts userAttempts) {
+	public UserAttempts updateById(UserAttempts userAttempts) {
 		LOG.info("param : update"+userAttempts.toString());
 		UserAttempts dbAttempts = userAttemptsRepository.findByEmail(userAttempts.getEmail());
 		if (dbAttempts != null) {

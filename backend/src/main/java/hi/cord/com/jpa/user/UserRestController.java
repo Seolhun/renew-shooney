@@ -53,7 +53,6 @@ public class UserRestController {
      */
     @PostMapping("")
     public ResponseEntity save(@RequestBody User user, BindingResult bindingResult) {
-        String mapping = "views/user/user-signup";
         String email = user.getEmail();
         String nickname = user.getNickname();
         String userAddress = user.getCommonAddress().getAddress();
@@ -89,19 +88,31 @@ public class UserRestController {
 
     @GetMapping("/{nickname}")
     public ResponseEntity findOne(@PathVariable String nickname) {
+        User user = userService.findByNickname(nickname);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found " + nickname);
+        }
 
-        return ResponseEntity.status(HttpStatus.OK).body("Success");
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @PutMapping("/{nickname}")
-    public ResponseEntity updated(@PathVariable String nickname) {
+    public ResponseEntity updated(@RequestBody User user, @PathVariable String nickname) {
+        User dbUser = userService.updateByNickname(user);
+        if (dbUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found " + nickname);
+        }
 
-        return ResponseEntity.status(HttpStatus.OK).body("Success");
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @DeleteMapping("/{nickname}")
     public ResponseEntity delete(@PathVariable String nickname) {
+        User dbUser = userService.deleteByNickname(nickname);
+        if (dbUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found " + nickname);
+        }
 
-        return ResponseEntity.status(HttpStatus.OK).body("Success");
+        return ResponseEntity.status(HttpStatus.OK).body(dbUser.getNickname() + " is removed");
     }
 }

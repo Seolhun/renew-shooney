@@ -78,7 +78,7 @@ public class NewsDataServiceImpl implements NewsDataService {
     }
 
     @Override
-    public NewsData update(NewsData newsData) {
+    public NewsData updateById(NewsData newsData) {
         NewsData dbNews = this.findById(newsData.getId());
         if (dbNews != null)
             newsData.setModifiedDate(new Date());

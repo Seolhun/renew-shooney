@@ -84,7 +84,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Content update(Content content) {
+    public Content updateById(Content content) {
         Content dbContent = contentRepository.findById(content.getId());
         if (dbContent != null) {
             dbContent.setTitle(content.getTitle());

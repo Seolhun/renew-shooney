@@ -25,7 +25,7 @@ public interface AbstractRestService<E> {
 
     boolean deleteByIdx(long idx);
 
-    E update(E e);
+    E updateById(E e);
 
     long count(E e);
 }

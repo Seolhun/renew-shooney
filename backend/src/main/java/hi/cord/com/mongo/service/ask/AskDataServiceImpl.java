@@ -90,7 +90,7 @@ public class AskDataServiceImpl implements AskDataService {
     }
 
     @Override
-    public AskData update(AskData askData) {
+    public AskData updateById(AskData askData) {
         AskData dbAsk = this.findById(askData.getId());
         if (dbAsk != null)
             askData.setModifiedDate(new Date());

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class FileDataServiceImpl implements FileDataService {
 	protected FileDataRepository fileDataRepository;
 
 	@Override
-	public FileData update(FileData fileData) {
+	public FileData updateById(FileData fileData) {
 		LOG.info("param : "+fileData.toString());
 		FileData dbFileData = fileDataRepository.findById(fileData.getId());
 		LOG.info("return : "+dbFileData);
