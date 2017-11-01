@@ -39,27 +39,6 @@ server:
   address: 192.168.0.3
   port: 5000
 ---
-#########################
-#### Custom Database ####
-#########################
-shun:
-  # MariaDB2
-  datasource:
-    url: jdbc:mysql://${server.commonAddress}:3306/shooney_common
-    username: developer
-    password: developer@
-    driver-class-name: com.mysql.jdbc.Driver
-    initialize: true
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    # If This false Not workign ddl-auto
-    generate-ddl: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
----
 ######################
 #### Spring       ####
 ######################
@@ -152,3 +131,36 @@ logging:
 #      clientAuthenticationScheme: form
 #    resource:
 #      userInfoUri: https://graph.facebook.com/me
+
+---
+#############################
+#### Custom TaskExecutor ####
+#############################
+shun:
+  thread:
+    timeout: 2
+    core-size: 10
+    max-pool: 20
+    queue-capacity: 25
+---
+#########################
+#### Custom Database ####
+#########################
+shun:
+  # MariaDB2
+  datasource:
+    url: jdbc:mysql://${server.commonAddress}:3306/shooney_common
+    username: developer
+    password: developer@
+    driver-class-name: com.mysql.jdbc.Driver
+    initialize: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    # If This false Not workign ddl-auto
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+---
