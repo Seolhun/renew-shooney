@@ -21,9 +21,9 @@ public class FileDataServiceImpl implements FileDataService {
 
 	@Override
 	public FileData updateById(FileData fileData) {
-		LOG.info("param : "+fileData.toString());
+		LOG.debug("p : "+fileData.toString());
 		FileData dbFileData = fileDataRepository.findById(fileData.getId());
-		LOG.info("return : "+dbFileData);
+		LOG.debug("r : "+dbFileData);
 		if (dbFileData != null) {
 			dbFileData.setFileDataSavedPath(fileData.getFileDataSavedPath());
 			dbFileData.setFileDataOriginName(fileData.getFileDataOriginName());
@@ -40,7 +40,7 @@ public class FileDataServiceImpl implements FileDataService {
 
 	@Override
 	public FileData insert(FileData fileData) {
-		LOG.info("param : "+fileData.toString());
+		LOG.debug("p : "+fileData.toString());
 		return fileDataRepository.save(fileData);
 	}
 

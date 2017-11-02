@@ -16,17 +16,22 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity(name = "TB_FILE_DATA")
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
 @Getter
 @Setter
-public class FileData extends BaseEntity {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"IDX", "CREATED_NICKNAME"}))
+public class FileData extends BaseEntity implements Serializable {
 	@Id
+	@Column(name = "FILE_ID", length = 120)
+	private String id;
+
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="FILE_ID")
-	private long id;
+	@Column(name = "IDX")
+	private long idx;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.DETACH)
 	@JoinColumn(foreignKey = @ForeignKey(name = "FILE_CONTENT_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID", nullable = false)

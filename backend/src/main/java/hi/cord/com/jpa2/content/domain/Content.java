@@ -37,6 +37,9 @@ public class Content extends BaseEntity implements Serializable {
     @Column(name = "IDX")
     private long idx;
 
+//    @OneToMany(mappedBy = "contentInContent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Tag> tags;
+
     @NotEmpty
     @Column(name = "TITLE", nullable = false, length = 200)
     private String title;
@@ -62,6 +65,7 @@ public class Content extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "contentInContent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
 
+    //Image, Stream
     @OneToMany(mappedBy = "contentInFile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FileData> files;
 

@@ -46,7 +46,7 @@ public class AskDataRestController {
      */
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<AskData> postAsk(@PathVariable String version) {
-        LOG.info("param : postAsk {}", version);
+        LOG.debug("p  : postAsk {}", version);
 
         CustomSequence sequence = sequenceService.findByKey(SEQ_KEY);
         askDataService.getAskThread(sequence.getId()).start();
@@ -62,7 +62,7 @@ public class AskDataRestController {
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<Page<AskData>> getAskList(@PathVariable String version, AskData askData) {
-        LOG.info("param : getAskList {}", version);
+        LOG.debug("p  : getAskList {}", version);
 
         Page<AskData> askDatas = askDataService.findByPage(askData, new PageRequest(0, 10));
         return new ResponseEntity<>(askDatas, HttpStatus.OK);
@@ -77,7 +77,6 @@ public class AskDataRestController {
      */
     @RequestMapping(value = "{idx}", method = RequestMethod.POST)
     public ResponseEntity<NewsData> saveNewsByIdx(@PathVariable String version, @PathVariable long idx) {
-        LOG.info("where : saveNews");
         askDataService.getAskThread(idx).start();
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -91,7 +90,7 @@ public class AskDataRestController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<AskData> getAsk(@PathVariable String version, @PathVariable String id) {
-        LOG.info("param : getAsk {}", id);
+        LOG.debug("p  : getAsk {}", id);
 
         AskData askData = askDataService.findById(id);
         return new ResponseEntity<>(askData, HttpStatus.OK);
@@ -106,8 +105,6 @@ public class AskDataRestController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<AskData> updateAsk(@PathVariable String version, @PathVariable String id) {
-        LOG.info("where : saveNews");
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

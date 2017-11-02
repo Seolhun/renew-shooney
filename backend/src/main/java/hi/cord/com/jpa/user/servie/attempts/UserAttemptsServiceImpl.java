@@ -24,7 +24,7 @@ public class UserAttemptsServiceImpl implements UserAttemptsService {
 
 	@Override
 	public UserAttempts insert(UserAttempts userAttempts) {
-		LOG.info("param : insert {}", userAttempts.toString());
+		LOG.debug("p : insert {}", userAttempts.toString());
 		userAttemptsRepository.save(userAttempts);
 		return userAttempts;
 	}
@@ -46,7 +46,7 @@ public class UserAttemptsServiceImpl implements UserAttemptsService {
 
 	@Override
 	public UserAttempts findById(long id) {
-		LOG.info("param : findById", id);
+		LOG.debug("p : findById", id);
 		return userAttemptsRepository.findById(id);
 	}
 
@@ -72,13 +72,13 @@ public class UserAttemptsServiceImpl implements UserAttemptsService {
 
 	@Override
 	public UserAttempts findByEmail(String email) {
-		LOG.info("param : findByEmail {}", email);
+		LOG.debug("p : findByEmail {}", email);
 		return userAttemptsRepository.findByEmail(email);
 	}
 
 	@Override
 	public UserAttempts updateById(UserAttempts userAttempts) {
-		LOG.info("param : update"+userAttempts.toString());
+		LOG.debug("p : update"+userAttempts.toString());
 		UserAttempts dbAttempts = userAttemptsRepository.findByEmail(userAttempts.getEmail());
 		if (dbAttempts != null) {
 			if(!(userAttempts.isSuccess())) {

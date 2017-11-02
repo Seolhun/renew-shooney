@@ -28,9 +28,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         try {
             User user = userService.findByEmail(email);
-            LOG.info("param - User : {}", user);
+            LOG.debug("p : User : {}", user);
             if (user == null) {
-                LOG.info("User not found");
                 throw new UsernameNotFoundException("User not found");
             }
             return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getState() == (CommonState.ACTIVE), true, true, true, getGrantedAuthorities(user));
@@ -43,11 +42,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
         for (UserProfile userProfile : user.getProfiles()) {
-            LOG.info("param - ProfilePrivilege : {}", userProfile.toString());
+            LOG.debug("p : ProfilePrivilege : {}", userProfile.toString());
             authorities.add(new SimpleGrantedAuthority("ROLE_" + userProfile.getType()));
         }
-
-        LOG.info("authorities : {}", authorities);
         return authorities;
     }
 

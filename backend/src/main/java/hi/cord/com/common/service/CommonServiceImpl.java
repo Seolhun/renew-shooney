@@ -150,7 +150,7 @@ public class CommonServiceImpl implements CommonService {
         String fromDateStr = format.format(today);
         today = format.parse(fromDateStr);
         Timestamp fromStamp = new java.sql.Timestamp(today.getTime());
-        LOG.info("return : convertDateToday {}", fromStamp);
+        LOG.debug("r : convertDateToday {}", fromStamp);
         return fromStamp;
     }
 
@@ -162,7 +162,7 @@ public class CommonServiceImpl implements CommonService {
         String toDateStr = format.format(toDate);
         toDate = format.parse(toDateStr);
         Timestamp toStamp = new java.sql.Timestamp(toDate.getTime());
-        LOG.info("return : convertDateFormat {}", toStamp);
+        LOG.debug("r : convertDateFormat {}", toStamp);
         return toStamp;
     }
 
@@ -362,7 +362,7 @@ public class CommonServiceImpl implements CommonService {
             String jsonStr;
             while ((jsonStr = bufferedReader.readLine()) != null) {
                 jsonObject = parser.parse(jsonStr).getAsJsonObject();
-                LOG.info("return API output : {}", jsonObject);
+                LOG.debug("r API output : {}", jsonObject);
             }
         } catch (IOException e) {
             e.printStackTrace();

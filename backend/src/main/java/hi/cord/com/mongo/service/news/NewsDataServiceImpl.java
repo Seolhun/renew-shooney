@@ -104,14 +104,13 @@ public class NewsDataServiceImpl implements NewsDataService {
 
     @Override
     public Thread getNewsThread(long id) {
-        LOG.info("param id : {}", id);
+        LOG.debug("p : id = {}", id);
         CustomSequence sequence = new CustomSequence(id, "news");
         Thread thread = new Thread(() -> {
             long i = id;
             boolean isRight = true;
-
             while (isRight) {
-                LOG.info("param index : {}", i);
+                LOG.debug("p : index : {}", i);
                 // 리스트 가져오기
                 try {
                     String webSiteName = "";

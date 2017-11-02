@@ -51,7 +51,7 @@ public class NewsDataRestController {
      */
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<NewsData> saveNews(@PathVariable String version, NewsData newsData) {
-        LOG.info("param : saveNews {}", newsData.toString());
+        LOG.debug("p  : saveNews {}", newsData.toString());
 
         CustomSequence customSequence = sequenceService.findByKey("news");
         newsDataService.getNewsThread(customSequence.getId()).start();
@@ -67,7 +67,6 @@ public class NewsDataRestController {
      */
     @RequestMapping(value = "{idx}", method = RequestMethod.POST)
     public ResponseEntity<NewsData> saveNewsByIdx(@PathVariable String version, @PathVariable long idx) {
-        LOG.info("where : saveNews");
         newsDataService.getNewsThread(idx).start();
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -82,7 +81,7 @@ public class NewsDataRestController {
     public ResponseEntity<Page<NewsData>> getNewsListData(Pagination<NewsData> pagination) {
         // 전체 게시판 갯수 확인
         PageRequest pageRequest = new PageRequest(pagination.getPageIndex(), pagination.getPageSize(), Direction.DESC, "idx");
-        Page<NewsData> newsDatas = newsDataService.findByPage(pagination.getE(), pageRequest);
+        Page<NewsData> newsDatas = newsDataService.findByPage(pagination.getElement(), pageRequest);
         return new ResponseEntity<>(newsDatas, HttpStatus.OK);
     }
 
@@ -105,7 +104,7 @@ public class NewsDataRestController {
      */
     @RequestMapping(value = "/stop", method = RequestMethod.GET)
     public ResponseEntity<NewsData> stopThreadNews() {
-        LOG.info("where : stopThreadNews");
+        LOG.debug("where : stopThreadNews");
         stopNewsThread();
         return new ResponseEntity<>(HttpStatus.OK);
     }

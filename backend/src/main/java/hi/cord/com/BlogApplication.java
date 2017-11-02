@@ -25,9 +25,9 @@ public class BlogApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        LOG.info("param : messages : {}", myConfig.getMessage());
-        LOG.info("param : name : {}", myConfig.getName());
-        LOG.info("param : servers : {}", myConfig.getServers());
+        LOG.debug("p : messages : {}", myConfig.getMessage());
+        LOG.debug("p : name : {}", myConfig.getName());
+        LOG.debug("p : servers : {}", myConfig.getServers());
     }
 
     public static void main(String[] args) {

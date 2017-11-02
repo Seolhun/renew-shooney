@@ -39,7 +39,7 @@ public class LimitingDaoAuthenticationProvider extends DaoAuthenticationProvider
             //로그인 시도한 유저정보를 찾기.
             User user = userService.findByEmail(authentication.getName());
             String ip = "127.0.0.1";
-            LOG.info("param : " + user.toString());
+            LOG.debug("p : " + user.toString());
 
             // 로그인 성공 플래그 넣기
             UserAttempts userAttempts = new UserAttempts(user.getEmail(), 0, ip, true);
@@ -59,7 +59,7 @@ public class LimitingDaoAuthenticationProvider extends DaoAuthenticationProvider
 
     // attemp 테이블에 몇번 시도했는지를 넣고, 5회 이상이 되면 state를 locked으로 변경하면 된다.
     private void insertFailAttempts(String username) throws BadCredentialsException {
-        LOG.info("param - username : {}" + username);
+        LOG.debug("p  : username : {}" + username);
 
         // 로그인하는 아이디 값으로 유저정보를 담아온다.
         User dbUser = userService.findByEmail(username);
@@ -85,13 +85,13 @@ public class LimitingDaoAuthenticationProvider extends DaoAuthenticationProvider
                 String auth = bCryptPasswordEncoder.encode(dbUser.getEmail());
                 dbUser.setState(CommonState.LOCKED);
                 dbUser.setUserLockedAuth(auth);
-                userService.update(dbUser);
+                userService.updateByNickname(dbUser);
 
 //                // 메일을 보낸다.
 //                try {
 //                    commonService.sendEmailLockingUser(dbUser.getUserEmail(), dbUser.getUserName(), auth, "http://localhost:9000/user/unlock", auth.substring(0, 10));
 //                } catch (IOException e) {
-//                    LOG.info("Sending Email is Error");
+//                    LOG.debug("Sending Email is Error");
 //                }
                 throw new LockedException("5회 이상 비밀번호를 틀려 회원 계정이 잠겼습니다!! 이메일로 확인하세요.");
             }

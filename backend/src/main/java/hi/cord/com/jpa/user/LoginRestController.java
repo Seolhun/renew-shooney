@@ -56,7 +56,6 @@ public class LoginRestController {
      */
     @GetMapping(value = "/login")
     public ResponseEntity loginPage(@RequestParam(value = "error", required = false) String error, HttpServletRequest request) {
-        LOG.info("loginPage");
         if (isCurrentAuthenticationAnonymous()) {
             if (error != null) {
                 Exception exception = (Exception) request.getSession().getAttribute("SPRING_SECURITY_LAST_EXCEPTION");

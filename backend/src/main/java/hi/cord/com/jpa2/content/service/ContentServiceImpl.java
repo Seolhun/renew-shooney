@@ -24,7 +24,7 @@ public class ContentServiceImpl implements ContentService {
 
 	@Override
 	public Content insert(Content content) {
-		LOG.info("param : {}", content.toString());
+		LOG.debug("p  : {}", content.toString());
 		return contentRepository.save(content);
 	}
 
@@ -35,7 +35,7 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public Page<Content> findByPage(Content content, Pageable pageable) {
-        LOG.info("param : "+ content.toString());
+        LOG.debug("p  : "+ content.toString());
         return contentRepository.findAll(pageable);
     }
 
@@ -57,7 +57,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public boolean deleteById(String id) {
         Content dbContent = contentRepository.findById(id);
-        LOG.info("return : "+ dbContent);
+        LOG.debug("r : "+ dbContent);
         if (dbContent == null) {
             return false;
         }
@@ -69,7 +69,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public boolean deleteById(long idx) {
         Content dbContent = contentRepository.findByIdx(idx);
-        LOG.info("return : "+ dbContent);
+        LOG.debug("r : "+ dbContent);
         if (dbContent == null) {
             return false;
         }

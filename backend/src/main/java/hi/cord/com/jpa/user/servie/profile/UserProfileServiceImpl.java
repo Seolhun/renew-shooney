@@ -26,7 +26,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Override
 	public UserProfile findById(int id) {
-		LOG.info("param : findById : {}", id);
+		LOG.debug("p : findById : {}", id);
 		return userProfileRepository.findById(id);
 	}
 
@@ -42,7 +42,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Override
 	public UserProfile findByType(String type) {
-		LOG.info("param : findByType : {}", type);
+		LOG.debug("p : findByType : {}", type);
 		return userProfileRepository.findByType(type);
 	}
 

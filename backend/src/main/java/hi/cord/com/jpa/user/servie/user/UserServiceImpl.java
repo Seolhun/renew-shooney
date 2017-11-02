@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findById(long id) {
-		LOG.info("param : findById : {} ", id);
+		LOG.debug("p : findById : {} ", id);
 		return null;
 	}
 
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findByEmail(String userEmail) {
-		LOG.info("param : findByEmail : {} ", userEmail);
+		LOG.debug("p : findByEmail : {} ", userEmail);
 		return userRepository.findByEmail(userEmail);
 	}
 
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User updateByNickname(User user) {
-		LOG.info("param : update : {} ", user.toString());
+		LOG.debug("p  : update : {} ", user.toString());
 		User dbUser = userRepository.findByNickname(user.getNickname());
 		if (dbUser != null) {
 			dbUser.setName(user.getName());
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User insert(User user) {
-		LOG.info("param : save : {} ", user.toString());
+		LOG.debug("p : save : {} ", user.toString());
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setState(CommonState.ACTIVE);
 		return userRepository.save(user);
@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User deleteByEmail(String userEmail) {
-		LOG.info("param : deleteUserByEmail : {} ", userEmail);
+		LOG.debug("p : deleteUserByEmail : {} ", userEmail);
 		return userRepository.deleteByEmail(userEmail);
 	}
 

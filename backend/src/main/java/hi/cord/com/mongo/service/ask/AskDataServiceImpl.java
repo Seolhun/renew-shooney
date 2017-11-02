@@ -112,7 +112,7 @@ public class AskDataServiceImpl implements AskDataService {
 
             boolean isRight = true;
             while (isRight) {
-                LOG.info("param index : {}", i);
+                LOG.debug("p  index : {}", i);
                 // 리스트 가져오기
                 String webSiteName = "okky";
                 String address = AskWebSite.OKKY.getAddress();
@@ -156,7 +156,6 @@ public class AskDataServiceImpl implements AskDataService {
                     errorCount++;
                     //Continuous 10 happen error, Stop Thread
                     if (errorCount > 50) {
-                        LOG.info("test End");
                         isRight = false;
                     }
                 }

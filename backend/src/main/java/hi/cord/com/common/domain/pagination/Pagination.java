@@ -13,8 +13,9 @@ import java.util.List;
 @Setter
 @ToString
 public class Pagination<E> implements Serializable {
-    private List<E> list;
-    private Page<E> page;
+    private E element;
+    private List<E> elementList;
+    private Page<E> elementPage;
 
     /** For Pagination Field */
     // current Page

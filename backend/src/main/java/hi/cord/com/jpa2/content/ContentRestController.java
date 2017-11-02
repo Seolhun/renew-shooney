@@ -20,12 +20,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 /**
  * The type Content rest controller.
  */
+@RequestMapping("/content")
 @RestController
 public class ContentRestController {
     static final Logger LOG = LoggerFactory.getLogger(ContentRestController.class);
@@ -44,64 +46,77 @@ public class ContentRestController {
     }
 
     /**
-     * Cretae response entity.
+     * Find all response entity.
      *
-     * @param nickname the nickname
-     * @param content  the content
-     * @param auth     the auth
      * @return the response entity
      */
-    @PostMapping(value = "/{nickname}/content")
-    public ResponseEntity cretae(@PathVariable String nickname, @RequestBody Content content, Authentication auth) {
-        if (content == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This is Null");
-        }
+    @GetMapping("")
+    public ResponseEntity findAll(Content content){
 
-        //게시판 저장.
-        contentService.insert(content);
+
         return ResponseEntity.status(HttpStatus.OK).body("Success");
     }
 
     /**
-     * Find all list.
+     * Save response entity.
      *
-     * @param content the content
-     * @return the list
-     *
-     * @throws Exception the exception
-     */
-    @GetMapping(value = {"/content"})
-    public Page<Content> findAll(Content content) throws Exception {
-        Page<Content> boardPage = contentService.findByPage(content, new PageRequest(0, 10));
-        return boardPage;
-    }
-
-
-    /**
-     * Find one board.
-     *
-     * @param contentId the board id
-     * @return the board
-     *
-     * @throws Exception the exception
-     */
-    @GetMapping(value = "/content/{contentId}")
-    public Content findOne(@PathVariable long contentId) throws Exception {
-        Content dbContent = contentService.findById(contentId);
-        return dbContent;
-    }
-
-    /**
-     * Update response entity.
-     *
-     * @param nickname the nickname
-     * @param contentId  the content id
-     * @param content    the content
      * @return the response entity
      */
-    @PutMapping(value = {"/{nickname}/{contentId}"})
-    public ResponseEntity update(@PathVariable String nickname, @PathVariable long contentId, @Valid Content content) {
-        return ResponseEntity.status(HttpStatus.OK).body("Fail");
+    @PostMapping("")
+    public ResponseEntity save(Content content){
+        if(content == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"content\" parameter");
+        }
+        List<String> images = commonService.extractImgSrc(content.getContent());
+        for (String img:images) {
+            //Convert Img > File > return File ID;
+
+        }
+        // Requirement Images >
+
+        contentService.insert(content);
+        LOG.debug("p : save content {}", content.toString());
+        return ResponseEntity.status(HttpStatus.OK).body("Success");
+    }
+
+
+    /**
+     * Find one response entity.
+     *
+     * @return the response entity
+     */
+    @GetMapping("/{nickname}/{contentId}")
+    public ResponseEntity findOne(@PathVariable String nickname, @PathVariable String contentId, Content content){
+        if(content == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"content\" parameter");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body("Success");
+    }
+
+    /**
+     * Updated response entity.
+     *
+     * @return the response entity
+     */
+    @PutMapping("/{nickname}/{contentId}")
+    public ResponseEntity updated(@PathVariable String nickname, @PathVariable String contentId, Content content){
+        if(content == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"content\" parameter");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body("Success");
+    }
+
+    /**
+     * Delete response entity.
+     *
+     * @return the response entity
+     */
+    @DeleteMapping("/{nickname}/{contentId}")
+    public ResponseEntity delete(@PathVariable String nickname, @PathVariable String contentId){
+
+        return ResponseEntity.status(HttpStatus.OK).body("Success");
     }
 
     /*----------- end 댓글 ---------------------------------------------------------------------*/
