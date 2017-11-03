@@ -1,7 +1,7 @@
 package hi.cord.com.jpa2.comment.service;
 
-import hi.cord.com.jpa2.board.domain.Board;
-import hi.cord.com.jpa2.board.domain.BoardRepository;
+import hi.cord.com.jpa2.content.domain.Content;
+import hi.cord.com.jpa2.content.domain.ContentRepository;
 import hi.cord.com.jpa2.comment.domain.Comment;
 import hi.cord.com.jpa2.comment.domain.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,12 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
 	private CommentRepository commentRepository;
-	private BoardRepository boardRepository;
+	private ContentRepository contentRepository;
 	
 	@Autowired
-	public CommentServiceImpl(CommentRepository commentRepository, BoardRepository boardRepository) {
+	public CommentServiceImpl(CommentRepository commentRepository, ContentRepository contentRepository) {
 		this.commentRepository=commentRepository;
-		this.boardRepository = boardRepository;
+		this.contentRepository = contentRepository;
 	}
 	
 	@Override
@@ -52,33 +52,42 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public boolean deleteById(String id) {
+	public Comment findByIdx(long idx) {
+		return null;
+	}
+
+	@Override
+	public boolean deleteById(String id, String accessBy) {
 		return false;
 	}
 
 	@Override
-	public boolean deleteById(long id) {
+	public boolean deleteById(long id, String accessBy) {
 		return false;
 	}
 
 	@Override
-	public Comment update(Comment comment) {
+	public boolean deleteByIdx(long idx, String accessBy) {
+		return false;
+	}
+
+	@Override
+	public Comment updateById(Comment comment, String accessBy) {
 		Comment dbComment = commentRepository.findById(comment.getId());
-		String createdBy=dbComment.getCreatedBy();
-		String modifyBy=comment.getModifiedBy();
-		if(createdBy.equals(modifyBy)){
+		String dbCreatedBy=dbComment.getCreatedByEntity().getNickname();
+		if(dbCreatedBy.equals(accessBy)){
 			if(comment.isActive()){
 				dbComment.setActive(false);
-				Board dbBoard= boardRepository.findById(dbComment.getBoardInComment().getId());
+				Content dbContent = contentRepository.findById(dbComment.getContentInContent().getId());
 				//읽을시 쿠키 읽기
-				if(dbBoard != null){
-					int depth=dbBoard.getDepth();
-					dbBoard.setDepth(depth-1);
+				if(dbContent != null){
+					int depth= dbContent.getDepth();
+					dbContent.setDepth(depth-1);
 				}
 			} else if(comment.getContent()!=null){
 				dbComment.setContent(comment.getContent());
 			}
-			dbComment.setModifiedBy(comment.getModifiedBy());
+			dbComment.setModifiedByEntity(comment.getModifiedByEntity());
 		}
 		return dbComment;
 	}

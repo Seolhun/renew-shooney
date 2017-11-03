@@ -1,13 +1,22 @@
 package hi.cord.com.jpa.user.domain.user;
 
-import hi.cord.com.common.domain.CommonDomainInfo;
-import hi.cord.com.common.domain.CommonState;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import hi.cord.com.common.domain.entity.BaseEntity;
+import hi.cord.com.common.domain.entity.CommonAddress;
+import hi.cord.com.common.domain.entity.CreatedByEntity;
+import hi.cord.com.common.domain.entity.ModifiedByEntity;
+import hi.cord.com.common.domain.enumtypes.CommonState;
+import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.jpa.price.domain.history.PaidHistory;
 import hi.cord.com.jpa.user.domain.profile.UserProfile;
+import hi.cord.com.jpa2.content.domain.Content;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,7 +34,7 @@ import java.util.Set;
 @ToString(callSuper = true)
 @Getter
 @Setter
-public class User extends CommonDomainInfo implements Serializable {
+public class User extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -3474096703802541016L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,9 +47,11 @@ public class User extends CommonDomainInfo implements Serializable {
 	
 	// User, How many have Privileges.
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "TB_PROFILE_REFER", foreignKey = @ForeignKey(name = "REFER_FK"), joinColumns = {
-			@JoinColumn(name = "USER_ID", columnDefinition = "BIGINT(20)") }, inverseForeignKey = @ForeignKey(name = "PROFILE_REFER_FK"), inverseJoinColumns = {
-					@JoinColumn(name = "PROFILE_ID") })
+	@JoinTable(name = "TB_USER_REFER_PROFILE",
+			foreignKey = @ForeignKey(name = "FK_USER_PROFILE_TYPE"),
+			joinColumns = {@JoinColumn(name = "USER_ID", columnDefinition = "BIGINT(20)") },
+			inverseForeignKey = @ForeignKey(name = "FK_PROFILE_REFER"),
+			inverseJoinColumns = {@JoinColumn(name = "PROFILE_ID") })
 	private Set<UserProfile> profiles = new HashSet<>();
 
 	/*
@@ -73,17 +84,20 @@ public class User extends CommonDomainInfo implements Serializable {
 
     @Column(name = "PHONE", length = 60)
     private String phone;
-    /*
-    About Address
-    */
-	@Column(name = "ZIP_CODE", length = 50)
-	private String zipCode;
 
-	@Column(name = "ADDRESS", length = 100)
-	private String address;
-	
-	@Column(name = "NATION_CODE", length = 10)
-	private String nation;
+//    /*
+//    About CommonAddress
+//    */
+//	@Column(name = "ZIP_CODE", length = 50)
+//	private String zipCode;
+//
+//	@Column(name = "ADDRESS", length = 100)
+//	private String commonAddress;
+//
+//	@Column(name = "NATION_CODE", length = 10)
+//	private String nation;
+	@Embedded
+	private CommonAddress commonAddress;
 
 	/*
 	About Point
@@ -138,12 +152,45 @@ public class User extends CommonDomainInfo implements Serializable {
 	*/
 	// User, Boolean account is NON_LOCKED or not.
 	@Column(name = "PRIVATE_AGREE", length = 1, nullable=false)
-	private boolean userPrivateAgree;
+	private boolean pivateAgree;
 	
 	// User, Boolean account is NON_LOCKED or not.
 	@Column(name = "SERVICE_AGREE", length = 1, nullable=false)
-	private boolean userServiceAgree;
+	private boolean serviceAgree;
+
+	@CreatedBy
+	@AssociationOverrides({
+			@AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "CREATED_BY"))
+	})
+	@AttributeOverrides({
+			@AttributeOverride(name = "user", column = @Column(name = "CREATED_BY")),
+			@AttributeOverride(name = "nickname", column = @Column(name = "CREATED_NICKNAME", length = 60))
+	})
+	@Embedded
+	private CreatedByEntity createdByEntity;
+
+	@LastModifiedBy
+	@AssociationOverrides({
+			@AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "LAST_MODIFIED_BY"))
+	})
+	@AttributeOverrides({
+			@AttributeOverride(name = "user", column = @Column(name = "LAST_MODIFIED_BY")),
+			@AttributeOverride(name = "nickname", column = @Column(name = "LAST_MODIFIED_NICKNAME", length = 60))
+	})
+	@Embedded
+	private ModifiedByEntity modifiedByEntity;
+
+	//------------Transient Filed ----------------
+	/**
+	 * Requirement parameter in Entity
+	 */
+	@Transient
+	@JsonSerialize
+	@JsonDeserialize
+	private Pagination<Content> pagination;
 
 	@Transient
-    private String ip;
+	private String ip;
+
+	//------------Entity Filed finished----------------
 }

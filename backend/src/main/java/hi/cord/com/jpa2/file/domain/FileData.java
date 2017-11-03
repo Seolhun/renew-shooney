@@ -2,31 +2,38 @@ package hi.cord.com.jpa2.file.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import hi.cord.com.common.domain.CommonDomainInfo;
-import hi.cord.com.common.domain.Pagination;
-import hi.cord.com.jpa2.board.domain.Board;
+import hi.cord.com.common.domain.entity.BaseEntity;
+import hi.cord.com.common.domain.entity.CreatedByEntity;
+import hi.cord.com.common.domain.entity.ModifiedByEntity;
+import hi.cord.com.common.domain.pagination.Pagination;
+import hi.cord.com.jpa2.content.domain.Content;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity(name = "TB_FILE_DATA")
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
-@Getter
-@Setter
-public class FileData extends CommonDomainInfo{
+@Data
+@Table(uniqueConstraints = @UniqueConstraint(name = "UK_FILE_DATA_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_NICKNAME"}))
+public class FileData extends BaseEntity implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="FILE_ID")
-	private long id;
+	@Column(name = "FILE_ID", length = 120)
+	private String id;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.DETACH)
-	@JoinColumn(foreignKey = @ForeignKey(name = "FILE_BOARD_FK"), name = "BOARD_ID", referencedColumnName = "BOARD_ID", nullable = false)
-	private Board boardInFile;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "IDX")
+	private long idx;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(foreignKey = @ForeignKey(name = "FILE_CONTENT_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID")
+	private Content contentInFile;
 
 	@NotEmpty
 	@Column(name = "FILE_ORIGIN_NAME", nullable = false, length = 100)
@@ -42,8 +49,35 @@ public class FileData extends CommonDomainInfo{
 	@Column(name = " FILE_TYPE", nullable = false, length = 20)
 	private String fileDataType;
 
+	@CreatedBy
+	@AssociationOverrides({
+			@AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "CREATED_BY"))
+	})
+	@AttributeOverrides({
+			@AttributeOverride(name = "user", column = @Column(name = "CREATED_BY")),
+			@AttributeOverride(name = "nickname", column = @Column(name = "CREATED_NICKNAME", length = 60))
+	})
+	@Embedded
+	private CreatedByEntity createdByEntity;
+
+	@LastModifiedBy
+	@AssociationOverrides({
+			@AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "LAST_MODIFIED_BY"))
+	})
+	@AttributeOverrides({
+			@AttributeOverride(name = "user", column = @Column(name = "LAST_MODIFIED_BY")),
+			@AttributeOverride(name = "nickname", column = @Column(name = "LAST_MODIFIED_NICKNAME", length = 60))
+	})
+	@Embedded
+	private ModifiedByEntity modifiedByEntity;
+
+	/**
+	 * Requirement parameter in Entity
+	 */
 	@Transient
 	@JsonSerialize
 	@JsonDeserialize
 	private Pagination<FileData> pagination;
+
+	//------------Entity Filed finished----------------
 }

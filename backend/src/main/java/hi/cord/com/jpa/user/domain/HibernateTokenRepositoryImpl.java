@@ -17,7 +17,7 @@ public class HibernateTokenRepositoryImpl extends AbstractRepository<String, Per
 
 	@Override
 	public void createNewToken(PersistentRememberMeToken token) {
-		LOG.info("Creating Token for user : {}", token.getUsername());
+		LOG.debug("Creating Token for user : {}", token.getUsername());
 		PersistentLogin persistentLogin = new PersistentLogin();
 		persistentLogin.setEmail(token.getUsername());
 		persistentLogin.setSeries(token.getSeries());
@@ -28,7 +28,7 @@ public class HibernateTokenRepositoryImpl extends AbstractRepository<String, Per
 	// persistent Login 부
 	@Override
 	public PersistentRememberMeToken getTokenForSeries(String seriesId) {
-		LOG.info("Fetch Token if any for seriesId : {}", seriesId);
+		LOG.debug("Fetch Token if any for seriesId : {}", seriesId);
 		try {
 			Criteria crit = createEntityCriteria();
 			crit.add(Restrictions.eq("series", seriesId));
@@ -36,26 +36,26 @@ public class HibernateTokenRepositoryImpl extends AbstractRepository<String, Per
 
 			return new PersistentRememberMeToken(persistentLogin.getEmail(), persistentLogin.getSeries(), persistentLogin.getToken(), persistentLogin.getCreatedDate());
 		} catch (Exception e) {
-			LOG.info("Token not found...");
+			LOG.debug("Token not found...");
 			return null;
 		}
 	}
 
 	@Override
 	public void removeUserTokens(String email) {
-		LOG.info("Removing Token if any for user : {}", email);
+		LOG.debug("Removing Token if any for user : {}", email);
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("email", email));
 		PersistentLogin persistentLogin = (PersistentLogin) crit.uniqueResult();
 		if (persistentLogin != null) {
-			LOG.info("rememberMe was selected");
+			LOG.debug("rememberMe was selected");
 			delete(persistentLogin);
 		}
 	}
 
 	@Override
 	public void updateToken(String seriesId, String tokenValue, Date lastUsed) {
-		LOG.info("Updating Token for seriesId : {}", seriesId);
+		LOG.debug("Updating Token for seriesId : {}", seriesId);
 		PersistentLogin persistentLogin = getByKey(seriesId);
 		persistentLogin.setToken(tokenValue);
 		update(persistentLogin);

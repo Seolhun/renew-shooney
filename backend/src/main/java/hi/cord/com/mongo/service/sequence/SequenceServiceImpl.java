@@ -49,7 +49,7 @@ public class SequenceServiceImpl implements SequenceService {
 			sequence.setId(1);
 			sequence.setKey(key);
 		} else {
-			LOG.info("return : sequence {}", sequence.toString());
+			LOG.debug("r : sequence {}", sequence.toString());
 			sequence.setId(sequence.getId()+1);
 		}
 		sequenceRepository.save(sequence);

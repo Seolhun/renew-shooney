@@ -30,7 +30,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     protected String determineTargetUrl(Authentication authentication) {
         String url = "";
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        List<String> roles = new ArrayList<String>();
+        List<String> roles = new ArrayList<>();
         for (GrantedAuthority a : authorities) {
             roles.add(a.getAuthority());
         }
@@ -53,9 +53,6 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     }
 
     private boolean isMaster(List<String> roles) {
-        if (roles.contains("ROLE_MASTER")) {
-            return true;
-        }
-        return false;
+        return roles.contains("ROLE_MASTER");
     }
 }

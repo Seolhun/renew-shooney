@@ -26,7 +26,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Override
 	public UserProfile findById(int id) {
-		LOG.info("param : findById : {}", id);
+		LOG.debug("p : findById : {}", id);
 		return userProfileRepository.findById(id);
 	}
 
@@ -42,7 +42,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Override
 	public UserProfile findByType(String type) {
-		LOG.info("param : findByType : {}", type);
+		LOG.debug("p : findByType : {}", type);
 		return userProfileRepository.findByType(type);
 	}
 
@@ -72,17 +72,27 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	@Override
-	public boolean deleteById(String id) {
+	public UserProfile findByIdx(long idx) {
+		return null;
+	}
+
+	@Override
+	public boolean deleteById(String id, String accessBy) {
 		return false;
 	}
 
 	@Override
-	public boolean deleteById(long id) {
+	public boolean deleteById(long id, String accessBy) {
 		return false;
 	}
 
 	@Override
-	public UserProfile update(UserProfile userProfile) {
+	public boolean deleteByIdx(long idx, String accessBy) {
+		return false;
+	}
+
+	@Override
+	public UserProfile updateById(UserProfile userProfile, String accessBy) {
 		return null;
 	}
 

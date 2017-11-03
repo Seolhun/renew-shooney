@@ -1,4 +1,4 @@
-//package com.hun.blog.config.config;
+//package hi.cord.com.config.cache;
 //
 //import org.springframework.cache.CacheManager;
 //import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -18,7 +18,7 @@
 //
 //	@Bean
 //	public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-//		RedisTemplate<String, String> redisTemplate = new RedisTemplate<String, String>();
+//		RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
 //		redisTemplate.setConnectionFactory(redisConnectionFactory);
 //		return redisTemplate;
 //	}

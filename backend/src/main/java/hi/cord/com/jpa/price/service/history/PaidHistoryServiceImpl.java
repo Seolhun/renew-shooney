@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("priceRecordService")
+@Service
 public class PaidHistoryServiceImpl implements PaidHistoryService {
     private static final Logger LOG = LoggerFactory.getLogger(PaidHistoryServiceImpl.class);
 
@@ -27,6 +27,11 @@ public class PaidHistoryServiceImpl implements PaidHistoryService {
         return paidHistoryRepository.findById(id);
     }
 
+    @Override
+    public PaidHistory findByIdx(long idx) {
+        return null;
+    }
+
 
     @Override
     public PaidHistory findById(String id) {
@@ -34,13 +39,24 @@ public class PaidHistoryServiceImpl implements PaidHistoryService {
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public boolean deleteById(String id, String accessBy) {
         return false;
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public boolean deleteById(long id, String accessBy) {
         return false;
+    }
+
+    @Override
+    public boolean deleteByIdx(long idx, String accessBy) {
+        return false;
+    }
+
+    @Override
+    public PaidHistory updateById(PaidHistory paidHistory, String accessBy) {
+        PaidHistory dbPaidHistory = paidHistoryRepository.findById(paidHistory.getId());
+        return paidHistory;
     }
 
     @Override
@@ -56,13 +72,6 @@ public class PaidHistoryServiceImpl implements PaidHistoryService {
     @Override
     public Page<PaidHistory> findByPage(PaidHistory paidHistory, Pageable pageable) {
         return null;
-    }
-
-
-    @Override
-    public PaidHistory update(PaidHistory paidHistory) {
-        PaidHistory dbPaidHistory = paidHistoryRepository.findById(paidHistory.getId());
-        return paidHistory;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package hi.cord.com.jpa.price;
 
-import hi.cord.com.common.service.CommonService;
+import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.jpa.price.service.history.PaidHistoryService;
 import hi.cord.com.jpa.price.service.price.PriceService;
 import org.slf4j.Logger;
@@ -37,8 +37,6 @@ public class PriceRestController {
 
         return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
-
-
 
     @GetMapping(value = "/{priceId}")
 	public ResponseEntity findOne(@PathVariable String nickname, @PathVariable long priceId) {
