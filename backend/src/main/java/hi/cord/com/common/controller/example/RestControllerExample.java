@@ -1,9 +1,8 @@
-package hi.cord.com.common.controller.rest;
+package hi.cord.com.common.controller.example;
 
 import hi.cord.com.jpa.user.domain.user.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -15,14 +14,18 @@ import org.springframework.web.bind.annotation.*;
 //@RequestMapping("")
 public class RestControllerExample {
     @GetMapping("")
-    public ResponseEntity findAll() {
-
+    public ResponseEntity findAll(User user) {
+        if(user == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found required parameters");
+        } else if(user.getPagination() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found required pagination parameters");
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body("Success");
     }
 
     @PostMapping("/{nickname}")
-    public ResponseEntity save(User user, @PathVariable String nickname){
+    public ResponseEntity save(User user, @PathVariable String nickname) {
         if (user == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"user\" parameter");
         }
@@ -31,7 +34,7 @@ public class RestControllerExample {
 
 
     @GetMapping("/{nickname}")
-    public ResponseEntity findOne(User user, @PathVariable String nickname){
+    public ResponseEntity findOne(User user, @PathVariable String nickname) {
         if (user == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"user\" parameter");
         }

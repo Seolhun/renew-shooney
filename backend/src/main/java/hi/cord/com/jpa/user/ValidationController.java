@@ -1,6 +1,6 @@
 package hi.cord.com.jpa.user;
 
-import hi.cord.com.common.service.CommonService;
+import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.jpa.price.service.history.PaidHistoryService;
 import hi.cord.com.jpa.user.servie.profile.UserProfileService;
 import hi.cord.com.jpa.user.servie.user.UserService;
@@ -9,10 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author HunSeol
@@ -71,5 +74,13 @@ public class ValidationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(nickname + " already was used.");
         }
         return ResponseEntity.status(HttpStatus.OK).body(nickname + " is available");
+    }
+
+    @GetMapping(value="/csrf-token")
+    public ResponseEntity getCsrfToken(HttpServletRequest request) {
+        CsrfToken token = (CsrfToken)request.getAttribute(CsrfToken.class.getName());
+        String tokenValue = token.getToken();
+        String tokenHeader = token.getHeaderName();
+        return ResponseEntity.status(HttpStatus.OK).body("Token Header : "+tokenHeader+"\nToken Value : "+tokenValue);
     }
 }

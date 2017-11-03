@@ -8,6 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
+/**
+ * The type Abstract repository.
+ *
+ * @Waring : I will not used this. never use anywhere, except before code.
+ *
+ * @param <PK> the type parameter
+ * @param <T>  the type parameter
+ */
 public abstract class AbstractRepository<PK extends Serializable, T> {
 
     private final Class<T> persistentClass;

@@ -1,4 +1,4 @@
-package hi.cord.com.common.service.rest;
+package hi.cord.com.common.service.abs;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,13 +19,13 @@ public interface AbstractRestService<E> {
 
     E findById(long id);
 
-    boolean deleteById(String id);
+    boolean deleteById(String id, String accessBy);
 
-    boolean deleteById(long id);
+    boolean deleteById(long id, String accessBy);
 
-    boolean deleteByIdx(long idx);
+    boolean deleteByIdx(long idx, String accessBy);
 
-    E updateById(E e);
+    E updateById(E e, String accessBy);
 
     long count(E e);
 }

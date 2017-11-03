@@ -11,9 +11,12 @@ public interface ContentRepository extends JpaRepository<Content, String>{
 
 	Content findById(String id);
 
-	boolean deleteById(String id);
+    Content findByIdxAndCreatedByEntityNickname(long idx, String nickname);
 
-	Content findByIdx(long idx);
+    //Get Sequence
+    Content findFirstByCreatedByEntityNicknameOrderByIdxDesc(String nickname);
+
+	boolean deleteById(String id);
 
 	boolean deleteByIdx(long idx);
 

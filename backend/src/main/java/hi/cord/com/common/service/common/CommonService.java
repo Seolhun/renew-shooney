@@ -1,4 +1,4 @@
-package hi.cord.com.common.service;
+package hi.cord.com.common.service.common;
 
 import com.google.gson.JsonObject;
 import org.springframework.context.MessageSource;

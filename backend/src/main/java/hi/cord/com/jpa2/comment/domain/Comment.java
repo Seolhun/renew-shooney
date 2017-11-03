@@ -5,12 +5,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import hi.cord.com.common.domain.entity.BaseEntity;
 import hi.cord.com.common.domain.entity.CreatedByEntity;
 import hi.cord.com.common.domain.entity.ModifiedByEntity;
-import hi.cord.com.jpa2.content.domain.ContentType;
 import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.jpa2.content.domain.Content;
+import hi.cord.com.jpa2.content.domain.ContentType;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -21,8 +20,7 @@ import java.io.Serializable;
 @Entity(name = "TB_COMMENT")
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
-@Getter
-@Setter
+@Data
 public class Comment extends BaseEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +31,8 @@ public class Comment extends BaseEntity implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private ContentType contentType;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.DETACH)
-	@JoinColumn(foreignKey = @ForeignKey(name = "CONTENT_COMMENT_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID", nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(foreignKey = @ForeignKey(name = "CONTENT_COMMENT_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID")
 	private Content contentInContent;
 
 	@Column(name = "CONTENT", length=250 ,nullable = false)
@@ -65,8 +63,13 @@ public class Comment extends BaseEntity implements Serializable {
 	@Embedded
 	private ModifiedByEntity modifiedByEntity;
 
+	/**
+	 * Requirement parameter in Entity
+	 */
 	@Transient
 	@JsonSerialize
 	@JsonDeserialize
 	private Pagination<Comment> pagination;
+
+	//------------Entity Filed finished----------------
 }

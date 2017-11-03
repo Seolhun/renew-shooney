@@ -13,8 +13,6 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -57,7 +55,7 @@ public class NewsDataServiceImpl implements NewsDataService {
     }
 
     @Override
-    @Caching(cacheable = {@Cacheable(key = "'news'+#id", value = "news")})
+//    @Caching(cacheable = {@Cacheable(key = "'news'+#id", value = "news")})
     public NewsData findById(String id) {
         return newsDataRepository.findById(id);
     }
@@ -68,7 +66,7 @@ public class NewsDataServiceImpl implements NewsDataService {
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public boolean deleteById(String id, String accessBy) {
         return false;
     }
 
@@ -78,7 +76,7 @@ public class NewsDataServiceImpl implements NewsDataService {
     }
 
     @Override
-    public NewsData updateById(NewsData newsData) {
+    public NewsData updateById(NewsData newsData, String accessBy) {
         NewsData dbNews = this.findById(newsData.getId());
         if (dbNews != null)
             newsData.setModifiedDate(new Date());
@@ -88,12 +86,12 @@ public class NewsDataServiceImpl implements NewsDataService {
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public boolean deleteById(long id, String accessBy) {
         return false;
     }
 
     @Override
-    public boolean deleteByIdx(long idx) {
+    public boolean deleteByIdx(long idx, String accessBy) {
         return false;
     }
 

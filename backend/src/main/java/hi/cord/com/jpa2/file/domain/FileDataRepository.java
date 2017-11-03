@@ -12,13 +12,13 @@ public interface FileDataRepository extends JpaRepository<FileData, String>{
 
 	FileData findById(String id);
 
-	boolean deleteById(String id);
-
 	FileData findByIdx(long idx);
+
+	boolean deleteById(String id);
 
 	boolean deleteByIdx(long idx);
 
-	long countBy(Content content);
+	long countBy(FileData fileData);
 
-	long countDistinctBy(Content content);
+	long countDistinctBy(FileData fileData);
 }

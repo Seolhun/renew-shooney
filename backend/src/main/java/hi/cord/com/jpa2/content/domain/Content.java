@@ -1,51 +1,58 @@
 package hi.cord.com.jpa2.content.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import hi.cord.com.common.domain.entity.BaseEntity;
 import hi.cord.com.common.domain.entity.CreatedByEntity;
 import hi.cord.com.common.domain.entity.ModifiedByEntity;
-import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.jpa2.comment.domain.Comment;
 import hi.cord.com.jpa2.file.domain.FileData;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "TB_CONTENT")
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
-@Getter
-@Setter
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"IDX", "CREATED_NICKNAME"}))
+@Data
+@Table(uniqueConstraints = @UniqueConstraint(name = "UK_CONTENT_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_NICKNAME"}))
 public class Content extends BaseEntity implements Serializable {
     @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "CONTENT_ID", length = 120)
     private String id;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IDX")
     private long idx;
 
-//    @OneToMany(mappedBy = "contentInContent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<Tag> tags;
+    @NotNull(message = "ContentType is requirement")
+    @Column(name = "CONTENT_TYPE", nullable = false, length = 50)
+    @Enumerated(EnumType.STRING)
+    private ContentType contentType;
 
-    @NotEmpty
+    @NotEmpty(message = "title is requirement")
+    @Length(min = 5, max = 200, message = "Title is required as min 5 and max 200 length.")
     @Column(name = "TITLE", nullable = false, length = 200)
     private String title;
 
+    //    @OneToMany(mappedBy = "contentInContent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Tag> tags;
+
     @Lob
-    @NotEmpty
+    @NotEmpty(message = "Content is requirement")
+    @Length(min = 10, message = "Content is required as min 10 length")
     @Column(name = "CONTENT", nullable = false)
     private String content;
 
@@ -55,23 +62,19 @@ public class Content extends BaseEntity implements Serializable {
     @Column(name = "LIKES", length = 10)
     private int likes;
 
-    @Column(name = "CONTENT_TYPE", nullable = false, length = 50)
-    @Enumerated(EnumType.STRING)
-    private ContentType contentType;
-
     @Column(name = "COMMENT_DEPTH", length = 10)
     private int depth;
 
-    @OneToMany(mappedBy = "contentInContent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contentInContent")
     private List<Comment> comments;
 
-    //Image, Stream
-    @OneToMany(mappedBy = "contentInFile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //To Stored Image, Stream
+    @OneToMany(mappedBy = "contentInFile")
     private List<FileData> files;
 
     @CreatedBy
     @AssociationOverrides({
-            @AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "CREATED_BY"))
+            @AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "CREATED_BY", foreignKey = @ForeignKey(name = "USER_ID")))
     })
     @AttributeOverrides({
             @AttributeOverride(name = "user", column = @Column(name = "CREATED_BY")),
@@ -95,23 +98,21 @@ public class Content extends BaseEntity implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Transient
-    @JsonSerialize
-    @JsonDeserialize
-    private Pagination<Content> pagination;
-
-    @PostConstruct
-    private void init() {
-        if (contentType == null) {
-            contentType = ContentType.Essay;
-        }
-    }
-
     /**
      * @Warning : This Field have some issue I think.
-    * */
+     */
     @PrePersist
     public void autoIdInit() {
         this.setId(UUID.randomUUID().toString());
+    }
+
+    @PostConstruct
+    public void init(){
+        if(comments == null){
+            comments = new ArrayList<>();
+        }
+        if(files == null){
+            files = new ArrayList<>();
+        }
     }
 }

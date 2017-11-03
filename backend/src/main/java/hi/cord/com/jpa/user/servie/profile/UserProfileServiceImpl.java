@@ -77,22 +77,22 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	@Override
-	public boolean deleteById(String id) {
+	public boolean deleteById(String id, String accessBy) {
 		return false;
 	}
 
 	@Override
-	public boolean deleteById(long id) {
+	public boolean deleteById(long id, String accessBy) {
 		return false;
 	}
 
 	@Override
-	public boolean deleteByIdx(long idx) {
+	public boolean deleteByIdx(long idx, String accessBy) {
 		return false;
 	}
 
 	@Override
-	public UserProfile updateById(UserProfile userProfile) {
+	public UserProfile updateById(UserProfile userProfile, String accessBy) {
 		return null;
 	}
 

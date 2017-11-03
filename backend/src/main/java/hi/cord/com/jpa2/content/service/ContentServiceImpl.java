@@ -1,32 +1,45 @@
 package hi.cord.com.jpa2.content.service;
 
+import hi.cord.com.common.domain.pagination.Pagination;
+import hi.cord.com.jpa2.comment.domain.Comment;
+import hi.cord.com.jpa2.comment.domain.CommentRepository;
 import hi.cord.com.jpa2.content.domain.Content;
 import hi.cord.com.jpa2.content.domain.ContentRepository;
+import hi.cord.com.jpa2.file.domain.FileData;
+import hi.cord.com.jpa2.file.domain.FileDataRepository;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED, transactionManager = "shunTransactionManager", noRollbackFor = {NullPointerException.class})
 public class ContentServiceImpl implements ContentService {
     private static final Logger LOG = LoggerFactory.getLogger(ContentServiceImpl.class);
-	private ContentRepository contentRepository;
-	
-	@Autowired
-	public ContentServiceImpl(ContentRepository contentRepository) {
-		this.contentRepository = contentRepository;
-	}
+    private ContentRepository contentRepository;
+    private FileDataRepository fileDataRepository;
+    private CommentRepository commentRepository;
 
-	@Override
-	public Content insert(Content content) {
-		LOG.debug("p  : {}", content.toString());
-		return contentRepository.save(content);
-	}
+    @Autowired
+    public ContentServiceImpl(ContentRepository contentRepository, FileDataRepository fileDataRepository, CommentRepository commentRepository) {
+        this.contentRepository = contentRepository;
+        this.fileDataRepository = fileDataRepository;
+        this.commentRepository = commentRepository;
+    }
+
+    @Override
+    public Content insert(Content content) {
+        return contentRepository.save(content);
+    }
 
     @Override
     public List<Content> findByList() {
@@ -35,29 +48,78 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public Page<Content> findByPage(Content content, Pageable pageable) {
-        LOG.debug("p  : "+ content.toString());
         return contentRepository.findAll(pageable);
     }
 
     @Override
-    public Content findById(String id) {
-	    return contentRepository.findById(id);
+    public Pagination<Content> findAll(Content content, Pageable pageable) {
+        Page<Content> contents = contentRepository.findAll(pageable);
+        Pagination<Content> pagination = new Pagination<>();
+        for (Content dbContent : contents) {
+            List<FileData> fileList=new ArrayList<>();
+            Hibernate.initialize(fileList);
+            dbContent.setFiles(fileList);
+
+            List<Comment> commentList=new ArrayList<>();
+            Hibernate.initialize(commentList);
+            dbContent.setComments(commentList);
+//            List<FileData> fileList = fileDataRepository.findAll();
+//            List<Comment> commentList = commentRepository.findAll();
+//            if (fileList != null) {
+//                dbContent.setFiles(fileList);
+//            }
+//            if (commentList != null) {
+//                dbContent.setComments(commentList);
+//            }
+        }
+        pagination.setList(contents.getContent());
+        pagination.setTotalCount(contents.getTotalElements());
+        pagination.setPageIndex(pageable.getPageNumber());
+        pagination.setPageSize(pageable.getPageSize());
+        return pagination;
     }
 
     @Override
-    public Content findById(long id) {
-	    return null;
+    public Content findById(String id) {
+        Content content = contentRepository.findById(id);
+        List<FileData> fileList = fileDataRepository.findAll();
+        List<Comment> commentList = commentRepository.findAll();
+        if (fileList != null) {
+            content.setFiles(fileList);
+        }
+        if (commentList != null) {
+            content.setComments(commentList);
+        }
+        return content;
     }
 
     @Override
     public Content findByIdx(long idx) {
-        return contentRepository.findByIdx(idx);
+        return null;
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public Content findById(long id) {
+        return null;
+    }
+
+    @Override
+    public Content findByIdx(long idx, String nickname) {
+        Content content = contentRepository.findByIdxAndCreatedByEntityNickname(idx, nickname);
+        List<FileData> fileList = fileDataRepository.findAll();
+        List<Comment> commentList = commentRepository.findAll();
+        if (fileList != null) {
+            content.setFiles(fileList);
+        }
+        if (commentList != null) {
+            content.setComments(commentList);
+        }
+        return content;
+    }
+
+    @Override
+    public boolean deleteById(String id, String accessBy) {
         Content dbContent = contentRepository.findById(id);
-        LOG.debug("r : "+ dbContent);
         if (dbContent == null) {
             return false;
         }
@@ -67,9 +129,8 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public boolean deleteById(long idx) {
-        Content dbContent = contentRepository.findByIdx(idx);
-        LOG.debug("r : "+ dbContent);
+    public boolean deleteById(long idx, String accessBy) {
+        Content dbContent = contentRepository.findByIdxAndCreatedByEntityNickname(idx, accessBy);
         if (dbContent == null) {
             return false;
         }
@@ -79,12 +140,12 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public boolean deleteByIdx(long idx) {
+    public boolean deleteByIdx(long idx, String accessBy) {
         return false;
     }
 
     @Override
-    public Content updateById(Content content) {
+    public Content updateById(Content content, String accessBy) {
         Content dbContent = contentRepository.findById(content.getId());
         if (dbContent != null) {
             dbContent.setTitle(content.getTitle());
@@ -96,5 +157,15 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public long count(Content content) {
         return contentRepository.countBy(content);
+    }
+
+    @Override
+    public long findByCreatedByEntityNickname(String nickname) {
+        Content content = contentRepository.findFirstByCreatedByEntityNicknameOrderByIdxDesc(nickname);
+        if (content == null) {
+            return 1;
+        }
+
+        return content.getIdx() + 1;
     }
 }

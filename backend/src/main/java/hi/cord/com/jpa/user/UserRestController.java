@@ -1,7 +1,7 @@
 package hi.cord.com.jpa.user;
 
 import hi.cord.com.common.domain.pagination.Pagination;
-import hi.cord.com.common.service.CommonService;
+import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.jpa.price.service.history.PaidHistoryService;
 import hi.cord.com.jpa.user.domain.profile.UserProfile;
 import hi.cord.com.jpa.user.domain.profile.UserProfileType;
@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 

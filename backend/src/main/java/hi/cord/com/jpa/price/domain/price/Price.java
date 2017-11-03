@@ -1,9 +1,13 @@
 package hi.cord.com.jpa.price.domain.price;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import hi.cord.com.common.domain.entity.BaseEntity;
 import hi.cord.com.common.domain.entity.CreatedByEntity;
 import hi.cord.com.common.domain.entity.ModifiedByEntity;
+import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.jpa.price.domain.history.PaidHistory;
+import hi.cord.com.jpa2.content.domain.Content;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -75,4 +79,15 @@ public class Price extends BaseEntity implements Serializable {
 	})
 	@Embedded
 	private ModifiedByEntity modifiedByEntity;
+
+
+	/**
+	 * Requirement parameter in Entity
+	 */
+	@Transient
+	@JsonSerialize
+	@JsonDeserialize
+	private Pagination<Price> pagination;
+
+	//------------Entity Filed finished----------------
 }

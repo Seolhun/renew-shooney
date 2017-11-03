@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class RoleToUserProfileConverter implements Converter<Object, UserProfile> {
 	private static final Logger LOG = LoggerFactory.getLogger(RoleToUserProfileConverter.class);
 
-	UserProfileService userProfileService;
+	private UserProfileService userProfileService;
 
 	@Autowired
 	public RoleToUserProfileConverter(UserProfileService userProfileService) {

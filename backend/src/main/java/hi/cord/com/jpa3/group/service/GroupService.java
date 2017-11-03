@@ -1,6 +1,6 @@
 package hi.cord.com.jpa3.group.service;
 
-import hi.cord.com.common.service.rest.AbstractRestService;
+import hi.cord.com.common.service.abs.AbstractRestService;
 import hi.cord.com.jpa3.group.domain.Group;
 
 /**

@@ -1,21 +1,19 @@
 package hi.cord.com.common.domain.pagination;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Getter
-@Setter
-@ToString
+@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = true)
+@Data
 public class Pagination<E> implements Serializable {
-    private E element;
-    private List<E> elementList;
-    private Page<E> elementPage;
+    private List<E> list;
 
     /** For Pagination Field */
     // current Page

@@ -1,7 +1,7 @@
 package hi.cord.com.config.security.custom;
 
 import hi.cord.com.common.domain.enumtypes.CommonState;
-import hi.cord.com.common.service.CommonService;
+import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.jpa.user.domain.attempts.UserAttempts;
 import hi.cord.com.jpa.user.domain.user.User;
 import hi.cord.com.jpa.user.servie.attempts.UserAttemptsService;

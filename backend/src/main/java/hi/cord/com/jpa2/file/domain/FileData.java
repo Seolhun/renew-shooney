@@ -7,9 +7,8 @@ import hi.cord.com.common.domain.entity.CreatedByEntity;
 import hi.cord.com.common.domain.entity.ModifiedByEntity;
 import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.jpa2.content.domain.Content;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.CreatedBy;
@@ -21,9 +20,8 @@ import java.io.Serializable;
 @Entity(name = "TB_FILE_DATA")
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
-@Getter
-@Setter
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"IDX", "CREATED_NICKNAME"}))
+@Data
+@Table(uniqueConstraints = @UniqueConstraint(name = "UK_FILE_DATA_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_NICKNAME"}))
 public class FileData extends BaseEntity implements Serializable {
 	@Id
 	@Column(name = "FILE_ID", length = 120)
@@ -33,8 +31,8 @@ public class FileData extends BaseEntity implements Serializable {
 	@Column(name = "IDX")
 	private long idx;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.DETACH)
-	@JoinColumn(foreignKey = @ForeignKey(name = "FILE_CONTENT_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(foreignKey = @ForeignKey(name = "FILE_CONTENT_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID")
 	private Content contentInFile;
 
 	@NotEmpty
@@ -73,8 +71,13 @@ public class FileData extends BaseEntity implements Serializable {
 	@Embedded
 	private ModifiedByEntity modifiedByEntity;
 
+	/**
+	 * Requirement parameter in Entity
+	 */
 	@Transient
 	@JsonSerialize
 	@JsonDeserialize
 	private Pagination<FileData> pagination;
+
+	//------------Entity Filed finished----------------
 }

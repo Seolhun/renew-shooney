@@ -57,26 +57,25 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public boolean deleteById(String id) {
+	public boolean deleteById(String id, String accessBy) {
 		return false;
 	}
 
 	@Override
-	public boolean deleteById(long id) {
+	public boolean deleteById(long id, String accessBy) {
 		return false;
 	}
 
 	@Override
-	public boolean deleteByIdx(long idx) {
+	public boolean deleteByIdx(long idx, String accessBy) {
 		return false;
 	}
 
 	@Override
-	public Comment updateById(Comment comment) {
+	public Comment updateById(Comment comment, String accessBy) {
 		Comment dbComment = commentRepository.findById(comment.getId());
-		String createdBy=dbComment.getCreatedByEntity().getNickname();
-		String modifyBy=comment.getModifiedByEntity().getNickname();
-		if(createdBy.equals(modifyBy)){
+		String dbCreatedBy=dbComment.getCreatedByEntity().getNickname();
+		if(dbCreatedBy.equals(accessBy)){
 			if(comment.isActive()){
 				dbComment.setActive(false);
 				Content dbContent = contentRepository.findById(dbComment.getContentInContent().getId());

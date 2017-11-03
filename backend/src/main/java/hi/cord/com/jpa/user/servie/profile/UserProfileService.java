@@ -1,6 +1,6 @@
 package hi.cord.com.jpa.user.servie.profile;
 
-import hi.cord.com.common.service.rest.AbstractRestService;
+import hi.cord.com.common.service.abs.AbstractRestService;
 import hi.cord.com.jpa.user.domain.attempts.UserAttempts;
 import hi.cord.com.jpa.user.domain.profile.UserProfile;
 import org.springframework.transaction.annotation.Propagation;

@@ -1,4 +1,4 @@
-package hi.cord.com.common.service;
+package hi.cord.com.common.service.common;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -9,7 +9,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
@@ -52,7 +51,6 @@ public class CommonServiceImpl implements CommonService {
 
     private static final String FILE_PATH = "/Users/hunseol/Desktop/project/shooney/stack/";
 //    private static final String FILE_PATH="/opt/tomcat/files/";
-
     /*
         (?=.*[0-9]) a digit must occur at least once
 		(?=.*[a-z]) a lower case letter must occur at least once

@@ -1,6 +1,6 @@
 package hi.cord.com.mongo.service.ask;
 
-import hi.cord.com.common.service.CommonService;
+import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.dynamo.domain.nlp.NlpPhrase;
 import hi.cord.com.dynamo.service.nlp.NlpPhraseService;
 import hi.cord.com.mongo.domain.ask.AskData;
@@ -63,17 +63,17 @@ public class AskDataServiceImpl implements AskDataService {
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public boolean deleteById(String id, String accessBy) {
         return false;
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public boolean deleteById(long id, String accessBy) {
         return false;
     }
 
     @Override
-    public boolean deleteByIdx(long idx) {
+    public boolean deleteByIdx(long idx, String accessBy) {
         return false;
     }
 
@@ -90,7 +90,7 @@ public class AskDataServiceImpl implements AskDataService {
     }
 
     @Override
-    public AskData updateById(AskData askData) {
+    public AskData updateById(AskData askData, String accessBy) {
         AskData dbAsk = this.findById(askData.getId());
         if (dbAsk != null)
             askData.setModifiedDate(new Date());

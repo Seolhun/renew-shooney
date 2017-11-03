@@ -1,6 +1,6 @@
 package hi.cord.com.jpa.user;
 
-import hi.cord.com.common.service.CommonService;
+import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.jpa.price.service.history.PaidHistoryService;
 import hi.cord.com.jpa.user.servie.profile.UserProfileService;
 import hi.cord.com.jpa.user.servie.user.UserService;

@@ -1,12 +1,16 @@
 package hi.cord.com.jpa.user.domain.user;
 
-import hi.cord.com.common.domain.entity.CommonAddress;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import hi.cord.com.common.domain.entity.BaseEntity;
+import hi.cord.com.common.domain.entity.CommonAddress;
 import hi.cord.com.common.domain.entity.CreatedByEntity;
 import hi.cord.com.common.domain.entity.ModifiedByEntity;
 import hi.cord.com.common.domain.enumtypes.CommonState;
+import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.jpa.price.domain.history.PaidHistory;
 import hi.cord.com.jpa.user.domain.profile.UserProfile;
+import hi.cord.com.jpa2.content.domain.Content;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -176,6 +180,17 @@ public class User extends BaseEntity implements Serializable {
 	@Embedded
 	private ModifiedByEntity modifiedByEntity;
 
+	//------------Transient Filed ----------------
+	/**
+	 * Requirement parameter in Entity
+	 */
 	@Transient
-    private String ip;
+	@JsonSerialize
+	@JsonDeserialize
+	private Pagination<Content> pagination;
+
+	@Transient
+	private String ip;
+
+	//------------Entity Filed finished----------------
 }

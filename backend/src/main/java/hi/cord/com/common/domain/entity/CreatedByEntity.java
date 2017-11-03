@@ -24,6 +24,6 @@ public class CreatedByEntity {
     private String nickname;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name = "CREATED_BY", foreignKey = @ForeignKey(name = "USER_ID"))
     private User user;
 }
