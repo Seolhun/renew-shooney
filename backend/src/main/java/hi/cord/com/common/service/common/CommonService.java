@@ -2,6 +2,7 @@ package hi.cord.com.common.service.common;
 
 import com.google.gson.JsonObject;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,9 +36,6 @@ public interface CommonService {
     //Post Email
     String mainSendMail(String toEmail, String from, String mailSubject, String subTitle, String mailContent) throws Exception;
 
-    //@Valid로 검사시 중복값 리다이렉트해주기.
-    void validCheckAndSendError(MessageSource messageSource, BindingResult bindingResult, HttpServletRequest request, String inputValue, String objectName, String fieldName, String messagePropertyName);
-
     String getImgUsingJsoup(String imgSrc, String savedDirectoryName) throws IOException, StringIndexOutOfBoundsException;
 
     JsonObject getResponseAPI(String apiUrl) throws IOException;
@@ -45,4 +43,6 @@ public interface CommonService {
     List<String> extractImgSrc(String content);
 
     String removeTags(String content);
+
+    Pageable getPageable(Integer pageIndex, Integer pageSize);
 }

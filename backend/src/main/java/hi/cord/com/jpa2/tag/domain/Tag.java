@@ -7,7 +7,7 @@
 //import hi.cord.com.common.domain.entity.ModifiedByEntity;
 //import hi.cord.com.common.domain.pagination.Pagination;
 //import hi.cord.com.jpa2.content.domain.Content;
-//import hi.cord.com.jpa2.content.domain.ContentType;
+//import hi.cord.com.jpa2.content.domain.SpamType;
 //import lombok.EqualsAndHashCode;
 //import lombok.Getter;
 //import lombok.Setter;
@@ -31,7 +31,7 @@
 //
 //	@Column(name = "CONTENT_TYPE", nullable = false, length = 50)
 //	@Enumerated(EnumType.STRING)
-//	private ContentType contentType;
+//	private SpamType contentType;
 //
 //	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.DETACH)
 //	@JoinColumn(foreignKey = @ForeignKey(name = "CONTENT_TAG_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID", nullable=false)

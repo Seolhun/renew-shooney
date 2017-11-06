@@ -1,9 +1,9 @@
 package hi.cord.com.jpa2.comment.service;
 
-import hi.cord.com.jpa2.content.domain.Content;
-import hi.cord.com.jpa2.content.domain.ContentRepository;
+import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.jpa2.comment.domain.Comment;
 import hi.cord.com.jpa2.comment.domain.CommentRepository;
+import hi.cord.com.jpa2.content.domain.ContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,86 +14,115 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(propagation= Propagation.REQUIRED, transactionManager="shunTransactionManager", noRollbackFor={NullPointerException.class})
+@Transactional(propagation = Propagation.REQUIRED, transactionManager = "shunTransactionManager", noRollbackFor = {NullPointerException.class})
 public class CommentServiceImpl implements CommentService {
 
-	private CommentRepository commentRepository;
-	private ContentRepository contentRepository;
-	
-	@Autowired
-	public CommentServiceImpl(CommentRepository commentRepository, ContentRepository contentRepository) {
-		this.commentRepository=commentRepository;
-		this.contentRepository = contentRepository;
-	}
-	
-	@Override
-	public Comment insert(Comment comment) {
-		return commentRepository.save(comment);
-	}
+    private CommentRepository commentRepository;
+    private ContentRepository contentRepository;
 
-	@Override
-	public List<Comment> findByList() {
-		return null;
-	}
+    @Autowired
+    public CommentServiceImpl(CommentRepository commentRepository, ContentRepository contentRepository) {
+        this.commentRepository = commentRepository;
+        this.contentRepository = contentRepository;
+    }
 
-	@Override
-	public Page<Comment> findByPage(Comment comment, Pageable pageable) {
-		return commentRepository.findAll(pageable);
-	}
+    @Override
+    public Comment insert(Comment comment) {
+        return commentRepository.save(comment);
+    }
 
-	@Override
-	public Comment findById(String id) {
-		return null;
-	}
+    @Override
+    public List<Comment> findByList() {
+        return commentRepository.findAll();
+    }
 
-	@Override
-	public Comment findById(long id) {
-		return null;
-	}
+    @Override
+    public Page<Comment> findByPage(Comment comment, Pageable pageable) {
+        return commentRepository.findAll(pageable);
+    }
 
-	@Override
-	public Comment findByIdx(long idx) {
-		return null;
-	}
+    @Override
+    public Pagination<Comment> findAll(Comment comment, Pageable pageable) {
+        // Call Repository        
+        Page<Comment> comments = commentRepository.findAll(pageable);
+        Pagination<Comment> pagination = new Pagination<>();
 
-	@Override
-	public boolean deleteById(String id, String accessBy) {
-		return false;
-	}
+        pagination.setList(comments.getContent());
+        pagination.setTotalCount(comments.getTotalElements());
+        pagination.setPageIndex(pageable.getPageNumber());
+        pagination.setPageSize(pageable.getPageSize());
+        return pagination;
+    }
 
-	@Override
-	public boolean deleteById(long id, String accessBy) {
-		return false;
-	}
+    @Override
+    public Comment findById(String id) {
+        Comment comment = commentRepository.findById(id);
+        return comment;
+    }
 
-	@Override
-	public boolean deleteByIdx(long idx, String accessBy) {
-		return false;
-	}
+    @Override
+    public Comment findByIdx(long idx) {
+        return null;
+    }
 
-	@Override
-	public Comment updateById(Comment comment, String accessBy) {
-		Comment dbComment = commentRepository.findById(comment.getId());
-		String dbCreatedBy=dbComment.getCreatedByEntity().getNickname();
-		if(dbCreatedBy.equals(accessBy)){
-			if(comment.isActive()){
-				dbComment.setActive(false);
-				Content dbContent = contentRepository.findById(dbComment.getContentInContent().getId());
-				//읽을시 쿠키 읽기
-				if(dbContent != null){
-					int depth= dbContent.getDepth();
-					dbContent.setDepth(depth-1);
-				}
-			} else if(comment.getContent()!=null){
-				dbComment.setContent(comment.getContent());
-			}
-			dbComment.setModifiedByEntity(comment.getModifiedByEntity());
-		}
-		return dbComment;
-	}
+    @Override
+    public Comment findById(long id) {
+        return null;
+    }
 
-	@Override
-	public long count(Comment comment) {
-		return 0;
-	}
+    @Override
+    public Comment findByIdx(long idx, String nickname) {
+        return commentRepository.findByIdxAndCreatedByEntityNickname(idx, nickname);
+    }
+
+    @Override
+    public boolean deleteById(String id, String accessBy) {
+        Comment dbComment = commentRepository.findById(id);
+        if (dbComment == null) {
+            return false;
+        }
+
+        commentRepository.delete(dbComment.getId());
+        return true;
+    }
+
+    @Override
+    public boolean deleteById(long idx, String accessBy) {
+        Comment dbComment = commentRepository.findByIdxAndCreatedByEntityNickname(idx, accessBy);
+        if (dbComment == null) {
+            return false;
+        }
+
+        commentRepository.delete(dbComment.getId());
+        return true;
+    }
+
+    @Override
+    public boolean deleteByIdx(long idx, String accessBy) {
+        return false;
+    }
+
+    @Override
+    public Comment updateById(Comment comment, String accessBy) {
+        Comment dbComment = commentRepository.findById(comment.getId());
+        if (dbComment != null) {
+
+        }
+        return dbComment;
+    }
+
+    @Override
+    public long count(Comment comment) {
+        return commentRepository.countBy(comment);
+    }
+
+    @Override
+    public long getIdxByNickname(String nickname) {
+        Comment comment = commentRepository.findFirstByCreatedByEntityNicknameOrderByIdxDesc(nickname);
+        if (comment == null) {
+            return 1;
+        }
+
+        return comment.getIdx() + 1;
+    }
 }

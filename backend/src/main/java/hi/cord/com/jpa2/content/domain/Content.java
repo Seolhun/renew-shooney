@@ -18,7 +18,6 @@ import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,7 +36,7 @@ public class Content extends BaseEntity implements Serializable {
     @Column(name = "IDX")
     private long idx;
 
-    @NotNull(message = "ContentType is requirement")
+    @NotNull(message = "SpamType is requirement")
     @Column(name = "CONTENT_TYPE", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private ContentType contentType;
@@ -65,7 +64,7 @@ public class Content extends BaseEntity implements Serializable {
     @Column(name = "COMMENT_DEPTH", length = 10)
     private int depth;
 
-    @OneToMany(mappedBy = "contentInContent")
+    @OneToMany(mappedBy = "contentInComment")
     private List<Comment> comments;
 
     //To Stored Image, Stream
@@ -98,21 +97,24 @@ public class Content extends BaseEntity implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
+
+    public Content() {
+
+    }
+
+    @PostConstruct
+    public void init() {
+        if (this.contentType == null) {
+            this.contentType = ContentType.Essay;
+        }
+    }
+
+
     /**
      * @Warning : This Field have some issue I think.
      */
     @PrePersist
     public void autoIdInit() {
         this.setId(UUID.randomUUID().toString());
-    }
-
-    @PostConstruct
-    public void init(){
-        if(comments == null){
-            comments = new ArrayList<>();
-        }
-        if(files == null){
-            files = new ArrayList<>();
-        }
     }
 }

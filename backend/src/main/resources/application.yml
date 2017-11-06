@@ -56,11 +56,11 @@ shun:
 #### Custom Database ####
 #########################
 shun:
-  ######################
-  #### MariaDB2     ####
-  ######################
+  #########################
+  #### MariaDB2 - Blog ####
+  #########################
   datasource:
-    url: jdbc:mysql://${server.address}:3306/shooney_common
+    url: jdbc:mysql://${server.address}:3306/shooney_blog
     username: developer
     password: developer@
     driver-class-name: com.mysql.jdbc.Driver
@@ -79,11 +79,11 @@ shun:
 #### Spring       ####
 ######################
 spring:
-  ######################
-  #### MariaDB1     ####
-  ######################
+  ###########################
+  #### MariaDB1 - Common ####
+  ###########################
   datasource:
-    url: jdbc:mysql://${server.address}:3306/shooney_blog
+    url: jdbc:mysql://${server.address}:3306/shooney_common
     username: developer
     password: developer@
     driver-class-name: com.mysql.jdbc.Driver
@@ -145,7 +145,7 @@ aws:
 #################
 logging:
   level:
-    ROOT: DEBUG
+    ROOT: INFO
     org:
       springframework:
         web: INFO

@@ -30,6 +30,7 @@ import java.util.Map;
 /**
  * The type Content rest controller.
  */
+@CrossOrigin(origins = "/**", maxAge = 3600)
 @RequestMapping("/content")
 @RestController
 public class ContentRestController {
@@ -54,18 +55,13 @@ public class ContentRestController {
      * @return the response entity
      */
     @GetMapping(value = "")
-    public ResponseEntity findAll(Content content,
-                                  @RequestParam(required = false) Integer pageIndex,
-                                  @RequestParam(required = false) Integer pageSize
+    public ResponseEntity findAll(
+            Content content,
+            @RequestParam(required = false) Integer pageIndex,
+            @RequestParam(required = false) Integer pageSize
     ) {
-        if (pageIndex == null) {
-            pageIndex = 0;
-        } else if (pageSize == null) {
-            pageSize = 15;
-        }
-
         //Pagination and FindAll
-        Pageable pageable = new PageRequest(pageIndex, pageSize);
+        Pageable pageable = commonService.getPageable(pageIndex, pageSize);
         Pagination<Content> contentPagination = contentService.findAll(content, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(contentPagination);
     }
@@ -76,7 +72,10 @@ public class ContentRestController {
      * @return the response entity
      */
     @PostMapping("")
-    public ResponseEntity insert(@Valid @RequestBody Content content, Errors errors) {
+    public ResponseEntity insert(
+            @Valid @RequestBody Content content,
+            Errors errors
+    ) {
         if (content == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"content\" parameter");
         } else if (errors.hasErrors()) {
@@ -90,7 +89,7 @@ public class ContentRestController {
         // Requirement Images >
 
         //Setting Index
-        long idx = contentService.findByCreatedByEntityNickname(content.getCreatedByEntity().getNickname());
+        long idx = contentService.getIdxByNickname(content.getCreatedByEntity().getNickname());
         content.setIdx(idx);
 
         // Insert
@@ -106,7 +105,10 @@ public class ContentRestController {
      * @return the response entity
      */
     @GetMapping("/{nickname}/{idx}")
-    public ResponseEntity findOne(@PathVariable String nickname, @PathVariable Long idx) {
+    public ResponseEntity findOne(
+            @PathVariable String nickname,
+            @PathVariable Long idx
+    ) {
         if (nickname == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"nickname\" path");
         } else if (idx == null) {
@@ -128,17 +130,21 @@ public class ContentRestController {
      *
      * @return the response entity
      */
-    @PutMapping("/{nickname}/{contentId}")
-    public ResponseEntity updated(@PathVariable String nickname, @PathVariable String contentId, Content content) {
+    @PutMapping("/{nickname}/{idx}")
+    public ResponseEntity updated(
+            Content content,
+            @PathVariable String nickname,
+            @PathVariable Long idx
+    ) {
         if (content == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found required \"content\" parameter");
         } else if (nickname == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"nickname\" path");
-        } else if (contentId == null) {
+        } else if (idx == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"Content-Identification\" path");
         }
 
-        content = contentService.findById(contentId);
+        content = contentService.findByIdx(idx, nickname);
         if (content == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"content\" result");
         } else if (!(content.getCreatedByEntity().getNickname().equals(nickname))) {
@@ -153,15 +159,21 @@ public class ContentRestController {
      *
      * @return the response entity
      */
-    @DeleteMapping("/{nickname}/{contentId}")
-    public ResponseEntity delete(@PathVariable String nickname, @PathVariable String contentId, Principal principal) {
-        if (nickname == null) {
+    @DeleteMapping("/{nickname}/{idx}")
+    public ResponseEntity delete(
+            @PathVariable String nickname,
+            @PathVariable Long idx,
+            Principal principal
+    ) {
+        if (principal.getName().equals(nickname)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not matched \"created By\" and accessed user");
+        } else if (nickname == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"nickname\" path");
-        } else if (contentId == null) {
+        } else if (idx == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"Content-Identification\" path");
         }
 
-        if (!(contentService.deleteById(contentId, principal.getName()))) {
+        if (!(contentService.deleteByIdx(idx, nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"content\" result");
         }
 
@@ -176,7 +188,6 @@ public class ContentRestController {
      */
     /*----------- end 댓글 ---------------------------------------------------------------------*/
     private boolean checkHitCookie(Content content, HttpServletRequest request, HttpServletResponse response) {
-        boolean validHit = false;
         String id = content.getId();
         String[] tableNames = request.getRequestURI().split("/");
         String tableName = tableNames[2];
@@ -198,9 +209,9 @@ public class ContentRestController {
             cookie = new Cookie(tableName, String.valueOf(id));
         } else {
             String[] upHitByNo = originalNo.split("T3Y1");
-            for (int i = 0; i < upHitByNo.length; i++) {
-                if (upHitByNo[i].equals(id)) {
-                    return validHit;
+            for (String anUpHitByNo : upHitByNo) {
+                if (anUpHitByNo.equals(id)) {
+                    return false;
                 }
             }
             originalNo = originalNo + "T3Y1" + id;
@@ -210,7 +221,6 @@ public class ContentRestController {
         // cookie.setPath("/imedisyn");
         cookie.setMaxAge(24 * 60 * 60); // 365*24*60*60 365일
         response.addCookie(cookie);
-        validHit = true;
-        return validHit;
+        return true;
     }
 }

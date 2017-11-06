@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ContentService extends AbstractRestService<Content> {
-    long findByCreatedByEntityNickname(String nickname);
+    long getIdxByNickname(String nickname);
 
     Pagination<Content> findAll(Content content, Pageable pageable);
 

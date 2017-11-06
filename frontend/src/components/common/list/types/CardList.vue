@@ -42,12 +42,9 @@
   export default {
     props: ['items'],
     data () {
-      return {
-
-      }
+      return {}
     },
-    methods: {
-    },
+    methods: {},
     computed: {},
     watch: {
       pageIndex: (value) => {

@@ -5,15 +5,13 @@ import com.google.gson.JsonParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
@@ -50,7 +47,8 @@ public class CommonServiceImpl implements CommonService {
     }
 
     private static final String FILE_PATH = "/Users/hunseol/Desktop/project/shooney/stack/";
-//    private static final String FILE_PATH="/opt/tomcat/files/";
+
+    //    private static final String FILE_PATH="/opt/tomcat/files/";
     /*
         (?=.*[0-9]) a digit must occur at least once
 		(?=.*[a-z]) a lower case letter must occur at least once
@@ -77,7 +75,7 @@ public class CommonServiceImpl implements CommonService {
                 validation = parameter.matches(pattern);
                 break;
             case "name":
-                pattern= ".[가-힣]{1,14}";
+                pattern = ".[가-힣]{1,14}";
                 validation = parameter.matches(pattern);
                 break;
             case "nickname":
@@ -300,18 +298,6 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public void validCheckAndSendError(MessageSource messageSource, BindingResult bindingResult, HttpServletRequest request, String inputValue, String objectName, String fieldName, String messagePropertyName) {
-        try {
-            FieldError error = new FieldError(objectName, fieldName, messageSource.getMessage(messagePropertyName, new String[]{inputValue}, request.getLocale()));
-            bindingResult.addError(error);
-        } catch (Exception e) {
-            FieldError error = new FieldError(objectName, fieldName, messageSource.getMessage(messagePropertyName, new String[]{inputValue}, Locale.getDefault()));
-            bindingResult.addError(error);
-        }
-
-    }
-
-    @Override
     public String getImgUsingJsoup(String imgSrc, String savedDirectoryName) throws IOException, StringIndexOutOfBoundsException {
         int indexName = imgSrc.lastIndexOf("/");
         if (indexName == imgSrc.length())
@@ -365,7 +351,10 @@ public class CommonServiceImpl implements CommonService {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            conn.disconnect();
+            if (conn != null) {
+                conn.disconnect();
+            }
+
         }
         return jsonObject;
     }
@@ -394,7 +383,18 @@ public class CommonServiceImpl implements CommonService {
     // html tag를 모두 제거함
     @Override
     public String removeTags(String content) {
-        String noTags = content.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
-        return noTags;
+        return content.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+    }
+
+    @Override
+    public Pageable getPageable(Integer pageIndex, Integer pageSize) {
+        if (pageIndex == null) {
+            pageIndex = 0;
+        } else if (pageSize == null) {
+            pageSize = 15;
+        }
+
+        //Pagination and FindAll
+        return new PageRequest(pageIndex, pageSize);
     }
 }

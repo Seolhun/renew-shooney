@@ -53,25 +53,21 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public Pagination<Content> findAll(Content content, Pageable pageable) {
+        // Call Repository        
         Page<Content> contents = contentRepository.findAll(pageable);
+        
+        
         Pagination<Content> pagination = new Pagination<>();
         for (Content dbContent : contents) {
-            List<FileData> fileList=new ArrayList<>();
+            List<FileData> fileList = new ArrayList<>();
             Hibernate.initialize(fileList);
             dbContent.setFiles(fileList);
 
-            List<Comment> commentList=new ArrayList<>();
+            List<Comment> commentList = new ArrayList<>();
             Hibernate.initialize(commentList);
             dbContent.setComments(commentList);
-//            List<FileData> fileList = fileDataRepository.findAll();
-//            List<Comment> commentList = commentRepository.findAll();
-//            if (fileList != null) {
-//                dbContent.setFiles(fileList);
-//            }
-//            if (commentList != null) {
-//                dbContent.setComments(commentList);
-//            }
         }
+
         pagination.setList(contents.getContent());
         pagination.setTotalCount(contents.getTotalElements());
         pagination.setPageIndex(pageable.getPageNumber());
@@ -160,7 +156,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public long findByCreatedByEntityNickname(String nickname) {
+    public long getIdxByNickname(String nickname) {
         Content content = contentRepository.findFirstByCreatedByEntityNicknameOrderByIdxDesc(nickname);
         if (content == null) {
             return 1;

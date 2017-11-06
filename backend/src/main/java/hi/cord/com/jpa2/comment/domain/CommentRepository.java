@@ -6,14 +6,21 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, Long> {
-	List<Comment> findAllBy(Comment comment);
+public interface CommentRepository extends JpaRepository<Comment, String> {
+    List<Comment> findAllBy(Comment comment);
 
-	Comment findById(long id);
+    Comment findById(String id);
 
-	boolean deleteById(long id);
+    Comment findByIdxAndCreatedByEntityNickname(long idx, String nickname);
 
-	long countBy(Comment comment);
+    //Get Sequence
+    Comment findFirstByCreatedByEntityNicknameOrderByIdxDesc(String nickname);
 
-	long countDistinctBy(Comment comment);
+    boolean deleteById(String id);
+
+    boolean deleteByIdx(long idx);
+
+    long countBy(Comment comment);
+
+    long countDistinctBy(Comment comment);
 }

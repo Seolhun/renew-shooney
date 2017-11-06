@@ -2,9 +2,9 @@ package hi.cord.com.jpa2.content.domain;
 
 public enum ContentType {
 	//향후 더 추가예정 /PathVariable에 쓸 수 있는 객체들을 사용한다.
-	Notice("notice"),
+	Essay("essay"),
 	Qna("qna"),
-	Essay("essay");
+	Notice("notice");
 	
 	private String type;
 	

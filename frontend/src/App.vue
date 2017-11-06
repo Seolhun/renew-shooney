@@ -53,6 +53,7 @@
   import HeaderMenu from './components/layout/Header.vue'
   import FooterMenu from './components/layout/Footer.vue'
   import BreadCrumb from './components/layout/BreadCrumb.vue'
+
   export default {
     components: {
       HeaderMenu,
@@ -66,9 +67,37 @@
     methods: {
       changeLang (langs) {
         this.$i18n.locale = langs
+      },
+      destroy () {
+        // Instance be destroyed.
+        this.$destroy()
       }
     },
-    computed: ''
+    // Open the browser console
+    beforeCreate () {
+      console.log('BeforeCreate In App Vue')
+    },
+    create () {
+      console.log('Create In App Vue')
+    },
+    beforeMount () {
+      console.log('BeforeMount In App Vue')
+    },
+    mounted () {
+      console.log('Mounted In App Vue')
+    },
+    beforeUpdate () {
+      console.log('BeforeUpdate In App Vue')
+    },
+    updated () {
+      console.log('Updated In App Vue')
+    },
+    beforeDestroy () {
+      console.log('BeforeDestroy In App Vue')
+    },
+    destroyed () {
+      console.log('Destroyed In App Vue')
+    }
   }
 </script>
 
