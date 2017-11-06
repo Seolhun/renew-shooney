@@ -15,6 +15,16 @@
         </ul>
       </div>
     </div>
+    <div class="row margin-30">
+      <div class="col-sm-12">
+        <div>
+          With Facebook: <a href="/login/facebook">click here</a>
+        </div>
+        <div>
+          With Github: <a href="/login/github">click here</a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

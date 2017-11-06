@@ -156,9 +156,9 @@ logging:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file: /Users/HunSeol/log/shooney/
 ---
-######################
-#### Security     ####
-######################
+##################################
+#### Security Oauth2 FaceBooK ####
+##################################
 #security:
 #  oauth2:
 #    client:
@@ -171,3 +171,17 @@ logging:
 #      clientAuthenticationScheme: form
 #    resource:
 #      userInfoUri: https://graph.facebook.com/me
+
+---
+#################################
+#### Security Oauth2 Github #####
+#################################
+github:
+  client:
+    clientId: bd1c0a783ccdd1c9b9e4
+    clientSecret: 1a9030fbca47a5b2c28e92f19050bb77824b5ad1
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://api.github.com/user
