@@ -43,10 +43,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/**").permitAll()
-            .and()
+        http.csrf().disable()
                 .cors().configurationSource(corsConfigurationSource())
+            .and()
+            .authorizeRequests()
+                .antMatchers("/**").permitAll()
             .and()
                 .formLogin().loginPage("/login")
                 .loginProcessingUrl("/login")
@@ -62,8 +63,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .rememberMe()
                 .rememberMeParameter("remember-me").tokenRepository(tokenRepository).tokenValiditySeconds(86400)
-            .and()
-                .csrf()
             .and()
                 .exceptionHandling().accessDeniedPage("/");
 
