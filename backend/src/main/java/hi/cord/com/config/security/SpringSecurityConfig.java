@@ -21,6 +21,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.Arrays;
 
@@ -43,17 +46,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .cors().configurationSource(corsConfigurationSource())
-            .and()
-            .authorizeRequests()
+        http.authorizeRequests()
+                .antMatchers("/master/**").hasRole("MASTER")
                 .antMatchers("/**").permitAll()
             .and()
-                .formLogin().loginPage("/login")
-                .loginProcessingUrl("/login")
+                .formLogin().loginPage("/user/login")
+                .loginProcessingUrl("/user/login")
                 .usernameParameter("userNickname").passwordParameter("userPassword")
                 .successHandler(customSuccessHandler())
-                .failureUrl("/login?error")
+                .failureUrl("/user/login?error")
             .and()
                 .logout()
                 .logoutUrl("/logout")
@@ -63,6 +64,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .rememberMe()
                 .rememberMeParameter("remember-me").tokenRepository(tokenRepository).tokenValiditySeconds(86400)
+            .and()
+                .csrf().disable()
+                .cors()
             .and()
                 .exceptionHandling().accessDeniedPage("/");
 
@@ -106,14 +110,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080/"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:7000", "http://127.0.0.1:7000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         // Max-Age = Request is cached for maxAge(second = 3600 = 1H)
-        configuration.setMaxAge((long) 3600);
-        // What is this?
+        configuration.setMaxAge((long) 1800);
         configuration.setAllowCredentials(false);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }

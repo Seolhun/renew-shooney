@@ -9,7 +9,6 @@ import hi.cord.com.jpa2.file.service.FileDataService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -30,7 +29,6 @@ import java.util.Map;
 /**
  * The type Content rest controller.
  */
-@CrossOrigin(origins = "/**", maxAge = 3600)
 @RequestMapping("/content")
 @RestController
 public class ContentRestController {
@@ -57,11 +55,18 @@ public class ContentRestController {
     @GetMapping(value = "")
     public ResponseEntity findAll(
             Content content,
-            @RequestParam(required = false) Integer pageIndex,
-            @RequestParam(required = false) Integer pageSize
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "15") Integer pageSize
     ) {
+        if (pageIndex == null) {
+            pageIndex = 0;
+        } else if (pageSize == null) {
+            pageSize = 15;
+        }
+
         //Pagination and FindAll
-        Pageable pageable = commonService.getPageable(pageIndex, pageSize);
+        Pageable pageable = new PageRequest(pageIndex, pageSize);
+
         Pagination<Content> contentPagination = contentService.findAll(content, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(contentPagination);
     }
@@ -77,7 +82,7 @@ public class ContentRestController {
             Errors errors
     ) {
         if (content == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"content\" parameter");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found content parameter");
         } else if (errors.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldError().getDefaultMessage());
         }
@@ -110,14 +115,14 @@ public class ContentRestController {
             @PathVariable Long idx
     ) {
         if (nickname == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"nickname\" path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found nickname path");
         } else if (idx == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"Content-Identification\" path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found Content-Identification path");
         }
 
         Content content = contentService.findByIdx(idx, nickname);
         if (content == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"content\" result");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found content result");
         } else if (!(content.getCreatedByEntity().getNickname().equals(nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
@@ -137,16 +142,16 @@ public class ContentRestController {
             @PathVariable Long idx
     ) {
         if (content == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found required \"content\" parameter");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found required content parameter");
         } else if (nickname == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"nickname\" path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found nickname path");
         } else if (idx == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"Content-Identification\" path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found Content-Identification path");
         }
 
         content = contentService.findByIdx(idx, nickname);
         if (content == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"content\" result");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found content result");
         } else if (!(content.getCreatedByEntity().getNickname().equals(nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
@@ -166,15 +171,15 @@ public class ContentRestController {
             Principal principal
     ) {
         if (principal.getName().equals(nickname)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not matched \"created By\" and accessed user");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not matched created By and accessed user");
         } else if (nickname == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"nickname\" path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found nickname path");
         } else if (idx == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"Content-Identification\" path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found Content-Identification path");
         }
 
         if (!(contentService.deleteByIdx(idx, nickname))) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"content\" result");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found content result");
         }
 
         return ResponseEntity.status(HttpStatus.OK).body("Success");

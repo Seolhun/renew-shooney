@@ -17,7 +17,7 @@ shun:
   servers:
     - www.qa.com
 server:
-  address: 192.168.0.4
+  address: 127.0.0.1
   port: 5000
 ---
 spring:
@@ -39,7 +39,7 @@ shun:
   servers:
     - www.prod.com
 server:
-  address: 192.168.0.3
+  address: 127.0.0.1
   port: 5000
 ---
 #############################

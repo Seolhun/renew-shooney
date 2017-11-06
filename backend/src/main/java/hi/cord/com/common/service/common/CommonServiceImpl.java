@@ -5,8 +5,6 @@ import com.google.gson.JsonParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -384,17 +382,5 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public String removeTags(String content) {
         return content.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
-    }
-
-    @Override
-    public Pageable getPageable(Integer pageIndex, Integer pageSize) {
-        if (pageIndex == null) {
-            pageIndex = 0;
-        } else if (pageSize == null) {
-            pageSize = 15;
-        }
-
-        //Pagination and FindAll
-        return new PageRequest(pageIndex, pageSize);
     }
 }

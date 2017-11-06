@@ -7,6 +7,7 @@ import hi.cord.com.jpa2.spam.service.SpamService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,11 +43,18 @@ public class SpamRestController {
     @GetMapping(value = "")
     public ResponseEntity findAll(
             Spam spam,
-            @RequestParam(required = false) Integer pageIndex,
-            @RequestParam(required = false) Integer pageSize
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "15") Integer pageSize
     ) {
+        if (pageIndex == null) {
+            pageIndex = 0;
+        } else if (pageSize == null) {
+            pageSize = 15;
+        }
+
         //Pagination and FindAll
-        Pageable pageable = commonService.getPageable(pageIndex, pageSize);
+        Pageable pageable = new PageRequest(pageIndex, pageSize);
+
         Pagination<Spam> spamPagination = spamService.findAll(spam, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(spamPagination);
     }

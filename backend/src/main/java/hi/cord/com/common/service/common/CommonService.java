@@ -1,11 +1,7 @@
 package hi.cord.com.common.service.common;
 
 import com.google.gson.JsonObject;
-import org.springframework.context.MessageSource;
-import org.springframework.data.domain.Pageable;
-import org.springframework.validation.BindingResult;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
@@ -43,6 +39,4 @@ public interface CommonService {
     List<String> extractImgSrc(String content);
 
     String removeTags(String content);
-
-    Pageable getPageable(Integer pageIndex, Integer pageSize);
 }

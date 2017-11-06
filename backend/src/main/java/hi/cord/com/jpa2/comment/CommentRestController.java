@@ -9,26 +9,20 @@ import hi.cord.com.jpa2.content.service.ContentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 /**
  * The type Content rest controller.
  */
-@CrossOrigin(origins = "/**", maxAge = 3600)
 @RequestMapping("/comment")
 @RestController
 public class CommentRestController {
@@ -56,11 +50,18 @@ public class CommentRestController {
             Comment comment,
             @PathVariable String nickname,
             @PathVariable Long commentIdx,
-            @RequestParam(required = false) Integer pageIndex,
-            @RequestParam(required = false) Integer pageSize
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "15") Integer pageSize
     ) {
+        if (pageIndex == null) {
+            pageIndex = 0;
+        } else if (pageSize == null) {
+            pageSize = 15;
+        }
+
         //Pagination and FindAll
-        Pageable pageable = commonService.getPageable(pageIndex, pageSize);
+        Pageable pageable = new PageRequest(pageIndex, pageSize);
+
         Pagination<Comment> commentPagination = commentService.findAll(comment, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(commentPagination);
     }
@@ -79,7 +80,7 @@ public class CommentRestController {
             Errors errors
     ) {
         if (comment == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"comment\" parameter");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found comment parameter");
         } else if (errors.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldError().getDefaultMessage());
         }
@@ -112,14 +113,14 @@ public class CommentRestController {
             @PathVariable Long idx
     ) {
         if (nickname == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"nickname\" path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found nickname path");
         } else if (idx == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"Content-Identification\" path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found Content-Identification path");
         }
 
         Comment comment = commentService.findByIdx(idx, nickname);
         if (comment == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"comment\" result");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found comment result");
         } else if (!(comment.getCreatedByEntity().getNickname().equals(nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
@@ -139,16 +140,16 @@ public class CommentRestController {
             @PathVariable Long idx
     ) {
         if (comment == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found required \"comment\" parameter");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found required comment parameter");
         } else if (nickname == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"nickname\" path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found nickname path");
         } else if (idx == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"Content-Identification\" path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found Content-Identification path");
         }
 
         comment = commentService.findByIdx(idx, nickname);
         if (comment == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"comment\" result");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found comment result");
         } else if (!(comment.getCreatedByEntity().getNickname().equals(nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
@@ -168,15 +169,15 @@ public class CommentRestController {
             Principal principal
     ) {
         if (principal.getName().equals(nickname)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not matched \"created By\" and accessed user");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not matched created By and accessed user");
         } else if (nickname == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"nickname\" path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found nickname path");
         } else if (idx == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"comment idx\" path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found comment idx path");
         }
 
         if (!(commentService.deleteByIdx(idx, nickname))) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"comment\" result");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found comment result");
         }
 
         return ResponseEntity.status(HttpStatus.OK).body("Success");

@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 // Vue-i18n
 import VueI18n from 'vue-i18n'
-import languages from './assets/i18n/languages.vue'
+import messages from './assets/i18n/messages.vue'
 // Axios
 // import axios from 'axios'
 
@@ -24,19 +24,24 @@ Vue.use(BootstrapVue)
 
 // Vue-i18n Configuration
 const i18n = new VueI18n({
-  locale: 'ko', // set locale
+  // set locale
+  locale: 'ko',
   fallbackLocale: 'en',
-  messages: languages // set locale messages
+  messages: messages,
+  silentTranslationWarn: true
+  // set locale messages
 })
 
 // change locale
 // i18n.locale = 'ja'
 
-// Nver Removed this
+// Never Removed this
 /* eslint-disable no-new */
-new Vue({
+const vm = new Vue({
   el: '#app',
   router,
   i18n,
   render: h => h(App)
 })
+
+export default vm

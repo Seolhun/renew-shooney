@@ -51,7 +51,7 @@ dependencies {
 
     compile 'org.springframework.boot:spring-boot-starter'
     compile("org.springframework.boot:spring-boot-starter-web")
-//    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-aop")
 
     //NoSQL
@@ -62,14 +62,14 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.12.Final'
 
-
     //Security
     compile("org.springframework.boot:spring-boot-starter-security")
-    compile("org.springframework.security.oauth:spring-security-oauth2")
+//    compile("org.springframework.security.oauth:spring-security-oauth2")
 
     //AWS
     compile group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.11.217'
     compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.217'
+    compile group: 'com.github.derjust', name: 'spring-data-dynamodb', version: '4.5.0'
 
     // RDBMS - JPA
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'

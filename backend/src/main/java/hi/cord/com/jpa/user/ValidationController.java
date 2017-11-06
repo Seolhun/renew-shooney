@@ -76,11 +76,11 @@ public class ValidationController {
         return ResponseEntity.status(HttpStatus.OK).body(nickname + " is available");
     }
 
-    @GetMapping(value="/csrf-token")
-    public ResponseEntity getCsrfToken(HttpServletRequest request) {
-        CsrfToken token = (CsrfToken)request.getAttribute(CsrfToken.class.getName());
-        String tokenValue = token.getToken();
-        String tokenHeader = token.getHeaderName();
-        return ResponseEntity.status(HttpStatus.OK).body("Token Header : "+tokenHeader+"\nToken Value : "+tokenValue);
-    }
+//    @GetMapping(value="/csrf-token")
+//    public ResponseEntity getCsrfToken(HttpServletRequest request) {
+//        CsrfToken token = (CsrfToken)request.getAttribute(CsrfToken.class.getName());
+//        String tokenValue = token.getToken();
+//        String tokenHeader = token.getHeaderName();
+//        return ResponseEntity.status(HttpStatus.OK).body("Token Header : "+tokenHeader+"\nToken Value : "+tokenValue);
+//    }
 }
