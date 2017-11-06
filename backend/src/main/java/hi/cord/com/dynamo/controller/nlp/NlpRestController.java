@@ -47,8 +47,6 @@ public class NlpRestController {
      */
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<NewsData> saveNlp(@PathVariable String version) {
-        LOG.info("where : saveNlp");
-
         CustomSequence customSequence = sequenceService.findByKey("news");
         return new ResponseEntity<>(HttpStatus.OK);
     }

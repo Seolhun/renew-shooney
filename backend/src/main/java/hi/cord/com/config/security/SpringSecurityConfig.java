@@ -17,7 +17,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CharacterEncodingFilter;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -39,26 +44,28 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/**").permitAll()
-        .and()
-            .formLogin().loginPage("/user/login")
-            .loginProcessingUrl("/user/login")
-            .usernameParameter("userEmail").passwordParameter("userPassword")
-            .successHandler(customSuccessHandler())
-            .failureUrl("/user/login?error")
-        .and()
-            .logout()
-            .logoutUrl("/logout")
-            .deleteCookies("remember-me")
-            .deleteCookies("JSESSIONID")
-            .invalidateHttpSession(true)
-        .and()
-            .rememberMe()
-            .rememberMeParameter("remember-me").tokenRepository(tokenRepository).tokenValiditySeconds(86400)
-        .and()
-            .csrf()
-        .and()
-            .exceptionHandling().accessDeniedPage("/");
+                .antMatchers("/**").permitAll()
+            .and()
+                .cors().configurationSource(corsConfigurationSource())
+            .and()
+                .formLogin().loginPage("/login")
+                .loginProcessingUrl("/login")
+                .usernameParameter("userNickname").passwordParameter("userPassword")
+                .successHandler(customSuccessHandler())
+                .failureUrl("/login?error")
+            .and()
+                .logout()
+                .logoutUrl("/logout")
+                .deleteCookies("remember-me")
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+            .and()
+                .rememberMe()
+                .rememberMeParameter("remember-me").tokenRepository(tokenRepository).tokenValiditySeconds(86400)
+            .and()
+                .csrf()
+            .and()
+                .exceptionHandling().accessDeniedPage("/");
 
         //한글 인코딩 필터
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
@@ -96,5 +103,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CustomSuccessHandler customSuccessHandler() {
         return new CustomSuccessHandler();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080/"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        // Max-Age = Request is cached for maxAge(second = 3600 = 1H)
+        configuration.setMaxAge((long) 3600);
+        // What is this?
+        configuration.setAllowCredentials(false);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

@@ -100,18 +100,27 @@ public class NlpPhraseServiceImpl implements NlpPhraseService {
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public NlpPhrase findByIdx(long idx) {
+        return null;
+    }
+
+    @Override
+    public boolean deleteById(String id, String accessBy) {
         return false;
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public boolean deleteById(long id, String accessBy) {
         return false;
     }
 
     @Override
-    public NlpPhrase update(NlpPhrase nlpPhrase) {
+    public boolean deleteByIdx(long idx, String accessBy) {
+        return false;
+    }
 
+    @Override
+    public NlpPhrase updateById(NlpPhrase nlpPhrase, String accessBy) {
         return nlpPhrase;
     }
 

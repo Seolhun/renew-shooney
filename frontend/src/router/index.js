@@ -7,8 +7,8 @@ import Blog from '@/components/items/blog/Blog'
 import BlogDetail from '@/components/items/blog/BlogDetail'
 import Me from '@/components/items/aboutme/Me'
 import Supporter from '@/components/items/supporter/Supporter'
-import MarkdownEditor from '@/components/common/editor/MarkdownEditor'
-import Error from '@/components/common/error/404.vue'
+import Editor from '@/components/common/editor/Editor'
+import Error from '@/components/common/error/404'
 
 Vue.use(Router)
 export default new Router({
@@ -34,11 +34,12 @@ export default new Router({
           beforeEnter: (to, from, next) => {
             console.log('Inside route setup')
             next()
-          }},
+          }
+        },
         {
           path: ':type/:id/edit',
-          name: 'BlogEdit',
-          component: MarkdownEditor
+          name: 'BlogEditor',
+          component: Editor
         }
       ]
     },
@@ -54,8 +55,8 @@ export default new Router({
     },
     {
       path: '/editor',
-      name: 'Markdown',
-      component: MarkdownEditor
+      name: 'Editor',
+      component: Editor
     },
     // Redirect Route
     {

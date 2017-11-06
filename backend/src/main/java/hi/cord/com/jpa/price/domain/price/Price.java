@@ -1,11 +1,19 @@
 package hi.cord.com.jpa.price.domain.price;
 
-import hi.cord.com.common.domain.CommonDomainInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import hi.cord.com.common.domain.entity.BaseEntity;
+import hi.cord.com.common.domain.entity.CreatedByEntity;
+import hi.cord.com.common.domain.entity.ModifiedByEntity;
+import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.jpa.price.domain.history.PaidHistory;
+import hi.cord.com.jpa2.content.domain.Content;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,7 +25,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @Getter
 @Setter
-public class Price extends CommonDomainInfo implements Serializable {
+public class Price extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="PRICE_ID")
@@ -49,4 +57,37 @@ public class Price extends CommonDomainInfo implements Serializable {
 	@Column(name = "FINISHED_DATE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date finishedDate;
+
+	@CreatedBy
+	@AssociationOverrides({
+			@AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "CREATED_BY"))
+	})
+	@AttributeOverrides({
+			@AttributeOverride(name = "user", column = @Column(name = "CREATED_BY", length = 60)),
+			@AttributeOverride(name = "nickname", column = @Column(name = "CREATED_NICKNAME"))
+	})
+	@Embedded
+	private CreatedByEntity createdByEntity;
+
+	@LastModifiedBy
+	@AssociationOverrides({
+			@AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "LAST_MODIFIED_BY"))
+	})
+	@AttributeOverrides({
+			@AttributeOverride(name = "user", column = @Column(name = "LAST_MODIFIED_BY", length = 60)),
+			@AttributeOverride(name = "nickname", column = @Column(name = "LAST_MODIFIED_NICKNAME"))
+	})
+	@Embedded
+	private ModifiedByEntity modifiedByEntity;
+
+
+	/**
+	 * Requirement parameter in Entity
+	 */
+	@Transient
+	@JsonSerialize
+	@JsonDeserialize
+	private Pagination<Price> pagination;
+
+	//------------Entity Filed finished----------------
 }

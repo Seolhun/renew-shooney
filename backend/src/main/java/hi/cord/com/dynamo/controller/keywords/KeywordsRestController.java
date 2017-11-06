@@ -43,7 +43,7 @@ public class KeywordsRestController {
      */
     @PostMapping(value = "")
     public ResponseEntity<Keywords> postKeywords(@PathVariable String version, @RequestBody Keywords keywords) {
-        LOG.info("param : postKeywords {}", keywords.toString());
+        LOG.debug("p : postKeywords {}", keywords.toString());
         keywordsService.saveKeywords(keywords);
         return new ResponseEntity<>(keywords, HttpStatus.OK);
     }
@@ -57,7 +57,7 @@ public class KeywordsRestController {
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<Page<Keywords>> getKeywordsList(@PathVariable String version, Keywords keyword) {
-        LOG.info("param : getKeywordsById {}", keyword.toString());
+        LOG.debug("p : getKeywordsById {}", keyword.toString());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -70,7 +70,7 @@ public class KeywordsRestController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Keywords> getKeywordsById(@PathVariable String version, @PathVariable String id) {
-        LOG.info("param : getKeywordsById {}", id);
+        LOG.debug("p : getKeywordsById {}", id);
         Keywords keywords = keywordsService.findById(id);
         return new ResponseEntity<>(keywords, HttpStatus.OK);
     }
@@ -84,7 +84,7 @@ public class KeywordsRestController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Keywords> updateKeywordsById(@PathVariable String version, @PathVariable String id) {
-        LOG.info("param : updateKeywordsById {}", id);
+        LOG.debug("p : updateKeywordsById {}", id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -97,7 +97,7 @@ public class KeywordsRestController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Keywords> deleteKeywordsById(@PathVariable String version, @PathVariable String id) {
-        LOG.info("param : deleteKeywordsById {}", id);
+        LOG.debug("p : deleteKeywordsById {}", id);
         Keywords keywords = keywordsService.findById(id);
         return new ResponseEntity<>(keywords, HttpStatus.OK);
     }

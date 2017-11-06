@@ -1,6 +1,7 @@
 package hi.cord.com.jpa.user;
 
-import hi.cord.com.common.service.CommonService;
+import hi.cord.com.common.domain.pagination.Pagination;
+import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.jpa.price.service.history.PaidHistoryService;
 import hi.cord.com.jpa.user.domain.profile.UserProfile;
 import hi.cord.com.jpa.user.domain.profile.UserProfileType;
@@ -10,171 +11,108 @@ import hi.cord.com.jpa.user.servie.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationTrustResolver;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/user")
 public class UserRestController {
-	private static final Logger LOG = LoggerFactory.getLogger(UserRestController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserRestController.class);
 
-	private UserService userService;
-	private UserProfileService userProfileService;
-	private PaidHistoryService paidHistoryService;
-	private MessageSource messageSource;
-	private PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
-	private AuthenticationTrustResolver authenticationTrustResolver;
-	private CommonService commonService;
+    private UserService userService;
+    private UserProfileService userProfileService;
+    private PaidHistoryService paidHistoryService;
+    private CommonService commonService;
 
-	@Autowired
-	public UserRestController(UserService userService, PaidHistoryService paidHistoryService, MessageSource messageSource, UserProfileService userProfileService, PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices, AuthenticationTrustResolver authenticationTrustResolver, CommonService commonService) {
-		this.userService = userService;
-		this.paidHistoryService = paidHistoryService;
-		this.messageSource = messageSource;
-		this.userProfileService = userProfileService;
-		this.persistentTokenBasedRememberMeServices = persistentTokenBasedRememberMeServices;
-		this.authenticationTrustResolver = authenticationTrustResolver;
-		this.commonService = commonService;
-	}
+    @Autowired
+    public UserRestController(UserService userService, PaidHistoryService paidHistoryService, UserProfileService userProfileService, CommonService commonService) {
+        this.userService = userService;
+        this.paidHistoryService = paidHistoryService;
+        this.userProfileService = userProfileService;
+        this.commonService = commonService;
+    }
 
-	/**
-	 * User email duplication Check
-	 *
-	 * @param email the email
-	 * @return ResponseEntity response entity
-	 */
-	@GetMapping(value = { "/duplication/email/{email}" })
-	public ResponseEntity emailDupl(@PathVariable String email) {
-		if (email == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A email is requirement");
-		} else if (!commonService.validPattern(email, "email")) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This "+email+" is not Email form");
-		} else if (userService.findByEmail(email) != null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(email + " already was used.");
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(email + " is available");
-	}
+    @GetMapping("")
+    public ResponseEntity findAll(Pagination<User> pagination, Principal principal) {
 
-	/**
-	 * User email duplication Check
-	 *
-	 * @param nickname the nickname
-	 * @return the response entity
-	 */
-	@GetMapping(value = { "/duplication/nickname/{nickname}" })
-	public ResponseEntity nickname(@PathVariable String nickname) {
-		if (nickname == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A nickname is requirement");
-		} else if (!commonService.validPattern(nickname, "nickname")) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This "+nickname+" is not Nickname form");
-		} else if (userService.findByNickname(nickname) != null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(nickname + " already was used.");
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(nickname + " is available");
-	}
+        return ResponseEntity.status(HttpStatus.OK).body("Success");
+    }
+
+    /**
+     * Save response entity.
+     *
+     * @param user          the user
+     * @param bindingResult the binding result
+     * @return the response entity
+     */
+    @PostMapping("")
+    public ResponseEntity save(@RequestBody User user, BindingResult bindingResult) {
+        String email = user.getEmail();
+        String nickname = user.getNickname();
+        String userAddress = user.getCommonAddress().getAddress();
+
+        // 개인 별로 에러메세지 띄우기 구현 예정(개인별로 해도 메세지가 2개뜨는 문제 발생)
+        if (email == null || email.length() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email is requirements.");
+        } else if (nickname == null || nickname.length() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nickname is requirements.");
+        } else if (bindingResult.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Write requirements information.");
+        }
+
+        if (userService.findByEmail(user.getEmail()) != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already registered");
+        } else if (userService.findByNickname(user.getNickname()) != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already registered");
+        }
+
+        // 유저 권한 넣기(프론트에서 값을 받지 않기때문에 백엔드에서 넣어준다.)
+        Set<UserProfile> userProfileSet = new HashSet<>();
+        UserProfile userProfile = new UserProfile();
+        //userProfile.setId(UserProfileType.GUEST.ordinal() +1);
+        userProfile.setId(UserProfileType.GUEST.ordinal());
+        userProfile.setType(UserProfileType.GUEST);
+
+        userProfileSet.add(userProfile);
+        user.setProfiles(userProfileSet);
+        userService.insert(user);
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
 
 
+    @GetMapping("/{nickname}")
+    public ResponseEntity findOne(@PathVariable String nickname) {
+        User user = userService.findByNickname(nickname);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found " + nickname);
+        }
 
-	/**
-	 * Login page response entity.
-	 *
-	 * @param error   the error
-	 * @param request the request
-	 * @return the response entity
-	 */
-	@GetMapping(value = "/login")
-	public ResponseEntity loginPage(@RequestParam(value = "error", required = false) String error, HttpServletRequest request) {
-		LOG.info("loginPage");
-		if (isCurrentAuthenticationAnonymous()) {
-			if (error != null) {
-				Exception exception = (Exception)request.getSession().getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(getErrorMessage(exception));
-			}
-			return ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT).body("Must be logined");
-		}
-		return ResponseEntity.status(HttpStatus.OK).body("Try login");
-	}
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
 
-	/**
-	 * Signup do response entity.
-	 *
-	 * @param user    the user
-	 * @param result  the result
-	 * @param request the request
-	 * @return the response entity
-	 *
-	 * @throws Exception the exception
-	 */
-	@PostMapping(value = { "/signup" })
-	public ResponseEntity signupDo(@Valid User user, BindingResult result, HttpServletRequest request) throws Exception {
-		String mapping = "views/user/user-signup";
-		String email=user.getEmail();
-		String nickname=user.getNickname();
-		String userAddress=user.getAddress();
+    @PutMapping("/{nickname}")
+    public ResponseEntity updated(@RequestBody User user, @PathVariable String nickname) {
+        User dbUser = userService.updateByNickname(user);
+        if (dbUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found " + nickname);
+        }
 
-		// 개인 별로 에러메세지 띄우기 구현 예정(개인별로 해도 메세지가 2개뜨는 문제 발생)
-		if (email == null || email.length() == 0) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email is requirements.");
-		} else if (nickname == null || nickname.length() == 0) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nickname is requirements.");
-		} else if (result.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Write requirements information.");
-		}
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
 
-		if (userService.findByEmail(user.getEmail() ) != null ) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already registered");
-		} else if (userService.findByNickname(user.getNickname() ) != null ) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already registered");
-		}
+    @DeleteMapping("/{nickname}")
+    public ResponseEntity delete(@PathVariable String nickname) {
+        User dbUser = userService.deleteByNickname(nickname);
+        if (dbUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found " + nickname);
+        }
 
-		// 유저 권한 넣기(프론트에서 값을 받지 않기때문에 백엔드에서 넣어준다.)
-		Set<UserProfile> upSet = new HashSet<>();
-		UserProfile userProfile = new UserProfile();
-		userProfile.setId(UserProfileType.PLAYER.ordinal() + 1);
-		userProfile.setType(UserProfileType.PLAYER);
-		upSet.add(userProfile);
-		user.setProfiles(upSet);
-		userService.insert(user);
-
-		return ResponseEntity.status(HttpStatus.OK).body(user);
-	}
-
-	/**
-	 * ##########################################
-	 * ############### Method Div ###############
-	 * ##########################################
-	 */
-	private boolean isCurrentAuthenticationAnonymous() {
-		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		return authenticationTrustResolver.isAnonymous(authentication);
-	}
-
-	// 커스텀 된 로그인 에러 메세지
-	private String getErrorMessage(Exception exception) {
-		String error = "";
-		if (exception instanceof LockedException) {
-			error = "현재 계정이 잠겼습니다.";
-		} else if (exception instanceof DisabledException) {
-			error = "현재 계정이 이용 불가능합니다.";
-//		} else if (exception instanceof RecapException) {
-//			error = "현재 계정이 이용 불가능합니다.";
-		} else {
-			error = "계정과 비밀번호를 올바르게 입력해주세요,.";
-		}
-		return error;
-	}
+        return ResponseEntity.status(HttpStatus.OK).body(dbUser.getNickname() + " is removed");
+    }
 }

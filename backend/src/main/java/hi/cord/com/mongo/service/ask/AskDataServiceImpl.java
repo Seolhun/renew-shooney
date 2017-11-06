@@ -1,6 +1,6 @@
 package hi.cord.com.mongo.service.ask;
 
-import hi.cord.com.common.service.CommonService;
+import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.dynamo.domain.nlp.NlpPhrase;
 import hi.cord.com.dynamo.service.nlp.NlpPhraseService;
 import hi.cord.com.mongo.domain.ask.AskData;
@@ -63,12 +63,17 @@ public class AskDataServiceImpl implements AskDataService {
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public boolean deleteById(String id, String accessBy) {
         return false;
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public boolean deleteById(long id, String accessBy) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteByIdx(long idx, String accessBy) {
         return false;
     }
 
@@ -85,7 +90,7 @@ public class AskDataServiceImpl implements AskDataService {
     }
 
     @Override
-    public AskData update(AskData askData) {
+    public AskData updateById(AskData askData, String accessBy) {
         AskData dbAsk = this.findById(askData.getId());
         if (dbAsk != null)
             askData.setModifiedDate(new Date());
@@ -107,7 +112,7 @@ public class AskDataServiceImpl implements AskDataService {
 
             boolean isRight = true;
             while (isRight) {
-                LOG.info("param index : {}", i);
+                LOG.debug("p  index : {}", i);
                 // 리스트 가져오기
                 String webSiteName = "okky";
                 String address = AskWebSite.OKKY.getAddress();
@@ -151,7 +156,6 @@ public class AskDataServiceImpl implements AskDataService {
                     errorCount++;
                     //Continuous 10 happen error, Stop Thread
                     if (errorCount > 50) {
-                        LOG.info("test End");
                         isRight = false;
                     }
                 }

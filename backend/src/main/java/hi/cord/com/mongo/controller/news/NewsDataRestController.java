@@ -1,6 +1,7 @@
 package hi.cord.com.mongo.controller.news;
 
-import hi.cord.com.common.domain.Pagination;
+import hi.cord.com.common.domain.pagination.Pagination;
+import hi.cord.com.jpa2.content.domain.Content;
 import hi.cord.com.mongo.domain.news.NewsData;
 import hi.cord.com.mongo.domain.sequence.CustomSequence;
 import hi.cord.com.mongo.service.news.NewsDataService;
@@ -10,14 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * The type News data rest controller.
@@ -52,7 +50,7 @@ public class NewsDataRestController {
      */
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<NewsData> saveNews(@PathVariable String version, NewsData newsData) {
-        LOG.info("param : saveNews {}", newsData.toString());
+        LOG.debug("p  : saveNews {}", newsData.toString());
 
         CustomSequence customSequence = sequenceService.findByKey("news");
         newsDataService.getNewsThread(customSequence.getId()).start();
@@ -68,7 +66,6 @@ public class NewsDataRestController {
      */
     @RequestMapping(value = "{idx}", method = RequestMethod.POST)
     public ResponseEntity<NewsData> saveNewsByIdx(@PathVariable String version, @PathVariable long idx) {
-        LOG.info("where : saveNews");
         newsDataService.getNewsThread(idx).start();
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -76,15 +73,34 @@ public class NewsDataRestController {
     /**
      * Gets news list data.
      *
-     * @param pagination the pagination
+     * @param newsData  the news data
+     * @param pageIndex the page index
+     * @param pageSize  the page size
      * @return the news list data
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<Page<NewsData>> getNewsListData(Pagination<NewsData> pagination) {
-        // 전체 게시판 갯수 확인
-        PageRequest pageRequest = new PageRequest(pagination.getPageIndex(), pagination.getPageSize(), Direction.DESC, "idx");
-        Page<NewsData> newsDatas = newsDataService.findByPage(pagination.getE(), pageRequest);
-        return new ResponseEntity<>(newsDatas, HttpStatus.OK);
+    public ResponseEntity getNewsListData(
+            NewsData newsData,
+            @RequestParam(required = false) Integer pageIndex,
+            @RequestParam(required = false) Integer pageSize
+    ) {
+        if (pageIndex == null) {
+            pageIndex = 0;
+        } else if (pageSize == null) {
+            pageSize = 15;
+        }
+
+        //Pagination and FindAll
+        Pagination<NewsData> pagination = new Pagination<>();
+        pagination.setPageIndex(pageIndex);
+        pagination.setPageSize(pageSize);
+
+        Pageable pageable = new PageRequest(pageIndex, pageSize, Direction.DESC, "idx");
+        Page<NewsData> newsDatas = newsDataService.findByPage(newsData, pageable);
+        pagination.setList(newsDatas.getContent());
+        pagination.setTotalCount(newsDatas.getTotalElements());
+
+        return ResponseEntity.status(HttpStatus.OK).body(pagination.toString());
     }
 
     /**
@@ -106,7 +122,7 @@ public class NewsDataRestController {
      */
     @RequestMapping(value = "/stop", method = RequestMethod.GET)
     public ResponseEntity<NewsData> stopThreadNews() {
-        LOG.info("where : stopThreadNews");
+        LOG.debug("where : stopThreadNews");
         stopNewsThread();
         return new ResponseEntity<>(HttpStatus.OK);
     }

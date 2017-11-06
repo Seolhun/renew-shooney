@@ -53,7 +53,7 @@ public class FileDataController {
 		// 파일 가져오기.
 		// 1 MB = 1024 * 1024 Bytes || 1 GB = 1024 * 1024 * 1024 Bytes.
 		List<MultipartFile> multiFiles = multipart.getFiles("boardWithFileList");
-		LOG.info("param : " + multiFiles.toString());
+		LOG.debug("p : " + multiFiles.toString());
 		int sum = 0;
 
 		//각각의 파일 크기 계산 
@@ -85,7 +85,7 @@ public class FileDataController {
 			fileData.setFileDataType(splitName[1]);
 
 			String contentType = multiFile.getContentType();
-			LOG.info("param : {}", contentType);
+			LOG.debug("p : {}", contentType);
 			// fileData.setFileDataType(contentType);
 
 			//파일이름 Bcrypt로 암호화.

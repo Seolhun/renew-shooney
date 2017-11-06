@@ -5,6 +5,9 @@ spring:
   profiles:
     active: dev
 ---
+#############################
+#### Profile Information ####
+#############################
 spring:
   profiles: qa
 name: qa
@@ -39,13 +42,25 @@ server:
   address: 192.168.0.3
   port: 5000
 ---
+#############################
+#### Custom TaskExecutor ####
+#############################
+shun:
+  thread:
+    timeout: 2
+    core-size: 10
+    max-pool: 20
+    queue-capacity: 25
+---
 #########################
 #### Custom Database ####
 #########################
 shun:
-  # MariaDB2
+  #########################
+  #### MariaDB2 - Blog ####
+  #########################
   datasource:
-    url: jdbc:mysql://${server.address}:3306/shooney_common
+    url: jdbc:mysql://${server.address}:3306/shooney_blog
     username: developer
     password: developer@
     driver-class-name: com.mysql.jdbc.Driver
@@ -64,9 +79,11 @@ shun:
 #### Spring       ####
 ######################
 spring:
-  # MariaDB1
+  ###########################
+  #### MariaDB1 - Common ####
+  ###########################
   datasource:
-    url: jdbc:mysql://${server.address}:3306/shooney_blog
+    url: jdbc:mysql://${server.address}:3306/shooney_common
     username: developer
     password: developer@
     driver-class-name: com.mysql.jdbc.Driver
@@ -81,7 +98,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   data:
-    #mongodb
+  ######################
+  #### MongoDB      ####
+  ######################
     mongodb:
       host: 127.0.0.1
       port: 27017
@@ -91,7 +110,7 @@ spring:
     redis:
       repositories:
         enabled: false
-#  #Redis
+  #Redis
 #  redis:
 #    host: 127.0.0.1
 #    password:
@@ -129,8 +148,8 @@ logging:
     ROOT: INFO
     org:
       springframework:
-        web: ERROR
-      hibernate: ERROR
+        web: INFO
+      hibernate: INFO
   pattern:
     level:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

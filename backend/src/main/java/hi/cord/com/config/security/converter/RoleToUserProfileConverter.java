@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class RoleToUserProfileConverter implements Converter<Object, UserProfile> {
 	private static final Logger LOG = LoggerFactory.getLogger(RoleToUserProfileConverter.class);
 
-	UserProfileService userProfileService;
+	private UserProfileService userProfileService;
 
 	@Autowired
 	public RoleToUserProfileConverter(UserProfileService userProfileService) {
@@ -23,14 +23,13 @@ public class RoleToUserProfileConverter implements Converter<Object, UserProfile
 	}
 
 	/**
-	 * Gets UserProfile by Id
+	 * Gets ProfilePrivilege by Id
 	 * 
 	 * @see Converter#convert(Object)
 	 */
 	public UserProfile convert(Object element) {
 		Integer id = Integer.parseInt((String) element);
 		UserProfile profile = userProfileService.findById(id);
-		LOG.info("Profile : {}", profile);
 		return profile;
 	}
 
