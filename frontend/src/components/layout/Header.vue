@@ -12,7 +12,7 @@
 
           <nav class="header-navigation">
             <!---->
-            <ul class="header-navigation-wrap u-unstyled header-show">
+            <ul class="header-navigation-ul u-unstyled header-show">
               <li>
                 <a class="navigation-link nav-toggle active" aria-hidden="false">
 
@@ -20,11 +20,11 @@
               </li>
             </ul>
             <!-- Web -->
-            <ul class="header-navigation-wrap u-unstyled header-hide">
-              <router-link class="navigation-link" tag="li" :to="'notice'">Notice</router-link>
-              <router-link class="navigation-link" tag="li" :to="'supporters'">Supporters</router-link>
-              <router-link class="navigation-link" tag="li" :to="'blog'">Blog</router-link>
-              <router-link class="navigation-link" tag="li" :to="'aboutme'">About Me</router-link>
+            <ul class="header-navigation-ul u-unstyled header-hide">
+              <router-link class="navigation-link" tag="li" :to="'/notice'">Notice</router-link>
+              <router-link class="navigation-link" tag="li" :to="'/supporters'">Supporters</router-link>
+              <router-link class="navigation-link" tag="li" :to="'/blog'">Blog</router-link>
+              <router-link class="navigation-link" tag="li" :to="'/aboutme'">About Me</router-link>
             </ul>
           </nav>
 
@@ -39,14 +39,16 @@
   </header>
 </template>
 
+<style lang="sass">
+  @import "../../assets/scss/layout/header"
+</style>
+
 <script>
   export default {
     name: 'headerMenu'
   }
 </script>
 
-<style lang="sass">
-  @import "../../assets/scss/layout/header"
-</style>
+
 
 

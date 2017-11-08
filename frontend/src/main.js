@@ -13,14 +13,11 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 // Vue-i18n
 import VueI18n from 'vue-i18n'
 import messages from './assets/i18n/messages.vue'
-// Axios
-// import axios from 'axios'
 
 Vue.config.productionTip = false
 Vue.use(VueI18n)
 Vue.use(ElementUI)
 Vue.use(BootstrapVue)
-// Vue.use(axios)
 
 // Vue-i18n Configuration
 const i18n = new VueI18n({

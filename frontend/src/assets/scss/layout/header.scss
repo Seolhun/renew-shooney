@@ -1,5 +1,8 @@
 @import "../variable";
 
+/* ------------------------
+  Global Tag CSS
+------------------------ */
 .header {
   height: $header-height;
   left: 0;
@@ -51,7 +54,8 @@
   transition: flex .2s, margin .2s, width .2s, -webkit-box-flex .2s, -ms-flex .2s;
 }
 
-.header-navigation-wrap {
+.header-navigation-ul {
+
   left: 0px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -123,12 +127,13 @@
 .header-navigation .navigation-link {
   border-bottom: 2px solid transparent;
   font-weight: 300;
-  margin: 0;
   padding: 0 30px;
   -webkit-transition: color .2s;
   transition: color .2s;
   font-size: 15px;
   cursor: pointer;
+  display: inline-block;
+  margin: 0 10px;
 }
 
 .router-link-active {
@@ -151,7 +156,6 @@
     font-weight: bold;
   }
 }
-
 
 /* ------------------------
   Local Custom Class CSS

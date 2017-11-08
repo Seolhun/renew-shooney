@@ -2,9 +2,9 @@
   <div class="container">
     <div class="row margin-30">
       <div class="col-md-12 col-sm-12">
-        <h2>Blog Detail</h2>
-        <p>Blog Idx {{ $route.params.idx }}</p>
-        <p>Created By {{ $route.params.nickname }}</p>
+        <h2>User Detail</h2>
+        <p>User ID : {{ $route.params.id }}</p>
+        <p>User Nickname {{ $route.params.nickname }}</p>
       </div>
     </div>
   </div>
@@ -15,10 +15,10 @@
     data () {
       return {
         link: {
-          name: 'BlogDetail',
+          name: 'UserDetail',
           params: {
             nickname: this.$route.params.nickname,
-            idx: this.$route.params.idx
+            idx: this.$route.params.id
           },
           query: {
             locale: 'en',

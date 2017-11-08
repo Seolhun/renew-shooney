@@ -1,14 +1,6 @@
 <template>
   <div class="container">
-    <div class="el-row margin-top-30">
-      <div class="el-col-md-24 text-right">
-        <router-link :to="'editor'" class="navigation-link">
-          <el-button type="primary">Editor</el-button>
-        </router-link>
-      </div>
-    </div>
-
-    <div class="el-row margin-top-30">
+    <div class="row margin-top-30">
       <main-list
         :listType="listType"
         :results="results"
@@ -18,6 +10,12 @@
     </div>
   </div>
 </template>
+
+<style lang="scss">
+  @import "../../../assets/scss/items/blog/blog";
+
+</style>
+
 
 <script>
   import DummyBlogs from '@/assets/dummy/blog.json'
@@ -64,9 +62,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  @import "../../../assets/scss/items/blog/blog";
-
-</style>
-

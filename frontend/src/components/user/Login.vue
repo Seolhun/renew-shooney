@@ -1,6 +1,6 @@
 <template>
   <div class="container container-table">
-    <div class="row vertical-10p">
+    <div class="row margin-top-30">
       <div class="container">
         <img src="/static/img/logo.png" class="center-block logo">
         <div class="text-center col-md-4 col-sm-offset-4">

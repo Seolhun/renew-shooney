@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <div class="row margin-30">
-      <div class="col-sm-12">
+      <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
         <h2>{{ msg }}</h2>
       </div>
     </div>
     <div class="row margin-30">
-      <div class="col-sm-12">
+      <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
         <ul>
           <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
           <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="row margin-30">
-      <div class="col-sm-12">
+      <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
         <div>
           With Facebook: <a href="/login/facebook">click here</a>
         </div>

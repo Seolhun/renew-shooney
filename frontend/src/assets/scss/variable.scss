@@ -22,6 +22,52 @@ $dark-ocean: darken($ocean, 2%);
 $darker-ocean: darken($dark-ocean, 3%);
 
 /* ------------------------
+  - Dom Css Using Global Color Variable
+  # Background And Function Dom Color Variable using $Color Variable
+  # 'Function Dom' are Input, Button and another elements.
+------------------------ */
+// Background Color
+$bg-color: $white !default;
+$bg-font-color: $light-black;
+$bg-color-hover: $light-white;
+$bg-color-shadow: $dark-white;
+
+// Function Color
+$fc-color: $ocean !default;
+$fc-font-color: $white !default;
+$fc-color-hover: $light-ocean !default;
+$fc-color-shadow: $darker-ocean !default;
+
+// Sub-Function Color
+$sub-fc-color: $gray !default;
+$sub-fc-font-color: $black !default;
+$sub-fc-color-hover: $light-gray !default;
+$sub-fc-color-shadow: $darker-gray !default;
+
+/* ------------------------
+  - Often Used color
+------------------------ */
+$colors: (
+  'white': #fff,
+  'gray' : #808080,
+  'darkgray':#A9A9A9,
+  'red':#FF0000,
+  'crimson':#DC143C,
+  'aqua':#00FFFF,
+  'aquamarine':#7FFFD4,
+  'orange':#FFA500,
+  'orangered':#FF4500,
+  'green':#008000,
+  'limegreen':#32CD32,
+  'lightgreen':#90EE90,
+  'yellow':#FFFF00,
+  'blue':#0000FF,
+  'royalblue':#4169E1,
+  'purple':#800080,
+  'ocean':#0080ff
+);
+
+/* ------------------------
   - Google Font
 ------------------------ */
 //@mixin font-face(
@@ -57,11 +103,10 @@ $font-main-4: 'Noto Sans', sans-serif;
   font-family: $font-main-1;
 }
 
-/* ------------------------
-  - Media Size Variable
------------------------- */
-$media-medium: 1024px;
-$media-small: 700px;
+/* ------------------------------------------------------------------------
+  - Global Boolean Variable
+-------------------------------------------------------------------------- */
+$boolean: true !default;
 
 /* ------------------------------------------------------------------------
   - Global Grid Size Variable
@@ -69,35 +114,40 @@ $media-small: 700px;
 $header-height: 80px;
 
 /* ------------------------
-  - Dom Css Using Global Color Variable
-  # Background And Function Dom Color Variable using $Color Variable
-  # 'Function Dom' are Input, Button and another elements.
+  - Media Size Variable
 ------------------------ */
-$bg-color: $white !default;
-$bg-font-color: $light-black;
-$bg-color-hover: $light-white;
-$bg-color-shadow: $dark-white;
-
-$fc-color: $ocean !default;
-$fc-font-color: $white !default;
-$fc-color-hover: $light-ocean !default;
-$fc-color-shadow: $darker-ocean !default;
-
-$sub-fc-color: $gray !default;
-$sub-fc-font-color: $black !default;
-$sub-fc-color-hover: $light-gray !default;
-$sub-fc-color-shadow: $darker-gray !default;
+$media-medium: 1024px;
+$media-small: 700px;
 
 /* ------------------------------------------------------------------------
   - Global For Function SCSS Start
 -------------------------------------------------------------------------- */
+
+/* ----------------------------------------
+  - Tag Variable CSS
+------------------------------------------- */
+/* ------------------------
+  Tag h1 ~ h5 CSS
+------------------------ */
+$h-size: h !default;
+@for $i from 1 through 5 {
+  #{$h-size}#{$i} {
+    font-weight: 600;
+    font-size: 15px + (30 / $i);
+    padding: 15px 0px;
+  }
+}
+
+/* ----------------------------------------
+  - Class Variable CSS
+------------------------------------------- */
 /* ------------------------
   Width Coverage
   # .width-1 ~ width-100 css
 ------------------------ */
 $width-class: width- !default;
 @for $i from 1 through 20 {
-  .#{$width-class}#{$i} {
+  .#{$width-class}#{$i * 5} {
     width: 0% + ($i * 5);
   }
 }
@@ -108,7 +158,7 @@ $width-class: width- !default;
 ------------------------ */
 $height: height- !default;
 @for $i from 1 through 20 {
-  .#{$height}#{$i*50} {
+  .#{$height}#{$i * 50} {
     height: 0px + ($i * 50);
     word-break: keep-all;
 
@@ -124,15 +174,32 @@ $max-height: max-height- !default;
   }
 }
 
+$min-height: min-height- !default;
+@for $i from 1 through 20 {
+  .#{$min-height}#{$i*50} {
+    min-height: 0px + ($i * 50);
+    word-break: keep-all;
+    height: auto;
+    overflow-y: auto;
+  }
+}
+
 /* ------------------------
-  h1 ~ h5 CSS
+  Font Weight & Size
+  # .font-size-1 ~
+  # .font-weight-1 ~
 ------------------------ */
-$h-size: h !default;
-@for $i from 1 through 5 {
-  #{$h-size}#{$i} {
-    font-weight: 600;
-    font-size: 15px + (30 / $i);
-    padding: 15px 0px;
+$font-size: font-size- !default;
+@for $i from 10 through 100 {
+  .#{$font-size}#{$i} {
+    font-size: 0px + ($i);
+  }
+}
+
+$font-weight: font-weight- !default;
+@for $i from 1 through 10 {
+  .#{$font-weight}#{$i} {
+    font-weight: 100 * ($i);
   }
 }
 
@@ -211,9 +278,3 @@ $margin-left: margin-left- !default;
     margin-left: (5px * $i);
   }
 }
-
-/* ------------------------------------------------------------------------
-  - Global Boolean Variable
--------------------------------------------------------------------------- */
-$boolean: true !default;
-

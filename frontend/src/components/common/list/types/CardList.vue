@@ -6,30 +6,36 @@
         v-for="item in items"
         :key="item.id"
       >
-        <el-card
-          v-if="item.isActive"
-          class="card-group padding-10 margin-20 max-height-700"
-          :body-style="{ padding: '0px' }">
-          <div class="text-center">
-            <img src="~assets/img/logo2.png" class="card-img">
-          </div>
+        <router-link
+          :to="'/blog/' + item.createdBy +'/'+ item.idx"
+          class="list-group-item"
+          style="cursor: pointer"
+        >
+          <el-card
+            v-if="item.isActive"
+            class="card-group padding-10 margin-20 max-height-700"
+            :body-style="{ padding: '0px' }">
+            <div class="text-center">
+              <img src="~assets/img/logo2.png" class="card-img">
+            </div>
 
-          <div class="padding-20">
+            <div class="padding-20">
             <span class="blog-title">
               {{ item.title }}
             </span>
-            <div class="bottom clearfix">
-              <div class="blog-created-by">
-                Created By
-                <a :href="'https://github.com/' + item.createdBy" target="_blank">
-                  {{ item.createdBy }}
-                </a>
-                at
-                <time class="time">{{ item.createdDate }}</time>
+              <div class="bottom clearfix">
+                <div class="blog-created-by">
+                  Created By
+                  <a :href="'https://github.com/' + item.createdBy" target="_blank">
+                    {{ item.createdBy }}
+                  </a>
+                  at
+                  <time class="time">{{ item.createdDate }}</time>
+                </div>
               </div>
             </div>
-          </div>
-        </el-card>
+          </el-card>
+        </router-link>
       </el-col>
     </div>
     <div class="el-row margin-top-30">

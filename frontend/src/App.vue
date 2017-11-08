@@ -10,26 +10,29 @@
     </div>
 
     <div class="margin-top-30 margin-bottom-30">
-      <router-view></router-view>
+      <router-view>
+
+      </router-view>
     </div>
 
+    <!--
     <div class="container">
       <div class="el-row">
         <div class="el-col-sm-24">
           <button
-            class="el-button el-button--danger"
+            class="el-button el-button&#45;&#45;danger"
             @click="changeLang('ko')"
           >
             Korean
           </button>
           <button
-            class="el-button el-button--danger"
+            class="el-button el-button&#45;&#45;danger"
             @click="changeLang('en')"
           >
             English
           </button>
           <button
-            class="el-button el-button--danger"
+            class="el-button el-button&#45;&#45;danger"
             @click="changeLang('ja')"
           >
             Japan
@@ -42,12 +45,19 @@
         </div>
       </div>
     </div>
+    -->
 
     <footer-menu>
 
     </footer-menu>
   </div>
 </template>
+
+<style lang="sass">
+  @import "assets/scss/app"
+
+</style>
+
 
 <script>
   import HeaderMenu from './components/layout/Header.vue'
@@ -68,6 +78,9 @@
       changeLang (langs) {
         this.$i18n.locale = langs
       },
+      goBack () {
+        this.router.go(-1)
+      },
       destroy () {
         // Instance be destroyed.
         this.$destroy()
@@ -77,14 +90,14 @@
     beforeCreate () {
       console.log('BeforeCreate In App Vue')
     },
-    create () {
-      console.log('Create In App Vue')
-    },
     beforeMount () {
       console.log('BeforeMount In App Vue')
     },
     mounted () {
       console.log('Mounted In App Vue')
+    },
+    create () {
+      console.log('Create In App Vue')
     },
     beforeUpdate () {
       console.log('BeforeUpdate In App Vue')
@@ -100,8 +113,3 @@
     }
   }
 </script>
-
-<style lang="sass">
-  @import "assets/scss/app"
-
-</style>

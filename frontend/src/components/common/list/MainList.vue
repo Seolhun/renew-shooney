@@ -1,15 +1,27 @@
 <template>
   <div>
-    <div class="el-row margin-top-30 text-center">
-      <div class="el-col-sm-12 btn-group">
-        <input
-          class="el-input margin-right-10"
-          v-model.lazy.prevent="filters.text"/>
-        <button class="el-button el-button--primary">Search</button>
+    <div class="row margin-top-30">
+      <div class="col-md-12 col-sm-12 text-right">
+        <router-link :to="'/editor'" class="navigation-link">
+          <button
+            class="btn btn-royalblue"
+          >
+            Editor
+          </button>
+        </router-link>
       </div>
     </div>
 
-    <div class="el-row margin-top-30">
+    <div class="row margin-top-30">
+      <div class="col-md-12 col-sm-12 btn-group text-center">
+        <input
+          class="form-control margin-right-10"
+          v-model.lazy.prevent="filters.text"/>
+        <button class="btn btn-ocean">Search</button>
+      </div>
+    </div>
+
+    <div class="row margin-top-30">
       <div class="el-col-sm-24">
         <!-- Card -->
         <card-list
@@ -20,7 +32,7 @@
       </div>
     </div>
 
-    <div class="el-row margin-top-30 text-center">
+    <div class="row margin-top-30 text-center">
       <div class="el-col-xs-24 btn-group">
         <div class="block">
           <el-pagination
@@ -38,6 +50,7 @@
 
 <script>
   import CardList from '@/components/common/list/types/CardList'
+
   export default {
     props: {
       listType: {
@@ -57,8 +70,7 @@
       CardList
     },
     data () {
-      return {
-      }
+      return {}
     },
     compute: {
       created () {
@@ -134,9 +146,7 @@
         })
       }
     },
-    watch: {
-
-    }
+    watch: {}
   }
 </script>
 
