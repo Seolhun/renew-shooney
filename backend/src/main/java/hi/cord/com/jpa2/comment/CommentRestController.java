@@ -4,8 +4,8 @@ import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.jpa2.comment.domain.Comment;
 import hi.cord.com.jpa2.comment.service.CommentService;
-import hi.cord.com.jpa2.content.domain.Content;
-import hi.cord.com.jpa2.content.service.ContentService;
+import hi.cord.com.jpa2.content.domain.BlogContent;
+import hi.cord.com.jpa2.content.service.BlogContentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.security.Principal;
 
 
 /**
- * The type Content rest controller.
+ * The type BlogContent rest controller.
  */
 @RequestMapping("/comment")
 @RestController
@@ -29,13 +29,13 @@ public class CommentRestController {
     private static final Logger LOG = LoggerFactory.getLogger(CommentRestController.class);
 
     private CommonService commonService;
-    private ContentService contentService;
+    private BlogContentService blogContentService;
     private CommentService commentService;
 
     @Autowired
-    public CommentRestController(CommonService commonService, ContentService contentService, CommentService commentService) {
+    public CommentRestController(CommonService commonService, BlogContentService blogContentService, CommentService commentService) {
         this.commonService = commonService;
-        this.contentService = contentService;
+        this.blogContentService = blogContentService;
         this.commentService = commentService;
     }
 
@@ -89,11 +89,11 @@ public class CommentRestController {
         long idx = commentService.getIdxByNickname(principal.getName());
         comment.setIdx(idx);
 
-        //Seting Content relational with Comment
-        Content content = new Content();
-        content.setIdx(contentIdx);
-        content.getCreatedByEntity().setNickname(contentCreatedBy);
-        comment.setContentInComment(content);
+        //Seting BlogContent relational with Comment
+        BlogContent blogContent = new BlogContent();
+        blogContent.setIdx(contentIdx);
+        blogContent.getCreatedByEntity().setNickname(contentCreatedBy);
+        comment.setBlogContentInComment(blogContent);
 
         // Insert
         commentService.insert(comment);
@@ -115,7 +115,7 @@ public class CommentRestController {
         if (nickname == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found nickname path");
         } else if (idx == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found Content-Identification path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found BlogContent-Identification path");
         }
 
         Comment comment = commentService.findByIdx(idx, nickname);
@@ -144,7 +144,7 @@ public class CommentRestController {
         } else if (nickname == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found nickname path");
         } else if (idx == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found Content-Identification path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found BlogContent-Identification path");
         }
 
         comment = commentService.findByIdx(idx, nickname);

@@ -10,7 +10,7 @@ import hi.cord.com.common.domain.enumtypes.CommonState;
 import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.jpa.price.domain.history.PaidHistory;
 import hi.cord.com.jpa.user.domain.profile.UserProfile;
-import hi.cord.com.jpa2.content.domain.Content;
+import hi.cord.com.jpa2.content.domain.BlogContent;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -187,7 +187,7 @@ public class User extends BaseEntity implements Serializable {
 	@Transient
 	@JsonSerialize
 	@JsonDeserialize
-	private Pagination<Content> pagination;
+	private Pagination<BlogContent> pagination;
 
 	@Transient
 	private String ip;

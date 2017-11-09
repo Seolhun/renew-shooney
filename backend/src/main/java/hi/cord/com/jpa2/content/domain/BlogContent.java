@@ -21,12 +21,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-@Entity(name = "TB_CONTENT")
+@Entity(name = "TB_BLOG_CONTENT")
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
 @Data
 @Table(uniqueConstraints = @UniqueConstraint(name = "UK_CONTENT_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_NICKNAME"}))
-public class Content extends BaseEntity implements Serializable {
+public class BlogContent extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -50,8 +50,8 @@ public class Content extends BaseEntity implements Serializable {
 //    private List<Tag> tags;
 
     @Lob
-    @NotEmpty(message = "Content is requirement")
-    @Length(min = 10, message = "Content is required as min 10 length")
+    @NotEmpty(message = "BlogContent is requirement")
+    @Length(min = 10, message = "BlogContent is required as min 10 length")
     @Column(name = "CONTENT", nullable = false)
     private String content;
 
@@ -64,11 +64,11 @@ public class Content extends BaseEntity implements Serializable {
     @Column(name = "COMMENT_DEPTH", length = 10)
     private int depth;
 
-    @OneToMany(mappedBy = "contentInComment")
+    @OneToMany(mappedBy = "blogContentInComment")
     private List<Comment> comments;
 
     //To Stored Image, Stream
-    @OneToMany(mappedBy = "contentInFile")
+    @OneToMany(mappedBy = "blogContentInFile")
     private List<FileData> files;
 
     @CreatedBy
@@ -98,7 +98,7 @@ public class Content extends BaseEntity implements Serializable {
     private long version;
 
 
-    public Content() {
+    public BlogContent() {
 
     }
 

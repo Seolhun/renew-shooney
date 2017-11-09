@@ -5,7 +5,7 @@
         <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
           <select
             class="form-control"
-            v-model="content.contentType"
+            v-model="blogContent.contentType"
           >
             <option
               v-for="type in types"
@@ -22,7 +22,7 @@
           <input
             class="form-control"
             :placeholder="$tc('editor.placeholder.title')"
-            v-model="content.title"
+            v-model="blogContent.title"
           >
         </div>
       </div>
@@ -33,26 +33,23 @@
           <p class="font-weight-600">{{ $t('editor.default.rawMarkdown') }}</p>
           <textarea
             id="editor"
-            class="form-control min-height-100"
-            v-model="content.content"
+            class="form-control auto-size"
+            v-model="blogContent.content"
             @change.lazy="renderMarkdown"
           >
-
           </textarea>
         </div>
-
-
         <div class="col-md-6 col-sm-6 col-xs-12">
           <p class="font-weight-600">{{ $t('editor.default.markdown') }}</p>
           <article
-            class="form-control min-height-100 markdown-body"
+            class="form-control markdown-body"
             v-html="gitMarkdown"
           >
           </article>
         </div>
       </div>
 
-      <div class="row margin-top-30">
+      <div class="row margin-top-30 text-right">
         <div class="col-md-12 col-sm-12">
           <button
             type="button"
@@ -75,26 +72,28 @@
 </template>
 
 <style lang="scss">
-  @import "../../../assets/scss/editor/git-markdown";
-  @import "../../../assets/scss/editor/editor";
+  @import "../../../assets/scss/common/editor/git-markdown";
+  @import "../../../assets/scss/common/editor/editor";
 </style>
 
 <script>
   import axios from 'axios'
 
-  //  const instance = axios.create({
-  //    baseURL: 'http://127.0.0.1:5000',
-  //    timeout: 10000
-  //    headers: {'X-Custom-Header': 'shooney'}
-  //  })
+  const blogAxios = axios.create({
+    baseURL: 'http://localhost:5000',
+    timeout: 10000,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
 
   export default {
     data () {
       return {
         currentDate: new Date().toLocaleTimeString(),
-        content: {
+        blogContent: {
           title: '',
-          contentType: 'Essay',
+          contentType: 'Qna',
           content: '',
           createdByEntity: {
             nickname: 'SeolHun'
@@ -108,9 +107,7 @@
     },
     methods: {
       insertContent () {
-        axios.post('/content', {
-          content: this.content
-        })
+        blogAxios.post('/content', this.blogContent)
           .then(response => {
             console.log(response.data)
           })
@@ -120,12 +117,11 @@
       },
       renderMarkdown () {
         axios.post('https://api.github.com/markdown', {
-          text: this.content.content,
+          text: this.blogContent.content,
           mode: 'gfm',
           context: 'github/gollum'
         })
           .then(response => {
-            console.log(response.data)
             this.gitMarkdown = response.data
           })
           .catch(e => {
@@ -136,7 +132,7 @@
     watch: {},
     computed: {},
     created () {
-      axios.get('/api/v1/contentType')
+      blogAxios.get('/api/v1/contentType')
         .then(response => {
           this.types = response.data
         })
@@ -144,7 +140,7 @@
           this.errors.push(e)
         })
 
-      axios.get('/content')
+      blogAxios.get('/content')
         .then(response => {
           this.results = response.data
         })

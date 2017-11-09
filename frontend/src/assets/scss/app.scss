@@ -10,7 +10,12 @@ body {
 }
 
 a {
-  color: $fc-color;
+  color: $sub-fc-color;
+
+  &:active {
+    color: $fc-color;
+  }
+
 }
 
 // Button Css
@@ -49,6 +54,17 @@ button.fc-btn {
     box-shadow: none;
     margin-top: 5px;
   }
+}
+
+textarea.auto-size {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  line-height: 1.5;
+  padding: 15px 15px;
+  border-radius: 3px;
+  transition: box-shadow 0.5s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 // Sub Function Btn

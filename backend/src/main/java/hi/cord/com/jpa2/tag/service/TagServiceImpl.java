@@ -1,6 +1,6 @@
 //package hi.cord.com.jpa2.tag.service;
 //
-//import hi.cord.com.jpa2.content.domain.Content;
+//import hi.cord.com.jpa2.content.domain.BlogContent;
 //import hi.cord.com.jpa2.content.domain.ContentRepository;
 //import hi.cord.com.jpa2.tag.domain.Tag;
 //import hi.cord.com.jpa2.tag.domain.TagRepository;

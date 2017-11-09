@@ -1,24 +1,25 @@
 <template>
-  <div>
-    <div class="el-row margin-top-30">
-      <el-col
-        :xs="24" :sm="24" :md="12" :lg="12"
+  <div class="container">
+    <div class="row margin-top-30">
+      <b-col
+        xs="12" sm="12" md="6" lg="6"
         v-for="item in items"
         :key="item.id"
       >
         <router-link
+          tag="div"
+          v-if="item.isActive"
+          class="card-item margin-top-10 margin-bottom-10 max-height-700"
           :to="'/blog/' + item.createdBy +'/'+ item.idx"
-          class="list-group-item"
           style="cursor: pointer"
         >
-          <el-card
-            v-if="item.isActive"
-            class="card-group padding-10 margin-20 max-height-700"
-            :body-style="{ padding: '0px' }">
+          <div class="card-group">
             <div class="text-center">
-              <img src="~assets/img/logo2.png" class="card-img">
+              <img
+                src="~assets/img/logo2.png"
+                class="card-img padding-10 max-height-300"
+              >
             </div>
-
             <div class="padding-20">
             <span class="blog-title">
               {{ item.title }}
@@ -34,11 +35,11 @@
                 </div>
               </div>
             </div>
-          </el-card>
+          </div>
         </router-link>
-      </el-col>
+      </b-col>
     </div>
-    <div class="el-row margin-top-30">
+    <div class="row margin-top-30">
 
     </div>
   </div>
@@ -48,7 +49,11 @@
   export default {
     props: ['items'],
     data () {
-      return {}
+      return {
+        itemMargin: {
+          'margin': 5 + 'px'
+        }
+      }
     },
     methods: {},
     computed: {},
@@ -61,4 +66,5 @@
 </script>
 
 <style lang="scss">
+  @import "../../../../assets/scss/common/list/card/cardList";
 </style>

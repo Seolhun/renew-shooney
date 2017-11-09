@@ -6,7 +6,7 @@
 //import hi.cord.com.common.domain.entity.CreatedByEntity;
 //import hi.cord.com.common.domain.entity.ModifiedByEntity;
 //import hi.cord.com.common.domain.pagination.Pagination;
-//import hi.cord.com.jpa2.content.domain.Content;
+//import hi.cord.com.jpa2.content.domain.BlogContent;
 //import hi.cord.com.jpa2.content.domain.SpamType;
 //import lombok.EqualsAndHashCode;
 //import lombok.Getter;
@@ -35,7 +35,7 @@
 //
 //	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.DETACH)
 //	@JoinColumn(foreignKey = @ForeignKey(name = "CONTENT_TAG_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID", nullable=false)
-//	private Content fromTag;
+//	private BlogContent fromTag;
 //
 //	@Column(name = "CONTENT", length=250 ,nullable = false)
 //	private String content;

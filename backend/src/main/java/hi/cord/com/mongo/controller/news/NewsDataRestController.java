@@ -1,7 +1,6 @@
 package hi.cord.com.mongo.controller.news;
 
 import hi.cord.com.common.domain.pagination.Pagination;
-import hi.cord.com.jpa2.content.domain.Content;
 import hi.cord.com.mongo.domain.news.NewsData;
 import hi.cord.com.mongo.domain.sequence.CustomSequence;
 import hi.cord.com.mongo.service.news.NewsDataService;

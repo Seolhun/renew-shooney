@@ -6,7 +6,6 @@ import hi.cord.com.common.domain.entity.BaseEntity;
 import hi.cord.com.common.domain.entity.CreatedByEntity;
 import hi.cord.com.common.domain.entity.ModifiedByEntity;
 import hi.cord.com.common.domain.pagination.Pagination;
-import hi.cord.com.jpa2.content.domain.ContentType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

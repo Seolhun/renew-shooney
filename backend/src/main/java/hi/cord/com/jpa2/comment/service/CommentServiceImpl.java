@@ -3,7 +3,7 @@ package hi.cord.com.jpa2.comment.service;
 import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.jpa2.comment.domain.Comment;
 import hi.cord.com.jpa2.comment.domain.CommentRepository;
-import hi.cord.com.jpa2.content.domain.ContentRepository;
+import hi.cord.com.jpa2.content.domain.BlogContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,12 +18,12 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
     private CommentRepository commentRepository;
-    private ContentRepository contentRepository;
+    private BlogContentRepository blogContentRepository;
 
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository, ContentRepository contentRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository, BlogContentRepository blogContentRepository) {
         this.commentRepository = commentRepository;
-        this.contentRepository = contentRepository;
+        this.blogContentRepository = blogContentRepository;
     }
 
     @Override

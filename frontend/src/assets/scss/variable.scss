@@ -170,7 +170,9 @@ $max-height: max-height- !default;
   .#{$max-height}#{$i*50} {
     max-height: 0px + ($i * 50);
     word-break: keep-all;
+    min-height: 0px + ($i * 10);;
     height: auto;
+
   }
 }
 

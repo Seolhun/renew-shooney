@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * The type Content rest controller.
+ * The type BlogContent rest controller.
  */
 @RequestMapping("/api/{version}")
 @RestController

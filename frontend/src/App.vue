@@ -72,7 +72,8 @@
     },
     name: 'app',
     data () {
-      return {}
+      return {
+      }
     },
     methods: {
       changeLang (langs) {

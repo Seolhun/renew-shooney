@@ -3,8 +3,8 @@ package hi.cord.com.jpa2.content;
 import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.jpa2.comment.service.CommentService;
-import hi.cord.com.jpa2.content.domain.Content;
-import hi.cord.com.jpa2.content.service.ContentService;
+import hi.cord.com.jpa2.content.domain.BlogContent;
+import hi.cord.com.jpa2.content.service.BlogContentService;
 import hi.cord.com.jpa2.file.service.FileDataService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,21 +27,22 @@ import java.util.Map;
 
 
 /**
- * The type Content rest controller.
+ * The type BlogContent rest controller.
  */
+@CrossOrigin(origins = {"http://localhost:7000", "http://localhost:5000", "http://127.0.0.1:7000", "http://127.0.0.1:5000"})
 @RequestMapping("/content")
 @RestController
 public class ContentRestController {
     private static final Logger LOG = LoggerFactory.getLogger(ContentRestController.class);
 
-    private ContentService contentService;
+    private BlogContentService blogContentService;
     private CommonService commonService;
     private CommentService commentService;
     private FileDataService fileDataService;
 
     @Autowired
-    public ContentRestController(ContentService contentService, CommonService commonService, CommentService commentService, FileDataService fileDataService) {
-        this.contentService = contentService;
+    public ContentRestController(BlogContentService blogContentService, CommonService commonService, CommentService commentService, FileDataService fileDataService) {
+        this.blogContentService = blogContentService;
         this.commonService = commonService;
         this.commentService = commentService;
         this.fileDataService = fileDataService;
@@ -54,7 +55,7 @@ public class ContentRestController {
      */
     @GetMapping(value = "")
     public ResponseEntity findAll(
-            Content content,
+            BlogContent blogContent,
             @RequestParam(defaultValue = "0") Integer pageIndex,
             @RequestParam(defaultValue = "15") Integer pageSize
     ) {
@@ -67,7 +68,7 @@ public class ContentRestController {
         //Pagination and FindAll
         Pageable pageable = new PageRequest(pageIndex, pageSize);
 
-        Pagination<Content> contentPagination = contentService.findAll(content, pageable);
+        Pagination<BlogContent> contentPagination = blogContentService.findAll(blogContent, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(contentPagination);
     }
 
@@ -78,28 +79,28 @@ public class ContentRestController {
      */
     @PostMapping("")
     public ResponseEntity insert(
-            @Valid @RequestBody Content content,
+            @Valid @RequestBody BlogContent blogContent,
             Errors errors
     ) {
-        if (content == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found content parameter");
+        if (blogContent == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found blogContent parameter");
         } else if (errors.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldError().getDefaultMessage());
         }
 
-        List<String> images = commonService.extractImgSrc(content.getContent());
+        List<String> images = commonService.extractImgSrc(blogContent.getContent());
         for (String img : images) {
             //Convert Img > File > return File ID;
         }
         // Requirement Images >
 
         //Setting Index
-        long idx = contentService.getIdxByNickname(content.getCreatedByEntity().getNickname());
-        content.setIdx(idx);
+        long idx = blogContentService.getIdxByNickname(blogContent.getCreatedByEntity().getNickname());
+        blogContent.setIdx(idx);
 
         // Insert
-        contentService.insert(content);
-        LOG.debug("p : save content {}", content.toString());
+        blogContentService.insert(blogContent);
+        LOG.debug("p : save blogContent {}", blogContent.toString());
         return ResponseEntity.status(HttpStatus.OK).body("Success");
     }
 
@@ -117,17 +118,17 @@ public class ContentRestController {
         if (nickname == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found nickname path");
         } else if (idx == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found Content-Identification path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found BlogContent-Identification path");
         }
 
-        Content content = contentService.findByIdx(idx, nickname);
-        if (content == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found content result");
-        } else if (!(content.getCreatedByEntity().getNickname().equals(nickname))) {
+        BlogContent blogContent = blogContentService.findByIdx(idx, nickname);
+        if (blogContent == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found blogContent result");
+        } else if (!(blogContent.getCreatedByEntity().getNickname().equals(nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(content);
+        return ResponseEntity.status(HttpStatus.OK).body(blogContent);
     }
 
     /**
@@ -137,22 +138,22 @@ public class ContentRestController {
      */
     @PutMapping("/{nickname}/{idx}")
     public ResponseEntity updated(
-            Content content,
+            BlogContent blogContent,
             @PathVariable String nickname,
             @PathVariable Long idx
     ) {
-        if (content == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found required content parameter");
+        if (blogContent == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found required blogContent parameter");
         } else if (nickname == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found nickname path");
         } else if (idx == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found Content-Identification path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found BlogContent-Identification path");
         }
 
-        content = contentService.findByIdx(idx, nickname);
-        if (content == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found content result");
-        } else if (!(content.getCreatedByEntity().getNickname().equals(nickname))) {
+        blogContent = blogContentService.findByIdx(idx, nickname);
+        if (blogContent == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found blogContent result");
+        } else if (!(blogContent.getCreatedByEntity().getNickname().equals(nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
 
@@ -175,10 +176,10 @@ public class ContentRestController {
         } else if (nickname == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found nickname path");
         } else if (idx == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found Content-Identification path");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found BlogContent-Identification path");
         }
 
-        if (!(contentService.deleteByIdx(idx, nickname))) {
+        if (!(blogContentService.deleteByIdx(idx, nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found content result");
         }
 
@@ -192,8 +193,8 @@ public class ContentRestController {
      * #####################################################################
      */
     /*----------- end 댓글 ---------------------------------------------------------------------*/
-    private boolean checkHitCookie(Content content, HttpServletRequest request, HttpServletResponse response) {
-        String id = content.getId();
+    private boolean checkHitCookie(BlogContent blogContent, HttpServletRequest request, HttpServletResponse response) {
+        String id = blogContent.getId();
         String[] tableNames = request.getRequestURI().split("/");
         String tableName = tableNames[2];
         tableName = commonService.buildSHA256(tableName).substring(0, 5);

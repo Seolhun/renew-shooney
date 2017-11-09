@@ -6,7 +6,7 @@ import hi.cord.com.common.domain.entity.BaseEntity;
 import hi.cord.com.common.domain.entity.CreatedByEntity;
 import hi.cord.com.common.domain.entity.ModifiedByEntity;
 import hi.cord.com.common.domain.pagination.Pagination;
-import hi.cord.com.jpa2.content.domain.Content;
+import hi.cord.com.jpa2.content.domain.BlogContent;
 import hi.cord.com.jpa2.content.domain.ContentType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,7 +40,7 @@ public class Comment extends BaseEntity implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "CONTENT_COMMENT_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID")
-    private Content contentInComment;
+    private BlogContent blogContentInComment;
 
     @Column(name = "CONTENT", length = 250, nullable = false)
     private String content;

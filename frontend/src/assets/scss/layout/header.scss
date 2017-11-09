@@ -126,7 +126,6 @@
 
 .header-navigation .navigation-link {
   border-bottom: 2px solid transparent;
-  font-weight: 300;
   padding: 0 30px;
   -webkit-transition: color .2s;
   transition: color .2s;
@@ -137,7 +136,7 @@
 }
 
 .router-link-active {
-  font-weight: 500;
+  font-weight: 800;
   color: $fc-color;
 }
 

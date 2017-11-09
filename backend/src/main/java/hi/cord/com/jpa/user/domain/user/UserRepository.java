@@ -1,6 +1,6 @@
 package hi.cord.com.jpa.user.domain.user;
 
-import hi.cord.com.jpa2.content.domain.Content;
+import hi.cord.com.jpa2.content.domain.BlogContent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -21,8 +21,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	User deleteByEmail(String email);
 
-	long countBy(Content content);
+	long countBy(BlogContent blogContent);
 
-	long countDistinctBy(Content content);
+	long countDistinctBy(BlogContent blogContent);
 }
 

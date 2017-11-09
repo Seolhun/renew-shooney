@@ -1,13 +1,11 @@
 <template>
-  <div class="container">
-    <div class="row margin-top-30">
-      <main-list
-        :listType="listType"
-        :results="results"
-        :filters="filters"
-      >
-      </main-list>
-    </div>
+  <div>
+    <main-list
+      :listType="listType"
+      :results="results"
+      :filters="filters"
+    >
+    </main-list>
   </div>
 </template>
 

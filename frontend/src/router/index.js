@@ -27,8 +27,7 @@ const router = new Router({
       path: '/blog',
       name: 'Blog',
       component: Blog,
-      children: [
-      ],
+      children: [],
       beforeEnter: (to, from, next) => {
         console.log('Routing in Blog')
         next()
@@ -72,26 +71,30 @@ const router = new Router({
       children: [
         {
           path: ':type',
-          component: Error,
-          beforeEnter: (to, from, next) => {
-            console.log('Routing in Error')
-            next()
-          }
+          component: Error
         }
       ]
     }
   ],
   mode: 'history',
   scrollBehavior (to, from, savedPosition) {
+    console.log('Global scrollBehavior')
     document.title = 'Hi-Cord : ' + to.name
+    // Having SavedPosition
     if (savedPosition) {
       return savedPosition
     } else if (to.hash) {
+      // Having to Hash
+      console.log('to hash : ' + to.hash)
       return {
         selector: to.hash
       }
     }
-    return {x: 0, y: 700}
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({ x: 0, y: 0 })
+      }, 500)
+    })
   }
 })
 

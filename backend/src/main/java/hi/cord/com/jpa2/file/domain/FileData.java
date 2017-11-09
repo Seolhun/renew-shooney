@@ -6,7 +6,7 @@ import hi.cord.com.common.domain.entity.BaseEntity;
 import hi.cord.com.common.domain.entity.CreatedByEntity;
 import hi.cord.com.common.domain.entity.ModifiedByEntity;
 import hi.cord.com.common.domain.pagination.Pagination;
-import hi.cord.com.jpa2.content.domain.Content;
+import hi.cord.com.jpa2.content.domain.BlogContent;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -33,7 +33,7 @@ public class FileData extends BaseEntity implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey = @ForeignKey(name = "FILE_CONTENT_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID")
-	private Content contentInFile;
+	private BlogContent blogContentInFile;
 
 	@NotEmpty
 	@Column(name = "FILE_ORIGIN_NAME", nullable = false, length = 100)

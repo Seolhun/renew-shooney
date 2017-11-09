@@ -2,7 +2,6 @@ package hi.cord.com.jpa2.spam.service;
 
 import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.common.service.abs.AbstractRestService;
-import hi.cord.com.jpa2.content.domain.Content;
 import hi.cord.com.jpa2.spam.domain.Spam;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Propagation;

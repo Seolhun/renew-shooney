@@ -1,50 +1,38 @@
 <template>
-  <div>
+  <div class="container">
     <div class="row margin-top-30">
-      <div class="col-md-12 col-sm-12 text-right">
-        <router-link :to="'/editor'" class="navigation-link">
-          <button
-            class="btn btn-royalblue"
-          >
-            Editor
-          </button>
+      <div class="col-sm-12 col-md-12 text-center">
+        <div class="width-75 btn-group">
+          <input
+            class="form-control margin-right-10"
+            v-model.lazy.prevent="filters.text"/>
+          <button class="btn btn-ocean">Search</button>
+        </div>
+        <router-link
+          tag="button"
+          :to="'/editor'"
+          class="btn btn-limegreen"
+        >
+          Editor
         </router-link>
       </div>
     </div>
 
-    <div class="row margin-top-30">
-      <div class="col-md-12 col-sm-12 btn-group text-center">
-        <input
-          class="form-control margin-right-10"
-          v-model.lazy.prevent="filters.text"/>
-        <button class="btn btn-ocean">Search</button>
-      </div>
-    </div>
+    <!-- Card -->
+    <card-list
+      :items="filterResults"
+    >
 
-    <div class="row margin-top-30">
-      <div class="el-col-sm-24">
-        <!-- Card -->
-        <card-list
-          :items="filterResults"
-        >
+    </card-list>
 
-        </card-list>
-      </div>
-    </div>
-
-    <div class="row margin-top-30 text-center">
-      <div class="el-col-xs-24 btn-group">
-        <div class="block">
-          <el-pagination
-            layout="prev, pager, next"
-            :current-page.sync="results.pageIndex"
-            :total="results.totalCount"
-            :page-size="results.pageSize"
-          >
-          </el-pagination>
-        </div>
-      </div>
-    </div>
+    <b-pagination
+      align="center" size="md"
+      :limit="10"
+      :total-rows="results.totalCount"
+      :per-page="results.pageSize"
+      v-model="results.pageIndex"
+    >
+    </b-pagination>
   </div>
 </template>
 
@@ -105,7 +93,7 @@
           if (item.isActive) {
             let bool, bool2, bool3
             bool = vm.removeSpace(item.title.toLowerCase()).indexOf(vm.removeSpace(filterText.toLowerCase())) > -1
-            bool2 = vm.removeSpace(item.content.toLowerCase()).indexOf(vm.removeSpace(filterText.toLowerCase())) > -1
+            bool2 = vm.removeSpace(item.blogContent.toLowerCase()).indexOf(vm.removeSpace(filterText.toLowerCase())) > -1
             bool3 = vm.removeSpace(item.createdBy.toLowerCase()).indexOf(vm.removeSpace(filterText.toLowerCase())) > -1
             if (bool || bool2 || bool3) {
               result.push(item)
