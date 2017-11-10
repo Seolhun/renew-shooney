@@ -1,4 +1,5 @@
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/29dd0bb705bc4df386ae2eb38bd69ca4)](https://www.codacy.com/app/shun10114/renew-shooney?utm_source=github.com&utm_medium=referral&utm_content=Seolhun/renew-shooney&utm_campaign=badger)
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/Seolhun/renew-shooney.svg?columns=all)](https://waffle.io/Seolhun/renew-shooney)
 ---
 # Goal of Shooney Blog Project
