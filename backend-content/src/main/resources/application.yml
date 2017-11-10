@@ -60,7 +60,7 @@ shun:
   #### MariaDB2 - Blog ####
   #########################
   datasource:
-    url: jdbc:mysql://${server.address}:3306/shooney_blog
+    url: jdbc:mysql://${server.address}:3306/shooney_spam
     username: developer
     password: developer@
     driver-class-name: com.mysql.jdbc.Driver
@@ -83,7 +83,7 @@ spring:
   #### MariaDB1 - Common ####
   ###########################
   datasource:
-    url: jdbc:mysql://${server.address}:3306/shooney_common
+    url: jdbc:mysql://${server.address}:3306/shooney_content
     username: developer
     password: developer@
     driver-class-name: com.mysql.jdbc.Driver

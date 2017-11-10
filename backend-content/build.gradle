@@ -14,8 +14,8 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
-group = 'hi.cord.com'
-version = '0.0.1-SNAPSHOT'
+group = 'hi.cord.com.content'
+version = '1.0'
 sourceCompatibility = 1.8
 
 repositories {
@@ -23,6 +23,9 @@ repositories {
 }
 
 dependencies {
+	compile project(':backend-common')
+	compile project(':backend-log')
+
 	compile 'org.springframework.boot:spring-boot-starter'
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
