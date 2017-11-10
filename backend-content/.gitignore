@@ -25,6 +25,9 @@ dist/
 nbdist/
 .nb-gradle/
 
-
-
 !/build.gradle
+
+# Application Properties
+!/.DS_Store
+/backend-content/src/main/resources/application.properties
+/backend-user/src/main/resourc

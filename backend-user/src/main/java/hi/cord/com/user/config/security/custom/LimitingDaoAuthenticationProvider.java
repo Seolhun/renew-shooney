@@ -1,11 +1,11 @@
 package hi.cord.com.user.config.security.custom;
 
-import hi.cord.com.user.common.domain.enumtypes.CommonState;
-import hi.cord.com.user.common.service.common.CommonService;
-import hi.cord.com.user.main.user.domain.attempts.UserAttempts;
-import hi.cord.com.user.main.user.domain.user.User;
-import hi.cord.com.user.main.user.servie.attempts.UserAttemptsService;
-import hi.cord.com.user.main.user.servie.user.UserService;
+import hi.cord.com.common.domain.enumtypes.CommonState;
+import hi.cord.com.common.service.common.CommonService;
+import hi.cord.com.user.main.attempts.domain.UserAttempts;
+import hi.cord.com.user.main.user.domain.User;
+import hi.cord.com.user.main.attempts.service.UserAttemptsService;
+import hi.cord.com.user.main.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

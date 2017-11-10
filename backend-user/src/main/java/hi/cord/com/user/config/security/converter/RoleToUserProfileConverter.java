@@ -1,7 +1,7 @@
 package hi.cord.com.user.config.security.converter;
 
-import hi.cord.com.user.main.user.domain.profile.UserProfile;
-import hi.cord.com.user.main.user.servie.profile.UserProfileService;
+import hi.cord.com.user.main.profile.domain.UserProfile;
+import hi.cord.com.user.main.profile.service.UserProfileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

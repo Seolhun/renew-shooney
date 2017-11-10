@@ -1,9 +1,9 @@
 package hi.cord.com.user.config.security.custom;
 
-import hi.cord.com.user.common.domain.enumtypes.CommonState;
-import hi.cord.com.user.main.user.domain.profile.UserProfile;
-import hi.cord.com.user.main.user.domain.user.User;
-import hi.cord.com.user.main.user.servie.user.UserService;
+import hi.cord.com.common.domain.enumtypes.CommonState;
+import hi.cord.com.user.main.profile.domain.UserProfile;
+import hi.cord.com.user.main.user.domain.User;
+import hi.cord.com.user.main.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -60,7 +60,7 @@ shun:
   #### MariaDB2 - Blog ####
   #########################
   datasource:
-    url: jdbc:mysql://${server.address}:3306/shooney_blog
+    url: jdbc:mysql://${server.address}:3306/shooney_price
     username: developer
     password: developer@
     driver-class-name: com.mysql.jdbc.Driver
@@ -75,15 +75,16 @@ shun:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 ---
+
 ######################
 #### Spring       ####
 ######################
 spring:
   ###########################
-  #### MariaDB1 - Common ####
+  #### MariaDB1 - User ####
   ###########################
   datasource:
-    url: jdbc:mysql://${server.address}:3306/shooney_common
+    url: jdbc:mysql://${server.address}:3306/shooney_user
     username: developer
     password: developer@
     driver-class-name: com.mysql.jdbc.Driver

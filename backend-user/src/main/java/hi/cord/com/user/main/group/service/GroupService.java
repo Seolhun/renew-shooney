@@ -1,6 +1,6 @@
 package hi.cord.com.user.main.group.service;
 
-import hi.cord.com.user.common.service.abs.AbstractRestService;
+import hi.cord.com.common.service.abs.AbstractRestService;
 import hi.cord.com.user.main.group.domain.Group;
 
 /**

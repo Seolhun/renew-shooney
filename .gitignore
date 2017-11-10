@@ -25,6 +25,10 @@ dist/
 nbdist/
 .nb-gradle/
 
-.DS_Store
-/backend-content/src/main/resources/application.properties
-/backend-user/src/main/resources/application.properties
+# Application Properties
+!/.DS_Store
+/backend-*/src/main/resources/application.properties
+# /backend-content/src/main/resources/application.properties
+# /backend-user/src/main/resources/application.properties
+# /backend-pay/src/main/resources/application.properties
+# /backend-log/src/main/resources/application.properties

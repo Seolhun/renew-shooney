@@ -1,6 +1,9 @@
 include 'frontend'
 include 'backend-common'
 include 'backend-user'
+include 'backend-pay'
 include 'backend-content'
+
+include 'backend-log'
 
 rootProject.name = 'renew-shooney'
