@@ -1,14 +1,10 @@
 <template>
   <div class="container">
-    <div class="el-row">
-      <div class="el-col-md-24">
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item
-            :to="{ path: '/' }"
-          >
-            fdas
-          </el-breadcrumb-item>
-        </el-breadcrumb>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <b-breadcrumb
+          :items="items">
+        </b-breadcrumb>
       </div>
     </div>
   </div>
@@ -18,12 +14,16 @@
   export default {
     data () {
       return {
-        paths: []
-      }
-    },
-    computed: {
-      init () {
-        this.paths = this.props
+        items: [{
+          text: 'Admin',
+          href: '#'
+        }, {
+          text: 'Manage',
+          href: '#'
+        }, {
+          text: 'Library',
+          active: true
+        }]
       }
     }
   }

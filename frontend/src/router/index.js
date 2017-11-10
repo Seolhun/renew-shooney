@@ -11,7 +11,7 @@ import Editor from '@/components/common/editor/Editor'
 import Error from '@/components/common/error/404'
 
 Vue.use(Router)
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -27,21 +27,20 @@ export default new Router({
       path: '/blog',
       name: 'Blog',
       component: Blog,
-      children: [
-        {
-          path: ':type/:id',
-          component: BlogDetail,
-          beforeEnter: (to, from, next) => {
-            console.log('Inside route setup')
-            next()
-          }
-        },
-        {
-          path: ':type/:id/edit',
-          name: 'BlogEditor',
-          component: Editor
-        }
-      ]
+      children: [],
+      beforeEnter: (to, from, next) => {
+        console.log('Routing in Blog')
+        next()
+      }
+    },
+    {
+      path: '/blog/:nickname/:idx',
+      name: 'BlogDetail',
+      component: BlogDetail,
+      beforeEnter: (to, from, next) => {
+        console.log('Routing in BlogDetail')
+        next()
+      }
     },
     {
       path: '/aboutme',
@@ -72,25 +71,31 @@ export default new Router({
       children: [
         {
           path: ':type',
-          component: Error,
-          beforeEnter: (to, from, next) => {
-            console.log('Inside route setup')
-            next()
-          }
+          component: Error
         }
       ]
     }
   ],
   mode: 'history',
   scrollBehavior (to, from, savedPosition) {
+    console.log('Global scrollBehavior')
     document.title = 'Hi-Cord : ' + to.name
+    // Having SavedPosition
     if (savedPosition) {
       return savedPosition
     } else if (to.hash) {
+      // Having to Hash
+      console.log('to hash : ' + to.hash)
       return {
         selector: to.hash
       }
     }
-    return {x: 0, y: 700}
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({ x: 0, y: 0 })
+      }, 500)
+    })
   }
 })
+
+export default router

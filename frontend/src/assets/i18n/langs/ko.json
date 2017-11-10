@@ -1,3 +1,16 @@
 {
+  "common": {
+    "submit" : "확인",
+    "cancel" : "취소"
+  },
+  "editor": {
+    "default": {
+      "rawMarkdown": "Markdown을 입력해주세요.",
+      "markdown": "Git-Markdown으로 볼 수 있습니다."
+    },
+    "placeholder": {
+      "title": "컨텐츠의 제목을 입력해주세요."
+    }
+  },
   "nation": "대한민국 | 한국"
 }
