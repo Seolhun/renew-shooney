@@ -1,3 +1,8 @@
+
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/Seolhun/renew-shooney.svg?columns=all)](https://waffle.io/Seolhun/renew-shooney)
+---
+{<img alt='Waffle.io - Columns and their card count' src='https://badge.waffle.io/Seolhun/renew-shooney.svg?columns=all' />}[https://waffle.io/Seolhun/renew-shooney]
+
 # Goal of Shooney Blog Project
 
 
