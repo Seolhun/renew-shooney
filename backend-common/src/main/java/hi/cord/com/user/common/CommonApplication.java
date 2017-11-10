@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = {"hi.cord.com.user.common.domain.entity.user"})
+@EnableJpaRepositories(basePackages = {"hi.cord.com.common"})
 public class CommonApplication {
     private static final Logger LOG = LoggerFactory.getLogger(CommonApplication.class);
 

@@ -125,12 +125,12 @@ spring:
 ######################
 #### Java Mail    ####
 ######################
-  mail:
-    default-encoding: UTF-8
-    host: smtp.gmail.com
-    username: onm10114@gmail.com
-    password: blue1220
-    port: 587
+#  mail:
+#    default-encoding: UTF-8
+#    host: smtp.gmail.com
+#    username: onm10114@gmail.com
+#    password: blue1220
+#    port: 587
 ---
 #################
 #### Logging ####

@@ -19,12 +19,14 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {"hi.cord.com.user.main.user"})
+@EnableJpaRepositories(
+        basePackages = {"hi.cord.com.user.main"}
+)
 public class PrimaryDataBaseConfig {
 
     @Primary
     @Bean(name = "dataSource")
-    @ConfigurationProperties(prefix="spring.datasource")
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
@@ -36,8 +38,8 @@ public class PrimaryDataBaseConfig {
             @Qualifier("dataSource") DataSource dataSource) {
         return builder
                 .dataSource(dataSource)
-                .packages("hi.cord.com.jpa")
-                .persistenceUnit("jpa")
+                .packages("hi.cord.com.user.main")
+                .persistenceUnit("user")
                 .build();
     }
 
