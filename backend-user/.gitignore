@@ -26,5 +26,5 @@ nbdist/
 .nb-gradle/
 
 
-/backend-content/src/main/resources/application.properties
-/backend-user/src/main/resources/application.properties
+
+!/build.gradle
