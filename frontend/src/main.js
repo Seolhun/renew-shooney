@@ -11,6 +11,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueI18n from 'vue-i18n'
 import messages from './assets/i18n/messages.vue'
 // Axios
+import axios from 'axios'
 
 // const axiosConfig = axios.create({
 //   baseURL: 'http://127.0.0.1:5000',
@@ -43,5 +44,7 @@ const vm = new Vue({
   i18n,
   render: h => h(App)
 })
+vm.prototype.$appName = 'Hi-cord'
+vm.prototype.$http = axios
 
 export default vm
