@@ -1,4 +1,4 @@
-package hi.cord.com.user.main.user.domain;
+package hi.cord.com.user.main.client.domain;
 
 import hi.cord.com.common.domain.entity.BaseEntity;
 import hi.cord.com.common.domain.entity.CommonAddress;

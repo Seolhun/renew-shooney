@@ -20,9 +20,9 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = {"hi.cord.com.user.main"}
+        basePackages = {"hi.cord.com.user"}
 )
-public class PrimaryDataBaseConfig {
+public class PrimaryUserDataBaseConfig {
 
     @Primary
     @Bean(name = "dataSource")

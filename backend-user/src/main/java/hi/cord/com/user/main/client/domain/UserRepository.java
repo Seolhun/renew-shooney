@@ -1,4 +1,4 @@
-package hi.cord.com.user.main.user.domain;
+package hi.cord.com.user.main.client.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -41,7 +41,7 @@ dependencies {
 
     //Security
     compile("org.springframework.boot:spring-boot-starter-security")
-//    compile("org.springframework.security.oauth:spring-security-oauth2")
+    compile("org.springframework.security.oauth:spring-security-oauth2")
 
     //AWS
     compile group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.11.217'

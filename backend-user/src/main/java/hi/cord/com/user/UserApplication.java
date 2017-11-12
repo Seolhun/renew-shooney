@@ -8,9 +8,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 
 @SpringBootApplication
-//@EnableOAuth2Sso
+@EnableOAuth2Client
 @EnableJpaRepositories(basePackages = "hi.cord.com.user")
 public class UserApplication implements CommandLineRunner {
     private static final Logger LOG = LoggerFactory.getLogger(UserApplication.class);

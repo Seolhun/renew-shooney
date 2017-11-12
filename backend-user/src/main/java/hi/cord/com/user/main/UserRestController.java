@@ -5,8 +5,8 @@ import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.user.main.profile.domain.UserProfile;
 import hi.cord.com.user.main.profile.domain.UserProfileType;
 import hi.cord.com.user.main.profile.service.UserProfileService;
-import hi.cord.com.user.main.user.domain.User;
-import hi.cord.com.user.main.user.service.UserService;
+import hi.cord.com.user.main.client.domain.User;
+import hi.cord.com.user.main.client.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -39,6 +41,13 @@ public class UserRestController {
     public ResponseEntity findAll(Pagination<User> pagination, Principal principal) {
 
         return ResponseEntity.status(HttpStatus.OK).body("Success");
+    }
+
+    @GetMapping({"/me"})
+    public Map<String, String> user(Principal principal) {
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("name", principal.getName());
+        return map;
     }
 
     /**

@@ -9,6 +9,18 @@ spring:
 #### Profile Information ####
 #############################
 spring:
+  profiles: dev
+shun:
+  name: Development
+  message: This is a ${shun.name} Profile
+  servers:
+    - www.dev.com
+server:
+  address: 127.0.0.1
+  context-path: /client
+  port: 9000
+---
+spring:
   profiles: qa
 name: qa
 shun:
@@ -18,18 +30,8 @@ shun:
     - www.qa.com
 server:
   address: 127.0.0.1
-  port: 5000
----
-spring:
-  profiles: dev
-shun:
-  name: Development
-  message: This is a ${shun.name} Profile
-  servers:
-    - www.dev.com
-server:
-  address: 127.0.0.1
-  port: 5000
+  context-path: /client
+  port: 9000
 ---
 spring:
   profiles: prod
@@ -40,7 +42,8 @@ shun:
     - www.prod.com
 server:
   address: 127.0.0.1
-  port: 5000
+  context-path: /client
+  port: 9000
 ---
 #############################
 #### Custom TaskExecutor ####
@@ -169,12 +172,13 @@ logging:
 #################################
 #### Security Oauth2 Github #####
 #################################
-github:
-  client:
-    clientId: bd1c0a783ccdd1c9b9e4
-    clientSecret: 1a9030fbca47a5b2c28e92f19050bb77824b5ad1
-    accessTokenUri: https://github.com/login/oauth/access_token
-    userAuthorizationUri: https://github.com/login/oauth/authorize
-    clientAuthenticationScheme: form
-  resource:
-    userInfoUri: https://api.github.com/user
+security:
+  oauth2:
+    client:
+      clientId: 05096350eaddf80dbd34
+      clientSecret: a2752bd252c43ef3d93f6ec4ac29533f8ff0a087
+      accessTokenUri: https://github.com/login/oauth/access_token
+      userAuthorizationUri: https://github.com/login/oauth/authorize
+      clientAuthenticationScheme: form
+    resource:
+      userInfoUri: https://api.github.com/user
