@@ -24,4 +24,3 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	long countDistinctBy(User user);
 }
-

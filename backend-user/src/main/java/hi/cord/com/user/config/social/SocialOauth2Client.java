@@ -32,7 +32,7 @@ import java.util.List;
 
 @Configuration
 @EnableOAuth2Client
-public class SocialOauth2Config extends WebSecurityConfigurerAdapter {
+public class SocialOauth2Client extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;

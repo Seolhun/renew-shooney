@@ -17,7 +17,6 @@ shun:
     - www.dev.com
 server:
   address: 127.0.0.1
-  context-path: /client
   port: 9000
 ---
 spring:
@@ -30,7 +29,6 @@ shun:
     - www.qa.com
 server:
   address: 127.0.0.1
-  context-path: /client
   port: 9000
 ---
 spring:
@@ -42,7 +40,6 @@ shun:
     - www.prod.com
 server:
   address: 127.0.0.1
-  context-path: /client
   port: 9000
 ---
 #############################
@@ -101,19 +98,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-  data:
-  ######################
-  #### MongoDB      ####
-  ######################
-    mongodb:
-      host: 127.0.0.1
-      port: 27017
-      database: shooney
-#      username: shooney
-#      password: blue1220@
-    redis:
-      repositories:
-        enabled: false
   #Redis
 #  redis:
 #    host: 127.0.0.1
@@ -152,33 +136,3 @@ logging:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file: /Users/HunSeol/log/shooney/
 ---
-##################################
-#### Security Oauth2 FaceBooK ####
-##################################
-#security:
-#  oauth2:
-#    client:
-#      clientId: 233668646673605
-#      clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
-#      accessTokenUri: https://graph.facebook.com/oauth/access_token
-#      userAuthorizationUri: https://www.facebook.com/dialog/oauth
-#      tokenName: oauth_token
-#      authenticationScheme: query
-#      clientAuthenticationScheme: form
-#    resource:
-#      userInfoUri: https://graph.facebook.com/me
-
----
-#################################
-#### Security Oauth2 Github #####
-#################################
-security:
-  oauth2:
-    client:
-      clientId: 05096350eaddf80dbd34
-      clientSecret: a2752bd252c43ef3d93f6ec4ac29533f8ff0a087
-      accessTokenUri: https://github.com/login/oauth/access_token
-      userAuthorizationUri: https://github.com/login/oauth/authorize
-      clientAuthenticationScheme: form
-    resource:
-      userInfoUri: https://api.github.com/user
