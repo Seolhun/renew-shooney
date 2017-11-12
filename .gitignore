@@ -3,14 +3,6 @@
 !gradle/wrapper/gradle-wrapper.jar
 out
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -26,7 +18,7 @@ nbdist/
 .nb-gradle/
 
 # Application Properties
-!/.DS_Store
+**DS_Store
 /backend-*/src/main/resources/application.properties
 # /backend-content/src/main/resources/application.properties
 # /backend-user/src/main/resources/application.properties

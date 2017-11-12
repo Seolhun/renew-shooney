@@ -3,6 +3,8 @@ import Vue from 'vue'
 import App from './App'
 // Router
 import router from './router'
+// Vuex
+import store from './state'
 // Bootstrap
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -32,19 +34,19 @@ const i18n = new VueI18n({
   silentTranslationWarn: true
   // set locale messages
 })
-
 // change locale
 // i18n.locale = 'ja'
 
 // Never Removed this
 /* eslint-disable no-new */
+Vue.prototype.$appName = 'Hi-Cord'
+Vue.prototype.$http = axios
 const vm = new Vue({
   el: '#app',
   router,
+  store,
   i18n,
   render: h => h(App)
 })
-vm.prototype.$appName = 'Hi-cord'
-vm.prototype.$http = axios
 
 export default vm
