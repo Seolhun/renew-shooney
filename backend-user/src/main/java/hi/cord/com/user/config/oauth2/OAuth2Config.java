@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.web.filter.CompositeFilter;
 
 import javax.servlet.Filter;
@@ -29,18 +28,14 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     @Qualifier("oauth2ClientContext")
     private OAuth2ClientContext oauth2ClientContext;
 
-    @Autowired
-    private ClientDetailsService customClientDetailsService;
-
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("acme")
                 .secret("acmesecret")
                 .scopes("write", "read")
-        .authorizedGrantTypes();
+                .authorizedGrantTypes();
     }
-
 
     private Filter ssoFilter() {
         CompositeFilter filter = new CompositeFilter();

@@ -2,11 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Root from '@/components/Root'
-import Notice from '@/components/items/notice/Notice'
 import Blog from '@/components/items/blog/Blog'
 import BlogDetail from '@/components/items/blog/BlogDetail'
-import Me from '@/components/items/aboutme/Me'
-import Supporter from '@/components/items/supporter/Supporter'
 import Editor from '@/components/common/editor/Editor'
 import Error from '@/components/common/error/404'
 import Login from '@/components/common/login/Login'
@@ -23,11 +20,6 @@ const router = new Router({
       path: '/login/:appName',
       name: 'Login',
       component: Login
-    },
-    {
-      path: '/notice',
-      name: 'Notice',
-      component: Notice
     },
     {
       path: '/blog',
@@ -47,16 +39,6 @@ const router = new Router({
         console.log('Routing in BlogDetail')
         next()
       }
-    },
-    {
-      path: '/aboutme',
-      name: 'About Me',
-      component: Me
-    },
-    {
-      path: '/supporters',
-      name: 'Supporters',
-      component: Supporter
     },
     {
       path: '/editor',
