@@ -9,14 +9,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
 @SpringBootApplication
-@EnableOAuth2Client
-@EnableJpaRepositories(basePackages = "hi.cord.com.user")
 @Import(CommonApplication.class)
-public class UserApplication implements CommandLineRunner {
+public class UserApplication extends AuthorizationServerConfigurerAdapter implements CommandLineRunner {
     private static final Logger LOG = LoggerFactory.getLogger(UserApplication.class);
     private YAMLConfig myConfig;
 
@@ -24,7 +24,6 @@ public class UserApplication implements CommandLineRunner {
     public UserApplication(YAMLConfig myConfig) {
         this.myConfig = myConfig;
     }
-
 
     @Override
     public void run(String... args) throws Exception {
@@ -37,4 +36,21 @@ public class UserApplication implements CommandLineRunner {
         SpringApplication app = new SpringApplication(UserApplication.class);
         app.run();
     }
+
+    // ...
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    // OAuth2 인증서버 자체의  보안 정보를 설정하는 부분
+    }
+
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+    // Client 에 대한 정보를  설정하는 부분
+    }
+
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    // OAuth2 서버가 작동하기 위한 Endpoint에 대한 정보를 설정
+    }
+    // ...
 }

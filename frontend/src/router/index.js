@@ -9,6 +9,7 @@ import Me from '@/components/items/aboutme/Me'
 import Supporter from '@/components/items/supporter/Supporter'
 import Editor from '@/components/common/editor/Editor'
 import Error from '@/components/common/error/404'
+import Login from '@/components/common/login/Login'
 
 Vue.use(Router)
 const router = new Router({
@@ -17,6 +18,11 @@ const router = new Router({
       path: '/',
       name: 'Home',
       component: Root
+    },
+    {
+      path: '/login/:appName',
+      name: 'Login',
+      component: Login
     },
     {
       path: '/notice',
@@ -57,12 +63,12 @@ const router = new Router({
       name: 'Editor',
       component: Editor
     },
-    // Redirect Route
     {
       path: '/redirect-me', redirect: {name: 'Home'}
-    }, {
-      path: '*', redirect: {name: '404'}
     },
+    // {
+    //   path: '*', redirect: {name: '404'}
+    // },
     // Error Route
     {
       path: '/error',

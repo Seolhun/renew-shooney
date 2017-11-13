@@ -135,4 +135,34 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file: /Users/HunSeol/log/shooney/
+
 ---
+github:
+  client:
+    clientId: 05096350eaddf80dbd34
+    clientSecret: a2752bd252c43ef3d93f6ec4ac29533f8ff0a087
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://api.github.com/user
+
+facebook:
+  client:
+    clientId: 145288242769896
+    clientSecret: e97e9791e6a61b4daa2d772c3bbee2a9
+    accessTokenUri: https://graph.facebook.com/oauth/access_token
+    userAuthorizationUri: https://www.facebook.com/dialog/oauth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://graph.facebook.com/me
+
+security:
+  oauth2:
+    client:
+      client-id: acme
+      client-secret: acmesecret
+      scope: read,write
+      auto-approve-scopes: '.*'

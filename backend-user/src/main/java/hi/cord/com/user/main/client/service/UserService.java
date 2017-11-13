@@ -5,7 +5,7 @@ import hi.cord.com.user.main.client.domain.User;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional(propagation = Propagation.REQUIRED, transactionManager = "txManager", noRollbackFor = {NullPointerException.class})
+@Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, noRollbackFor = {NullPointerException.class})
 public interface UserService extends AbstractRestService<User> {
     User findByEmail(String userEmail);
 
