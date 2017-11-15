@@ -77,16 +77,6 @@
 </style>
 
 <script>
-  import axios from 'axios'
-
-  const blogAxios = axios.create({
-    baseURL: 'http://localhost:5000',
-    timeout: 10000,
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-
   export default {
     data () {
       return {
@@ -107,7 +97,7 @@
     },
     methods: {
       insertContent () {
-        blogAxios.post('/content', this.blogContent)
+        this.$http.post('http://localhost:8000/content', this.blogContent)
           .then(response => {
             console.log(response.data)
           })
@@ -116,7 +106,7 @@
           })
       },
       renderMarkdown () {
-        axios.post('https://api.github.com/markdown', {
+        this.$http.post('https://api.github.com/markdown', {
           text: this.blogContent.content,
           mode: 'gfm',
           context: 'github/gollum'
@@ -132,7 +122,7 @@
     watch: {},
     computed: {},
     created () {
-      blogAxios.get('/api/v1/contentType')
+      this.$http.get('http://localhost:8000/api/v1/contentType')
         .then(response => {
           this.types = response.data
         })
@@ -140,7 +130,7 @@
           this.errors.push(e)
         })
 
-      blogAxios.get('/content')
+      this.$http.get('http://localhost:8000/content')
         .then(response => {
           this.results = response.data
         })

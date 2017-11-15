@@ -2,9 +2,9 @@
 import Vue from 'vue'
 import App from './App'
 // Router
-import router from './router'
+import router from './router/index'
 // Vuex
-import store from './state'
+import store from './state/state'
 // Bootstrap
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -14,12 +14,6 @@ import VueI18n from 'vue-i18n'
 import messages from './assets/i18n/messages.vue'
 // Axios
 import axios from 'axios'
-
-// const axiosConfig = axios.create({
-//   baseURL: 'http://127.0.0.1:5000',
-//   timeout: 10000
-//   // headers: {'X-Custom-Header': 'shooney'}
-// })
 
 Vue.config.productionTip = false
 Vue.use(VueI18n)

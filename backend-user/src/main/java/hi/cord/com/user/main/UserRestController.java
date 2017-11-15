@@ -2,11 +2,11 @@ package hi.cord.com.user.main;
 
 import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.common.service.common.CommonService;
+import hi.cord.com.user.main.client.domain.User;
+import hi.cord.com.user.main.client.service.UserService;
 import hi.cord.com.user.main.profile.domain.UserProfile;
 import hi.cord.com.user.main.profile.domain.UserProfileType;
 import hi.cord.com.user.main.profile.service.UserProfileService;
-import hi.cord.com.user.main.user.domain.User;
-import hi.cord.com.user.main.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +50,9 @@ public class UserRestController {
      */
     @PostMapping("")
     public ResponseEntity save(@RequestBody User user, BindingResult bindingResult) {
+        LOG.info("r : {}", user.toString());
         String email = user.getEmail();
         String nickname = user.getNickname();
-        String userAddress = user.getCommonAddress().getAddress();
 
         // 개인 별로 에러메세지 띄우기 구현 예정(개인별로 해도 메세지가 2개뜨는 문제 발생)
         if (email == null || email.length() == 0) {
@@ -81,7 +81,6 @@ public class UserRestController {
         userService.insert(user);
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
-
 
     @GetMapping("/{nickname}")
     public ResponseEntity findOne(@PathVariable String nickname) {

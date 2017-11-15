@@ -1,4 +1,4 @@
-package hi.cord.com.user.main.user.domain;
+package hi.cord.com.user.main.client.domain;
 
 import hi.cord.com.common.domain.entity.BaseEntity;
 import hi.cord.com.common.domain.entity.CommonAddress;
@@ -8,11 +8,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,7 +27,7 @@ import java.util.Set;
 @ToString(callSuper = true)
 @Getter
 @Setter
-public class User extends BaseEntity implements Serializable {
+public class User extends BaseEntity implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="USER_ID")
@@ -145,6 +148,16 @@ public class User extends BaseEntity implements Serializable {
 
 	@Transient
 	private String ip;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return new ArrayList<>();
+	}
+
+	@Override
+	public String getUsername() {
+		return nickname;
+	}
 
 	//------------Entity Filed finished----------------
 }

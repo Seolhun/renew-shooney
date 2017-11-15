@@ -1,8 +1,8 @@
 @import "variable";
 
-/* ------------------------
+/* ------------------------------------------------
   Global Tag CSS
------------------------- */
+------------------------------------------------ */
 // Common Body
 body {
   background: $bg-color;
@@ -20,6 +20,7 @@ a {
 
 // Button Css
 button {
+  cursor: pointer;
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -68,23 +69,56 @@ textarea.auto-size {
 }
 
 // Sub Function Btn
+/* ------------------------------------------------
+  Colorful Btn - BackGround CSS
+------------------------------------------------ */
 @each $color in $colors {
   $key: nth($color, 1);
   $value: nth($color, 2);
 
   .#{'btn-'}#{$key} {
     color: $white;
-    background: $value;
+    background-color: $value;
 
     &:hover {
-      background: lighten($value, 15%);
+      background: darken($value, 5%);
       font-weight: bold;
+    }
+
+    &:active {
+      background-color: darken($white, 30%);
     }
 
     &:disabled {
       cursor: not-allowed;
       background: #dddddd;
     }
+  }
+
+  .#{'btn-edge-'}#{$key} {
+    border-color: $value;
+    color: $value;
+    background-color: $white;
+
+    &:hover {
+      background: darken($value, 5%);
+      color: darken($value, 5%);
+      font-weight: 500;
+    }
+
+    &:active {
+      background-color: darken($white, 30%);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background: #dddddd;
+    }
+  }
+
+  .#{'background-'}#{$key} {
+    color: $white;
+    background: $value;
   }
 }
 

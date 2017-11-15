@@ -1,42 +1,69 @@
 <template>
-  <header id="header container row" class="header header-shadow-box">
-    <div class="container">
-      <div class="el-row">
-        <div class="header-wrap el-col-sm-24">
-          <a href="#" id="menu-open" class="menu-open header-btn i-menu hide-after-lg"></a>
-          <div class="header-logo">
-            <router-link :to="'/'" class="header-logo-link">
-              <img src="../../assets/img/logo3.png" alt="Site Logo">
-            </router-link>
-          </div>
+  <b-navbar
+    class="background-ocean shadow-box col-sm-12"
+    toggleable="md"
+    type="dark"
+    fixed="top"
+  >
+    <b-navbar-toggle target="nav_collapse">
 
-          <nav class="header-navigation">
-            <!---->
-            <ul class="header-navigation-ul u-unstyled header-show">
-              <li>
-                <a class="navigation-link nav-toggle active" aria-hidden="false">
+    </b-navbar-toggle>
 
-                </a>
-              </li>
-            </ul>
-            <!-- Web -->
-            <ul class="header-navigation-ul u-unstyled header-hide">
-              <router-link class="navigation-link" tag="li" :to="'/notice'">Notice</router-link>
-              <router-link class="navigation-link" tag="li" :to="'/supporters'">Supporters</router-link>
-              <router-link class="navigation-link" tag="li" :to="'/blog'">Blog</router-link>
-              <router-link class="navigation-link" tag="li" :to="'/aboutme'">About Me</router-link>
-            </ul>
-          </nav>
+    <b-navbar-brand
+      href="/"
+    >
+        Hi-Cord
+    </b-navbar-brand>
 
-          <a href="#" id="search-btn" class="search-btn header-btn hide-after-md i-close i-search"></a>
+    <b-collapse is-nav id="nav_collapse">
+      <b-navbar-nav>
+        <b-nav-item href="#">
+          <router-link class="header-navigation-link" tag="li" :to="'/blog'">Blog</router-link>
+        </b-nav-item>
+      </b-navbar-nav>
 
-          <div class="header-social hide-before-lg">
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
 
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+        <b-nav-form>
+          <b-form-input size="md" class="mr-sm-2" type="text" placeholder="Search">
+
+          </b-form-input>
+          <button
+            size="md"
+            class="btn-gray"
+            type="button"
+          >
+            Search
+          </button>
+        </b-nav-form>
+
+        <b-nav-item-dropdown
+          class="header-navigation-link"
+          text="Lang"
+          right
+        >
+          <b-dropdown-item href="#">EN</b-dropdown-item>
+          <b-dropdown-item href="#">ES</b-dropdown-item>
+          <b-dropdown-item href="#">RU</b-dropdown-item>
+          <b-dropdown-item href="#">FA</b-dropdown-item>
+        </b-nav-item-dropdown>
+
+        <b-nav-item-dropdown
+          class="header-navigation-link"
+          right
+        >
+          <!-- Using button-content slot -->
+          <template slot="button-content">
+            <em>User</em>
+          </template>
+          <b-dropdown-item href="#">Profile</b-dropdown-item>
+          <b-dropdown-item href="#">Signout</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+
+    </b-collapse>
+  </b-navbar>
 </template>
 
 <style lang="sass">

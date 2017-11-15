@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(
         basePackages = {"hi.cord.com.user.main"}
 )
-public class PrimaryDataBaseConfig {
+public class PrimaryUserDataBaseConfig {
 
     @Primary
     @Bean(name = "dataSource")
@@ -44,7 +44,7 @@ public class PrimaryDataBaseConfig {
     }
 
     @Primary
-    @Bean(name = "txManager")
+    @Bean(name = "transactionManager")
     public PlatformTransactionManager transactionManager(
             @Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
