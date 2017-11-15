@@ -8,7 +8,7 @@
 
 ## Goal of Hi-Cord
 Why develop this project?
-- I want taht developer connect with others interested in common stacks each other.
+- I want that developer connect with others interested in common stacks each other.
     - We already have a nice code hub like 'Git-hub'. so, I want to integrate code and blog information at the same time to manage easily.
     - We will serve the developer-blog based on 'Git-Hub' service. Never have a blog not based on 'Git-Hub'.
     - You can follow good project and developer easily and message, chatting, etc many things can use in Hi-Cord Blog project.
