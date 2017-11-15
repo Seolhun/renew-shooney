@@ -1,67 +1,66 @@
-# Goal of Shooney Blog Project
-
-
+# Goal of **Hi-Cord** Project
 - Author : [Seol Hun](https://github.com/Seolhun)
 - StartedDate : 2017.09.09
 
 ## Content
-- Why use this?
-	1. To search and connect stacks information developers want to know
-	2. To see your interesting, How many search, write, and access it.
-	3. To give information you want to know about stacks and Connect with others same situation like you.
+Why develop this project?
+- I want taht developer connect with others interested in common stacks each other.
+    - we already have a nice code hub like 'Git-hub'. so, I want to integrate code and blog information at the same time to manage easily.
+    - We will serve the developer-blog based on 'Git-Hub' service. Never have a blog not based on 'Git-Hub'.
+    - You can follow good project and developer easily and message, chatting, etc many things can use in Hi-Cord Blog project.
+    - Just write a code on 'Git-hub', 'Hi-Cord' serve information for others automatically.
 
 ## Enviroment
 ### Back-end
 - Java
-    1. Spring-Boot
-    2. Spring Security
-    3. JPA, Hibernate
-    4. Oauth2 (Google, Facebook)
-    5. Actuator
-- Python
-    1. Flask
-    2. Flask REST
-    3. NLP
+    - Spring Boot
+    - Spring Security, Oauth2
+    - Spring Stomp, Websocket, SockJS
+    - Spring Actuator
+    - JPA, Hibernate
+
+- Cache
+    - Redis or Elastic Cache
+
+- Python (Data Analysis Module)
+    - Flask
+    - NLP
+
+- AWS
+    - Bean Stalk
+    - Lambda
+    - S3
+    - RDB
+    - DynamoDB
+    - Kinesis
 
 ### Front-end
-1. Vue2 Cli
-2. Vuex
-3. D3.js
-4. TypeScript
-
-### Server
-1. AWS / EC2 || BeanStalk
-2. Lambda
-
-### Storage
-1. S3
-
-### DB
-1. DynamoDB
-2. MongoDB
-3. Redis
+- Vue2 Cli
+- Vuex
+- TypeScript
+- D3.js
 
 ---
 ### Build & Integration System
-1. Gradle
-2. Docker
-3. Travis
-4. Codacy
-5. Waffle.io
+- Gradle
+- Docker
+- Travis
+- Codacy
+- Waffle.io
 
 #### Util
-1. Post Man
+- Post Man
 
 ---
-## Domain
+## Module
 - User
-- History
-- Board
-- Comment
-- Image
+- Group
+- Pay
+- Content
+- File
 - NLP
-- Keywords
-
+- Statistics
+- Log
 
 ---
 ## Simple Architecture
