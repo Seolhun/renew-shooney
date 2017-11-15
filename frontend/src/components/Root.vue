@@ -17,12 +17,17 @@
     </div>
     <div class="row margin-30">
       <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
-        <div>
-          With Facebook: <a href="/login/facebook">click here</a>
+        <div class="container unauthenticated">
+          <div>
+            With Facebook: <a href="/login/facebook">click here</a>
+          </div>
+          <div>
+            With Github: <a href="/login/github">click here</a>
+          </div>
         </div>
-        <div>
-          With Github: <a href="/login/github">click here</a>
-        </div>
+        <p>
+          Code Value : {{ $route.query.code }}
+        </p>
       </div>
     </div>
   </div>

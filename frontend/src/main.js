@@ -2,7 +2,9 @@
 import Vue from 'vue'
 import App from './App'
 // Router
-import router from './router'
+import router from './router/index'
+// Vuex
+import store from './state/state'
 // Bootstrap
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -12,12 +14,6 @@ import VueI18n from 'vue-i18n'
 import messages from './assets/i18n/messages.vue'
 // Axios
 import axios from 'axios'
-
-// const axiosConfig = axios.create({
-//   baseURL: 'http://127.0.0.1:5000',
-//   timeout: 10000
-//   // headers: {'X-Custom-Header': 'shooney'}
-// })
 
 Vue.config.productionTip = false
 Vue.use(VueI18n)
@@ -32,19 +28,19 @@ const i18n = new VueI18n({
   silentTranslationWarn: true
   // set locale messages
 })
-
 // change locale
 // i18n.locale = 'ja'
 
 // Never Removed this
 /* eslint-disable no-new */
+Vue.prototype.$appName = 'Hi-Cord'
+Vue.prototype.$http = axios
 const vm = new Vue({
   el: '#app',
   router,
+  store,
   i18n,
   render: h => h(App)
 })
-vm.prototype.$appName = 'Hi-cord'
-vm.prototype.$http = axios
 
 export default vm

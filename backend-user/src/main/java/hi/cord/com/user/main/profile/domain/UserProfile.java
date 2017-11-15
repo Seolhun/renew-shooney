@@ -39,7 +39,7 @@ public class UserProfile implements Serializable {
             joinColumns = {@JoinColumn(name = "PROFILE_ID") },
             inverseForeignKey = @ForeignKey(name = "FK_PRIVILEGE_ID"),
             inverseJoinColumns = {@JoinColumn(name = "PRIVILEGE_ID") })
-    private Set<ProfilePrivilege> profiles = new HashSet<>();
+    private Set<ProfilePrivilege> privileges = new HashSet<>();
 
     @PostConstruct
     private void init() {

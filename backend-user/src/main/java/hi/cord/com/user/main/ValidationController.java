@@ -2,7 +2,7 @@ package hi.cord.com.user.main;
 
 import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.user.main.profile.service.UserProfileService;
-import hi.cord.com.user.main.user.service.UserService;
+import hi.cord.com.user.main.client.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
