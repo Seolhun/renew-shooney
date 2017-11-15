@@ -24,3 +24,5 @@ nbdist/
 # /backend-user/src/main/resources/application.properties
 # /backend-pay/src/main/resources/application.properties
 # /backend-log/src/main/resources/application.properties
+
+.DS_Store
