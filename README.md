@@ -1,4 +1,8 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/29dd0bb705bc4df386ae2eb38bd69ca4)](https://www.codacy.com/app/shun10114/renew-shooney?utm_source=github.com&utm_medium=referral&utm_content=Seolhun/renew-shooney&utm_campaign=badger)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/Seolhun/renew-shooney.svg?columns=all)](https://waffle.io/Seolhun/renew-shooney)
+---
 # Hi-Cord Blog Project
+
 - Author : [Seol Hun](https://github.com/Seolhun)
 - StartedDate : 2017.09.09
 
@@ -64,4 +68,4 @@ Why develop this project?
 
 ---
 ## Simple Architecture
-<img src="readme/B_architecture.png" width="900" height="600">
+<img src="readme/architecture.png" width="900" height="600">

@@ -1,9 +1,12 @@
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/Seolhun/only-vue-project.svg?columns=all)](http://waffle.io/Seolhun/only-vue-project)
+
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/Seolhun/renew-shooney.svg?columns=all)](https://waffle.io/Seolhun/renew-shooney)
 ---
-# [First-vue](https://github.com/Seolhun/only-vue-project)
+
+# [Hi-Cord FrontEnd](https://github.com/Seolhun/renew-shooney/frontend)
 - Author : [SeolHun](https://github.com/SeolHun)
 - Date : 2017.10.15 
 - Docs : [Private Reference Docs](https://github.com/Seolhun/my-business-idea/blob/master/README.md)
+
 ---
 ## Stacks
 - IDE
@@ -15,6 +18,7 @@
   - SCSS(Custom CSS)
   - ElementUI
   - BootStrap
+
 ---
 ## Goal
 1. Understanding front-framework how to run with Vue Cli
