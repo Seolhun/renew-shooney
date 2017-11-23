@@ -15,13 +15,14 @@
       </router-view>
     </div>
 
+    <!-- Vue i18n - Language -->
     <!--
     <div class="container">
       <div class="el-row">
         <div class="el-col-sm-24">
           <button
             class="el-button el-button&#45;&#45;danger"
-            @click="changeLang('ko')"
+            @click="changeLang('ko')"w
           >
             Korean
           </button>

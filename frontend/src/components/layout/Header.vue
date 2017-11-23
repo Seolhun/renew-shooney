@@ -12,34 +12,37 @@
     <b-navbar-brand
       href="/"
     >
-        Hi-Cord
+      Hi-Cord
     </b-navbar-brand>
-
     <b-collapse is-nav id="nav_collapse">
+      <!-- Route Link -->
       <b-navbar-nav>
         <b-nav-item href="#">
-          <router-link class="header-navigation-link" tag="li" :to="'/blog'">Blog</router-link>
+          <router-link tag="li" :to="'/blog'">Blog</router-link>
         </b-nav-item>
       </b-navbar-nav>
 
-      <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-
+        <!-- Search Function -->
         <b-nav-form>
-          <b-form-input size="md" class="mr-sm-2" type="text" placeholder="Search">
-
-          </b-form-input>
-          <button
-            size="md"
-            class="btn-gray"
-            type="button"
+          <div
+            class="form-inline"
           >
-            Search
-          </button>
+            <b-form-input size="md" class="mr-sm-2" type="text" placeholder="Search">
+
+            </b-form-input>
+            <button
+              size="md"
+              class="btn-gray"
+              type="button"
+            >
+              Search
+            </button>
+          </div>
         </b-nav-form>
 
+        <!-- Right aligned nav items -->
         <b-nav-item-dropdown
-          class="header-navigation-link"
           text="Lang"
           right
         >

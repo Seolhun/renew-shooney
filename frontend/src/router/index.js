@@ -6,11 +6,17 @@ import Blog from '@/components/items/blog/Blog'
 import BlogDetail from '@/components/items/blog/BlogDetail'
 import Editor from '@/components/common/editor/Editor'
 import Error from '@/components/common/error/404'
+import Hello from '@/components/Hello'
 import Login from '@/components/common/login/Login'
 
 Vue.use(Router)
 const router = new Router({
   routes: [
+    {
+      path: '/Hello',
+      name: 'Hello',
+      component: Hello
+    },
     {
       path: '/',
       name: 'Home',

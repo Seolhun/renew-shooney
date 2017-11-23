@@ -1,10 +1,10 @@
 // Vue
 import Vue from 'vue'
-import App from './App'
+import App from './App.vue'
 // Router
 import router from './router/index'
 // Vuex
-import store from './state/state'
+import store from './vuex/state'
 // Bootstrap
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'

@@ -212,101 +212,121 @@ h5 {
 .max-height-50 {
   max-height: 50px;
   word-break: keep-all;
+  min-height: 10px;
   height: auto; }
 
 .max-height-100 {
   max-height: 100px;
   word-break: keep-all;
+  min-height: 20px;
   height: auto; }
 
 .max-height-150 {
   max-height: 150px;
   word-break: keep-all;
+  min-height: 30px;
   height: auto; }
 
 .max-height-200 {
   max-height: 200px;
   word-break: keep-all;
+  min-height: 40px;
   height: auto; }
 
 .max-height-250 {
   max-height: 250px;
   word-break: keep-all;
+  min-height: 50px;
   height: auto; }
 
 .max-height-300 {
   max-height: 300px;
   word-break: keep-all;
+  min-height: 60px;
   height: auto; }
 
 .max-height-350 {
   max-height: 350px;
   word-break: keep-all;
+  min-height: 70px;
   height: auto; }
 
 .max-height-400 {
   max-height: 400px;
   word-break: keep-all;
+  min-height: 80px;
   height: auto; }
 
 .max-height-450 {
   max-height: 450px;
   word-break: keep-all;
+  min-height: 90px;
   height: auto; }
 
 .max-height-500 {
   max-height: 500px;
   word-break: keep-all;
+  min-height: 100px;
   height: auto; }
 
 .max-height-550 {
   max-height: 550px;
   word-break: keep-all;
+  min-height: 110px;
   height: auto; }
 
 .max-height-600 {
   max-height: 600px;
   word-break: keep-all;
+  min-height: 120px;
   height: auto; }
 
 .max-height-650 {
   max-height: 650px;
   word-break: keep-all;
+  min-height: 130px;
   height: auto; }
 
 .max-height-700 {
   max-height: 700px;
   word-break: keep-all;
+  min-height: 140px;
   height: auto; }
 
 .max-height-750 {
   max-height: 750px;
   word-break: keep-all;
+  min-height: 150px;
   height: auto; }
 
 .max-height-800 {
   max-height: 800px;
   word-break: keep-all;
+  min-height: 160px;
   height: auto; }
 
 .max-height-850 {
   max-height: 850px;
   word-break: keep-all;
+  min-height: 170px;
   height: auto; }
 
 .max-height-900 {
   max-height: 900px;
   word-break: keep-all;
+  min-height: 180px;
   height: auto; }
 
 .max-height-950 {
   max-height: 950px;
   word-break: keep-all;
+  min-height: 190px;
   height: auto; }
 
 .max-height-1000 {
   max-height: 1000px;
   word-break: keep-all;
+  min-height: 200px;
   height: auto; }
 
 .min-height-50 {
@@ -1301,17 +1321,20 @@ h5 {
 .margin-left-200 {
   margin-left: 100px; }
 
-/* ------------------------
+/* ------------------------------------------------
   Global Tag CSS
------------------------- */
+------------------------------------------------ */
 body {
   background: #ffffff;
   font-family: 'Avenir', Helvetica, Arial, sans-serif; }
 
 a {
-  color: #0080ff; }
+  color: #868e96; }
+  a:active {
+    color: #0080ff; }
 
 button {
+  cursor: pointer;
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -1340,175 +1363,558 @@ button.fc-btn {
     box-shadow: none;
     margin-top: 5px; }
 
+textarea.auto-size {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  line-height: 1.5;
+  padding: 15px 15px;
+  border-radius: 3px;
+  transition: box-shadow 0.5s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+
+/* ------------------------------------------------
+  Colorful Btn - BackGround CSS
+------------------------------------------------ */
+.btn-black {
+  color: #ffffff;
+  background-color: #000000; }
+  .btn-black:hover {
+    background: black;
+    font-weight: bold; }
+  .btn-black:active {
+    background-color: #b3b3b3; }
+  .btn-black:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.btn-edge-black {
+  border-color: #000000;
+  color: #000000;
+  background-color: #ffffff; }
+  .btn-edge-black:hover {
+    background: black;
+    color: black;
+    font-weight: 500; }
+  .btn-edge-black:active {
+    background-color: #b3b3b3; }
+  .btn-edge-black:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-black {
+  color: #ffffff;
+  background: #000000; }
+
 .btn-white {
   color: #ffffff;
-  background: #fff; }
+  background-color: #fff; }
   .btn-white:hover {
-    background: white;
+    background: #f2f2f2;
     font-weight: bold; }
+  .btn-white:active {
+    background-color: #b3b3b3; }
   .btn-white:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-white {
+  border-color: #fff;
+  color: #fff;
+  background-color: #ffffff; }
+  .btn-edge-white:hover {
+    background: #f2f2f2;
+    color: #f2f2f2;
+    font-weight: 500; }
+  .btn-edge-white:active {
+    background-color: #b3b3b3; }
+  .btn-edge-white:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-white {
+  color: #ffffff;
+  background: #fff; }
+
 .btn-gray {
   color: #ffffff;
-  background: #808080; }
+  background-color: #808080; }
   .btn-gray:hover {
-    background: #a6a6a6;
+    background: #737373;
     font-weight: bold; }
+  .btn-gray:active {
+    background-color: #b3b3b3; }
   .btn-gray:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-gray {
+  border-color: #808080;
+  color: #808080;
+  background-color: #ffffff; }
+  .btn-edge-gray:hover {
+    background: #737373;
+    color: #737373;
+    font-weight: 500; }
+  .btn-edge-gray:active {
+    background-color: #b3b3b3; }
+  .btn-edge-gray:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-gray {
+  color: #ffffff;
+  background: #808080; }
+
 .btn-darkgray {
   color: #ffffff;
-  background: #A9A9A9; }
+  background-color: #A9A9A9; }
   .btn-darkgray:hover {
-    background: #cfcfcf;
+    background: #9c9c9c;
     font-weight: bold; }
+  .btn-darkgray:active {
+    background-color: #b3b3b3; }
   .btn-darkgray:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-darkgray {
+  border-color: #A9A9A9;
+  color: #A9A9A9;
+  background-color: #ffffff; }
+  .btn-edge-darkgray:hover {
+    background: #9c9c9c;
+    color: #9c9c9c;
+    font-weight: 500; }
+  .btn-edge-darkgray:active {
+    background-color: #b3b3b3; }
+  .btn-edge-darkgray:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-darkgray {
+  color: #ffffff;
+  background: #A9A9A9; }
+
 .btn-red {
   color: #ffffff;
-  background: #FF0000; }
+  background-color: #FF0000; }
   .btn-red:hover {
-    background: #ff4d4d;
+    background: #e60000;
     font-weight: bold; }
+  .btn-red:active {
+    background-color: #b3b3b3; }
   .btn-red:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-red {
+  border-color: #FF0000;
+  color: #FF0000;
+  background-color: #ffffff; }
+  .btn-edge-red:hover {
+    background: #e60000;
+    color: #e60000;
+    font-weight: 500; }
+  .btn-edge-red:active {
+    background-color: #b3b3b3; }
+  .btn-edge-red:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-red {
+  color: #ffffff;
+  background: #FF0000; }
+
 .btn-crimson {
   color: #ffffff;
-  background: #DC143C; }
+  background-color: #DC143C; }
   .btn-crimson:hover {
-    background: #ef4e6e;
+    background: #c51236;
     font-weight: bold; }
+  .btn-crimson:active {
+    background-color: #b3b3b3; }
   .btn-crimson:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-crimson {
+  border-color: #DC143C;
+  color: #DC143C;
+  background-color: #ffffff; }
+  .btn-edge-crimson:hover {
+    background: #c51236;
+    color: #c51236;
+    font-weight: 500; }
+  .btn-edge-crimson:active {
+    background-color: #b3b3b3; }
+  .btn-edge-crimson:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-crimson {
+  color: #ffffff;
+  background: #DC143C; }
+
 .btn-aqua {
   color: #ffffff;
-  background: #00FFFF; }
+  background-color: #00FFFF; }
   .btn-aqua:hover {
-    background: #4dffff;
+    background: #00e6e6;
     font-weight: bold; }
+  .btn-aqua:active {
+    background-color: #b3b3b3; }
   .btn-aqua:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-aqua {
+  border-color: #00FFFF;
+  color: #00FFFF;
+  background-color: #ffffff; }
+  .btn-edge-aqua:hover {
+    background: #00e6e6;
+    color: #00e6e6;
+    font-weight: 500; }
+  .btn-edge-aqua:active {
+    background-color: #b3b3b3; }
+  .btn-edge-aqua:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-aqua {
+  color: #ffffff;
+  background: #00FFFF; }
+
 .btn-aquamarine {
   color: #ffffff;
-  background: #7FFFD4; }
+  background-color: #7FFFD4; }
   .btn-aquamarine:hover {
-    background: #ccffee;
+    background: #66ffcb;
     font-weight: bold; }
+  .btn-aquamarine:active {
+    background-color: #b3b3b3; }
   .btn-aquamarine:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-aquamarine {
+  border-color: #7FFFD4;
+  color: #7FFFD4;
+  background-color: #ffffff; }
+  .btn-edge-aquamarine:hover {
+    background: #66ffcb;
+    color: #66ffcb;
+    font-weight: 500; }
+  .btn-edge-aquamarine:active {
+    background-color: #b3b3b3; }
+  .btn-edge-aquamarine:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-aquamarine {
+  color: #ffffff;
+  background: #7FFFD4; }
+
 .btn-orange {
   color: #ffffff;
-  background: #FFA500; }
+  background-color: #FFA500; }
   .btn-orange:hover {
-    background: #ffc04d;
+    background: #e69500;
     font-weight: bold; }
+  .btn-orange:active {
+    background-color: #b3b3b3; }
   .btn-orange:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-orange {
+  border-color: #FFA500;
+  color: #FFA500;
+  background-color: #ffffff; }
+  .btn-edge-orange:hover {
+    background: #e69500;
+    color: #e69500;
+    font-weight: 500; }
+  .btn-edge-orange:active {
+    background-color: #b3b3b3; }
+  .btn-edge-orange:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-orange {
+  color: #ffffff;
+  background: #FFA500; }
+
 .btn-orangered {
   color: #ffffff;
-  background: #FF4500; }
+  background-color: #FF4500; }
   .btn-orangered:hover {
-    background: #ff7d4d;
+    background: #e63e00;
     font-weight: bold; }
+  .btn-orangered:active {
+    background-color: #b3b3b3; }
   .btn-orangered:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-orangered {
+  border-color: #FF4500;
+  color: #FF4500;
+  background-color: #ffffff; }
+  .btn-edge-orangered:hover {
+    background: #e63e00;
+    color: #e63e00;
+    font-weight: 500; }
+  .btn-edge-orangered:active {
+    background-color: #b3b3b3; }
+  .btn-edge-orangered:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-orangered {
+  color: #ffffff;
+  background: #FF4500; }
+
 .btn-green {
   color: #ffffff;
-  background: #008000; }
+  background-color: #008000; }
   .btn-green:hover {
-    background: #00cd00;
+    background: #006700;
     font-weight: bold; }
+  .btn-green:active {
+    background-color: #b3b3b3; }
   .btn-green:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-green {
+  border-color: #008000;
+  color: #008000;
+  background-color: #ffffff; }
+  .btn-edge-green:hover {
+    background: #006700;
+    color: #006700;
+    font-weight: 500; }
+  .btn-edge-green:active {
+    background-color: #b3b3b3; }
+  .btn-edge-green:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-green {
+  color: #ffffff;
+  background: #008000; }
+
 .btn-limegreen {
   color: #ffffff;
-  background: #32CD32; }
+  background-color: #32CD32; }
   .btn-limegreen:hover {
-    background: #70dc70;
+    background: #2db92d;
     font-weight: bold; }
+  .btn-limegreen:active {
+    background-color: #b3b3b3; }
   .btn-limegreen:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-limegreen {
+  border-color: #32CD32;
+  color: #32CD32;
+  background-color: #ffffff; }
+  .btn-edge-limegreen:hover {
+    background: #2db92d;
+    color: #2db92d;
+    font-weight: 500; }
+  .btn-edge-limegreen:active {
+    background-color: #b3b3b3; }
+  .btn-edge-limegreen:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-limegreen {
+  color: #ffffff;
+  background: #32CD32; }
+
 .btn-lightgreen {
   color: #ffffff;
-  background: #90EE90; }
+  background-color: #90EE90; }
   .btn-lightgreen:hover {
-    background: #d2f8d2;
+    background: #7aeb7a;
     font-weight: bold; }
+  .btn-lightgreen:active {
+    background-color: #b3b3b3; }
   .btn-lightgreen:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-lightgreen {
+  border-color: #90EE90;
+  color: #90EE90;
+  background-color: #ffffff; }
+  .btn-edge-lightgreen:hover {
+    background: #7aeb7a;
+    color: #7aeb7a;
+    font-weight: 500; }
+  .btn-edge-lightgreen:active {
+    background-color: #b3b3b3; }
+  .btn-edge-lightgreen:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-lightgreen {
+  color: #ffffff;
+  background: #90EE90; }
+
 .btn-yellow {
   color: #ffffff;
-  background: #FFFF00; }
+  background-color: #FFFF00; }
   .btn-yellow:hover {
-    background: #ffff4d;
+    background: #e6e600;
     font-weight: bold; }
+  .btn-yellow:active {
+    background-color: #b3b3b3; }
   .btn-yellow:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-yellow {
+  border-color: #FFFF00;
+  color: #FFFF00;
+  background-color: #ffffff; }
+  .btn-edge-yellow:hover {
+    background: #e6e600;
+    color: #e6e600;
+    font-weight: 500; }
+  .btn-edge-yellow:active {
+    background-color: #b3b3b3; }
+  .btn-edge-yellow:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-yellow {
+  color: #ffffff;
+  background: #FFFF00; }
+
 .btn-blue {
   color: #ffffff;
-  background: #0000FF; }
+  background-color: #0000FF; }
   .btn-blue:hover {
-    background: #4d4dff;
+    background: #0000e6;
     font-weight: bold; }
+  .btn-blue:active {
+    background-color: #b3b3b3; }
   .btn-blue:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-blue {
+  border-color: #0000FF;
+  color: #0000FF;
+  background-color: #ffffff; }
+  .btn-edge-blue:hover {
+    background: #0000e6;
+    color: #0000e6;
+    font-weight: 500; }
+  .btn-edge-blue:active {
+    background-color: #b3b3b3; }
+  .btn-edge-blue:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-blue {
+  color: #ffffff;
+  background: #0000FF; }
+
 .btn-royalblue {
   color: #ffffff;
-  background: #4169E1; }
+  background-color: #4169E1; }
   .btn-royalblue:hover {
-    background: #839deb;
+    background: #2b58de;
     font-weight: bold; }
+  .btn-royalblue:active {
+    background-color: #b3b3b3; }
   .btn-royalblue:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-royalblue {
+  border-color: #4169E1;
+  color: #4169E1;
+  background-color: #ffffff; }
+  .btn-edge-royalblue:hover {
+    background: #2b58de;
+    color: #2b58de;
+    font-weight: 500; }
+  .btn-edge-royalblue:active {
+    background-color: #b3b3b3; }
+  .btn-edge-royalblue:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-royalblue {
+  color: #ffffff;
+  background: #4169E1; }
+
 .btn-purple {
   color: #ffffff;
-  background: #800080; }
+  background-color: #800080; }
   .btn-purple:hover {
-    background: #cd00cd;
+    background: #670067;
     font-weight: bold; }
+  .btn-purple:active {
+    background-color: #b3b3b3; }
   .btn-purple:disabled {
     cursor: not-allowed;
     background: #dddddd; }
 
+.btn-edge-purple {
+  border-color: #800080;
+  color: #800080;
+  background-color: #ffffff; }
+  .btn-edge-purple:hover {
+    background: #670067;
+    color: #670067;
+    font-weight: 500; }
+  .btn-edge-purple:active {
+    background-color: #b3b3b3; }
+  .btn-edge-purple:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-purple {
+  color: #ffffff;
+  background: #800080; }
+
 .btn-ocean {
   color: #ffffff;
-  background: #0080ff; }
+  background-color: #0080ff; }
   .btn-ocean:hover {
-    background: #4da6ff;
+    background: #0073e6;
     font-weight: bold; }
+  .btn-ocean:active {
+    background-color: #b3b3b3; }
   .btn-ocean:disabled {
     cursor: not-allowed;
     background: #dddddd; }
+
+.btn-edge-ocean {
+  border-color: #0080ff;
+  color: #0080ff;
+  background-color: #ffffff; }
+  .btn-edge-ocean:hover {
+    background: #0073e6;
+    color: #0073e6;
+    font-weight: 500; }
+  .btn-edge-ocean:active {
+    background-color: #b3b3b3; }
+  .btn-edge-ocean:disabled {
+    cursor: not-allowed;
+    background: #dddddd; }
+
+.background-ocean {
+  color: #ffffff;
+  background: #0080ff; }
 
 /* ------------------------
   Global Class CSS
@@ -1536,6 +1942,10 @@ button.fc-btn {
     .gradient-fc button.fc-btn:active {
       box-shadow: none;
       margin-top: 5px; }
+
+.router-link-exact-active {
+  font-weight: 700;
+  color: #ffffff; }
 
 .shadow-box {
   box-shadow: -10px -10px 10px 10px #868e96; }

@@ -159,6 +159,13 @@ textarea.auto-size {
   }
 }
 
+//Vue Nav Active
+.router-link-exact-active {
+  font-weight: 700;
+  color: $white;
+}
+
+
 .shadow-box {
   box-shadow: -10px -10px 10px 10px $gray;
 }
