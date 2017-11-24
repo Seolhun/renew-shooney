@@ -1916,9 +1916,9 @@ textarea.auto-size {
   color: #ffffff;
   background: #0080ff; }
 
-/* ------------------------
+/* ------------------------------------------------
   Global Class CSS
------------------------- */
+------------------------------------------------ */
 .text-right {
   text-align: right; }
 
@@ -1943,9 +1943,18 @@ textarea.auto-size {
       box-shadow: none;
       margin-top: 5px; }
 
+/* ----------------
+  Vue Router SCSS
+------------------*/
 .router-link-exact-active {
   font-weight: 700;
   color: #ffffff; }
+
+.router-item {
+  cursor: pointer;
+  text-decoration: none; }
+  .router-item:hover {
+    text-decoration: none; }
 
 .shadow-box {
   box-shadow: -10px -10px 10px 10px #868e96; }

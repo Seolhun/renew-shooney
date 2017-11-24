@@ -30,16 +30,55 @@
         </p>
       </div>
     </div>
+    <div>
+      <!-- Vue i18n - Language -->
+      <h1>Vue i18n</h1>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <button
+              class="el-button el-button--danger"
+              @click="changeLang('ko')" w
+            >
+              Korean
+            </button>
+            <button
+              class="el-button el-button--danger"
+              @click="changeLang('en')"
+            >
+              English
+            </button>
+            <button
+              class="el-button el-button--danger"
+              @click="changeLang('ja')"
+            >
+              Japan
+            </button>
+          </div>
+          <div>
+            <p>{{ $tc('nation', 1) }}</p>
+            <p>{{ $tc('nation', 2) }}</p>
+            <p>{{ $t('message') }}</p>
+          </div>
+        </div>
+      </div>
+      <p>getSearchedList : {{ getSearchedList.items }}</p>
+    </div>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     data () {
       return {
         msg: 'Welcome to SeolHun Vue.js App'
       }
-    }
+    },
+    computed: mapGetters({
+      getSearchedList: 'getSearchedList'
+    })
   }
 </script>
 

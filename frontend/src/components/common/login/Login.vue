@@ -59,8 +59,8 @@
         username: '',
         password: '',
         response: '',
-        client_id: '05096350eaddf80dbd34',
-        client_secret: 'a2752bd252c43ef3d93f6ec4ac29533f8ff0a087',
+        clientId: '05096350eaddf80dbd34',
+        clientSecret: 'a2752bd252c43ef3d93f6ec4ac29533f8ff0a087',
         code: this.$route.query.code,
         access_token: ''
       }
@@ -68,8 +68,8 @@
     methods: {
       getToken () {
         this.$http.post('https://github.com/login/oauth/access_token', {
-          client_id: '05096350eaddf80dbd34',
-          client_secret: 'a2752bd252c43ef3d93f6ec4ac29533f8ff0a087',
+          client_id: this.clientId,
+          client_secret: this.clientSecret,
           code: this.$route.query.code
         })
           .then(response => {

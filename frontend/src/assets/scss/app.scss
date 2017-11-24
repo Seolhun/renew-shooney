@@ -122,9 +122,9 @@ textarea.auto-size {
   }
 }
 
-/* ------------------------
+/* ------------------------------------------------
   Global Class CSS
------------------------- */
+------------------------------------------------ */
 .text-right {
   text-align: right;
 }
@@ -159,12 +159,21 @@ textarea.auto-size {
   }
 }
 
-//Vue Nav Active
+/* ----------------
+  Vue Router SCSS
+------------------*/
 .router-link-exact-active {
   font-weight: 700;
   color: $white;
 }
 
+.router-item {
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
 
 .shadow-box {
   box-shadow: -10px -10px 10px 10px $gray;

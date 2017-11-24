@@ -1,21 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import contentState from './modules/commonList'
 
 Vue.use(Vuex)
-const store = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    increment (state) {
-      state.count++
-    },
-    decrement (state) {
-      state.count--
-    }
-  },
-  actions: {}
-
+export const store = new Vuex.Store({
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {},
+  modules: {
+    contentState
+  }
 })
-
-export default store

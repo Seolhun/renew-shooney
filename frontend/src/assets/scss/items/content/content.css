@@ -1321,11 +1321,16 @@ h5 {
 .margin-left-200 {
   margin-left: 100px; }
 
-.blog-created-by {
-  font-size: 14px; }
-
-.blog-title {
+.content-title {
   font-size: 24px;
   font-weight: 600; }
 
-/*# sourceMappingURL=blog.css.map */
+.content-else {
+  font-size: 14px; }
+
+.content-created-by {
+  font-size: 14px;
+  font-weight: 700;
+  z-index: 100; }
+
+/*# sourceMappingURL=content.css.map */

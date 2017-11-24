@@ -40,4 +40,4 @@ var vm = new Vue({
     render: function (h) { return h(App); }
 });
 export default vm;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=route.js.map
