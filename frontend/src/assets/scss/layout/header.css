@@ -212,101 +212,121 @@ h5 {
 .max-height-50 {
   max-height: 50px;
   word-break: keep-all;
+  min-height: 10px;
   height: auto; }
 
 .max-height-100 {
   max-height: 100px;
   word-break: keep-all;
+  min-height: 20px;
   height: auto; }
 
 .max-height-150 {
   max-height: 150px;
   word-break: keep-all;
+  min-height: 30px;
   height: auto; }
 
 .max-height-200 {
   max-height: 200px;
   word-break: keep-all;
+  min-height: 40px;
   height: auto; }
 
 .max-height-250 {
   max-height: 250px;
   word-break: keep-all;
+  min-height: 50px;
   height: auto; }
 
 .max-height-300 {
   max-height: 300px;
   word-break: keep-all;
+  min-height: 60px;
   height: auto; }
 
 .max-height-350 {
   max-height: 350px;
   word-break: keep-all;
+  min-height: 70px;
   height: auto; }
 
 .max-height-400 {
   max-height: 400px;
   word-break: keep-all;
+  min-height: 80px;
   height: auto; }
 
 .max-height-450 {
   max-height: 450px;
   word-break: keep-all;
+  min-height: 90px;
   height: auto; }
 
 .max-height-500 {
   max-height: 500px;
   word-break: keep-all;
+  min-height: 100px;
   height: auto; }
 
 .max-height-550 {
   max-height: 550px;
   word-break: keep-all;
+  min-height: 110px;
   height: auto; }
 
 .max-height-600 {
   max-height: 600px;
   word-break: keep-all;
+  min-height: 120px;
   height: auto; }
 
 .max-height-650 {
   max-height: 650px;
   word-break: keep-all;
+  min-height: 130px;
   height: auto; }
 
 .max-height-700 {
   max-height: 700px;
   word-break: keep-all;
+  min-height: 140px;
   height: auto; }
 
 .max-height-750 {
   max-height: 750px;
   word-break: keep-all;
+  min-height: 150px;
   height: auto; }
 
 .max-height-800 {
   max-height: 800px;
   word-break: keep-all;
+  min-height: 160px;
   height: auto; }
 
 .max-height-850 {
   max-height: 850px;
   word-break: keep-all;
+  min-height: 170px;
   height: auto; }
 
 .max-height-900 {
   max-height: 900px;
   word-break: keep-all;
+  min-height: 180px;
   height: auto; }
 
 .max-height-950 {
   max-height: 950px;
   word-break: keep-all;
+  min-height: 190px;
   height: auto; }
 
 .max-height-1000 {
   max-height: 1000px;
   word-break: keep-all;
+  min-height: 200px;
   height: auto; }
 
 .min-height-50 {
@@ -1302,143 +1322,7 @@ h5 {
   margin-left: 100px; }
 
 /* ------------------------
-  Global Tag CSS
+  Header CSS
 ------------------------ */
-.header {
-  height: 80px;
-  left: 0;
-  position: relative;
-  right: 0;
-  z-index: 50; }
-
-/* ------------------------
-  Header Navigation Menu
------------------------- */
-.header-wrap {
-  height: 80px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  margin: 0 auto;
-  max-width: 1400px; }
-
-.header-logo img {
-  max-height: 35px;
-  position: relative; }
-
-@media only screen and (min-width: 1024px) {
-  .header-navigation {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 0;
-    flex: 1 1 0;
-    visibility: visible;
-    margin-left: 48px; } }
-.header-navigation {
-  margin-left: 48px;
-  display: inline-block;
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  overflow-y: auto;
-  vertical-align: top;
-  -webkit-transition: margin .2s, width .2s, -webkit-box-flex .2s;
-  transition: flex .2s, margin .2s, width .2s, -webkit-box-flex .2s, -ms-flex .2s; }
-
-.header-navigation-ul {
-  left: 0px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  overflow: hidden; }
-
-.u-unstyled {
-  padding-left: 0;
-  list-style: none;
-  margin: 0; }
-
-.nav-toggle {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  width: 50px;
-  height: 50px;
-  list-style: none;
-  padding-left: 0;
-  margin: 0; }
-
-.nav-toggle:before {
-  /* Edit this to change the icon color */
-  color: #0080ff;
-  /* Edit font-size (28px) to change the icon size */
-  font: normal 55px/55px "responsivenav";
-  text-transform: none;
-  text-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  position: absolute;
-  /* Hamburger icon */
-  content: "\2261";
-  text-indent: 0;
-  speak: none;
-  width: 100%; }
-
-/* This is how it looks on mobile */
-.header-hide {
-  display: block;
-  visibility: visible; }
-
-.header-show {
-  display: none;
-  visibility: hidden; }
-
-@media screen and (max-width: 700px) {
-  .header-hide {
-    display: none;
-    visibility: hidden; }
-
-  .header-show {
-    text-align: right;
-    display: block;
-    visibility: visible; } }
-.header-navigation .navigation-link {
-  border-bottom: 2px solid transparent;
-  font-weight: 300;
-  padding: 0 30px;
-  -webkit-transition: color .2s;
-  transition: color .2s;
-  font-size: 15px;
-  cursor: pointer;
-  display: inline-block;
-  margin: 0 10px; }
-
-.router-link-active {
-  font-weight: 500;
-  color: #0080ff; }
-
-.header a {
-  align-items: center;
-  color: #868e96;
-  height: 56px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  text-decoration: none;
-  -webkit-box-align: center;
-  -ms-flex-align: center; }
-  .header a:hover {
-    color: #afb4ba;
-    font-weight: bold; }
-
-/* ------------------------
-  Local Custom Class CSS
------------------------- */
-.header-shadow-box {
-  box-shadow: -10px -10px 10px 10px #868e96; }
 
 /*# sourceMappingURL=header.css.map */

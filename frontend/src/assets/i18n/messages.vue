@@ -2,11 +2,13 @@
   import ko from './langs/ko.json'
   import en from './langs/en.json'
   import ja from './langs/ja.json'
+  import ch from './langs/ch.json'
 
   export default {
     ko: ko,
     en: en,
-    ja: ja
+    ja: ja,
+    ch: ch
   }
 </script>
 

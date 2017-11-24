@@ -1,43 +1,44 @@
 <template>
   <div class="container">
     <div class="row margin-top-30">
-      <b-col
-        xs="12" sm="12" md="6" lg="6"
+      <router-link
+        class="col-sm-12 col-sm-12 col-md-6 col-lg-6 card-item max-height-800 router-item"
         v-for="item in items"
         :key="item.id"
+        :to="'/content/' + item.createdBy +'/'+ item.idx"
+        @click.stop="onclick()"
       >
-        <router-link
-          tag="div"
+        <div
+          class="card-group"
           v-if="item.isActive"
-          class="card-item margin-top-10 margin-bottom-10 max-height-700"
-          :to="'/blog/' + item.createdBy +'/'+ item.idx"
-          style="cursor: pointer"
         >
-          <div class="card-group">
-            <div class="text-center">
-              <img
-                src="~assets/img/logo2.png"
-                class="card-img padding-10 max-height-300"
-              >
-            </div>
-            <div class="padding-20">
-            <span class="blog-title">
+          <div class="text-center">
+            <img
+              src="~assets/img/logo2.png"
+              class="card-img padding-10 max-height-300"
+            >
+          </div>
+          <div class="padding-20">
+            <span class="content-title">
               {{ item.title }}
             </span>
-              <div class="bottom clearfix">
-                <div class="blog-created-by">
-                  Created By
-                  <a :href="'https://github.com/' + item.createdBy" target="_blank">
-                    {{ item.createdBy }}
-                  </a>
-                  at
-                  <time class="time">{{ item.createdDate }}</time>
-                </div>
+            <div class="bottom clearfix text-right">
+              <div class="content-else">
+                Created By
+                <a
+                  class="router-item content-created-by"
+                  :href="'https://github.com/' + item.createdBy"
+                  target="_blank">
+                  {{ item.createdBy }}
+                </a>
+              </div>
+              <div class="content-else">
+                <time class="time">{{ item.createdDate }}</time>
               </div>
             </div>
           </div>
-        </router-link>
-      </b-col>
+        </div>
+      </router-link>
     </div>
     <div class="row margin-top-30">
 

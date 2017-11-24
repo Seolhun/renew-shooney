@@ -12,7 +12,7 @@
               <router-link :to="'supporters'" class="navigation-link">Supporters</router-link>
             </li>
             <li>
-              <router-link :to="'blog'" class="navigation-link">Blog</router-link>
+              <router-link :to="'content'" class="navigation-link">Blog</router-link>
             </li>
             <li>
               <router-link :to="'aboutme'" class="navigation-link">About Me</router-link>
@@ -29,7 +29,7 @@
               <router-link :to="'supporters'" class="navigation-link">Supporters</router-link>
             </li>
             <li>
-              <router-link :to="'blog'" class="navigation-link">Blog</router-link>
+              <router-link :to="'content'" class="navigation-link">Blog</router-link>
             </li>
             <li>
               <router-link :to="'aboutme'" class="navigation-link">About Me</router-link>

@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Root from '@/components/Root'
-import Blog from '@/components/items/blog/Blog'
-import BlogDetail from '@/components/items/blog/BlogDetail'
-import Editor from '@/components/common/editor/Editor'
-import Error from '@/components/common/error/404'
-import Login from '@/components/common/login/Login'
+import Root from '@/components/Root.vue'
+import Content from '@/components/items/content/Content.vue'
+import ContentDetail from '@/components/items/content/ContentDetail.vue'
+import Editor from '@/components/common/editor/Editor.vue'
+import Error from '@/components/common/error/404.vue'
+import Login from '@/components/common/login/Login.vue'
 
 Vue.use(Router)
 const router = new Router({
@@ -22,21 +22,21 @@ const router = new Router({
       component: Login
     },
     {
-      path: '/blog',
-      name: 'Blog',
-      component: Blog,
+      path: '/content',
+      name: 'Content',
+      component: Content,
       children: [],
       beforeEnter: (to, from, next) => {
-        console.log('Routing in Blog')
+        console.log('Routing in Content')
         next()
       }
     },
     {
-      path: '/blog/:nickname/:idx',
-      name: 'BlogDetail',
-      component: BlogDetail,
+      path: '/content/:nickname/:idx',
+      name: 'ContentDetail',
+      component: ContentDetail,
       beforeEnter: (to, from, next) => {
-        console.log('Routing in BlogDetail')
+        console.log('Routing in ContentDetail')
         next()
       }
     },

@@ -1,27 +1,25 @@
 <template>
   <div>
-    <main-list
+    <common-list
       :listType="listType"
       :results="results"
       :filters="filters"
     >
-    </main-list>
+    </common-list>
   </div>
 </template>
 
 <style lang="scss">
-  @import "../../../assets/scss/items/blog/blog";
-
+  @import "../../../assets/scss/items/content/content";
 </style>
 
-
 <script>
-  import DummyBlogs from '@/assets/dummy/blog.json'
-  import MainList from '@/components/common/list/MainList'
+  import DummyBlogs from '@/assets/dummy/content.json'
+  import CommonList from '@/components/common/list/CommonList'
 
   export default {
     components: {
-      MainList
+      CommonList
     },
     data () {
       return {
@@ -38,13 +36,6 @@
           text: '',
           sortBy: 'desc'
         }
-      }
-    },
-    methods: {
-      // mouted Set Results
-      mounted () {
-        console.log('Mounted')
-        // axios.get("/fa").then(response => this.results = response.data);
       }
     },
     watch: {
