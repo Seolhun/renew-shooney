@@ -1,11 +1,12 @@
 package hi.cord.com.content.main.content;
 
+import hi.cord.com.common.domain.pagination.Pagination;
+import hi.cord.com.common.service.common.CommonService;
 import hi.cord.com.content.main.comment.service.CommentService;
 import hi.cord.com.content.main.content.domain.BlogContent;
 import hi.cord.com.content.main.content.service.BlogContentService;
 import hi.cord.com.content.main.file.service.FileDataService;
-import hi.cord.com.common.domain.pagination.Pagination;
-import hi.cord.com.common.service.common.CommonService;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,6 @@ public class ContentRestController {
 
         //Pagination and FindAll
         Pageable pageable = new PageRequest(pageIndex, pageSize);
-
         Pagination<BlogContent> contentPagination = blogContentService.findAll(blogContent, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(contentPagination);
     }
@@ -81,13 +81,15 @@ public class ContentRestController {
     public ResponseEntity insert(
             @Valid @RequestBody BlogContent blogContent,
             Errors errors
-    ) {
+    ) throws FileUploadException {
+        // POST Parameter Checking
         if (blogContent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found blogContent parameter");
         } else if (errors.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldError().getDefaultMessage());
         }
 
+        //Extract Image src and Saving Images path and information
         List<String> images = commonService.extractImgSrc(blogContent.getContent());
         for (String img : images) {
             //Convert Img > File > return File ID;
@@ -100,8 +102,7 @@ public class ContentRestController {
 
         // Insert
         blogContentService.insert(blogContent);
-        LOG.debug("p : save blogContent {}", blogContent.toString());
-        return ResponseEntity.status(HttpStatus.OK).body("Success");
+        return ResponseEntity.status(HttpStatus.OK).body(blogContent.toString());
     }
 
 

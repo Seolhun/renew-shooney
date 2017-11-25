@@ -55,8 +55,6 @@ public class BlogContentServiceImpl implements BlogContentService {
     public Pagination<BlogContent> findAll(BlogContent blogContent, Pageable pageable) {
         // Call Repository        
         Page<BlogContent> contents = blogContentRepository.findAll(pageable);
-        
-        
         Pagination<BlogContent> pagination = new Pagination<>();
         for (BlogContent dbBlogContent : contents) {
             List<FileData> fileList = new ArrayList<>();

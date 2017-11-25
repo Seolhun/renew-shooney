@@ -10,8 +10,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,22 +36,13 @@ public class Comment extends BaseEntity implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "CONTENT_COMMENT_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID")
-    private BlogContent blogContentInComment;
+    private BlogContent contentInComment;
 
     @Column(name = "CONTENT", length = 250, nullable = false)
     private String content;
 
     @Column(name = "LIKES")
     private int likes;
-
-    @CreatedBy
-    @AssociationOverrides({
-            @AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "CREATED_BY"))
-    })
-    @AttributeOverrides({
-            @AttributeOverride(name = "user", column = @Column(name = "CREATED_BY")),
-            @AttributeOverride(name = "nickname", column = @Column(name = "CREATED_NICKNAME", length = 60))
-    })
 
     /**
      * Requirement parameter in Entity

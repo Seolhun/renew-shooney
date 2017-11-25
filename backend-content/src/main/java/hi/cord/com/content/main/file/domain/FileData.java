@@ -11,9 +11,11 @@ import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity(name = "TB_FILE_DATA")
 @EqualsAndHashCode(callSuper = false)
@@ -31,29 +33,35 @@ public class FileData extends BaseEntity implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey = @ForeignKey(name = "FILE_CONTENT_FK"), name = "CONTENT_ID", referencedColumnName = "CONTENT_ID")
-	private BlogContent blogContentInFile;
+	private BlogContent contentInFiles;
 
 	@NotEmpty
 	@Column(name = "FILE_ORIGIN_NAME", nullable = false, length = 100)
-	private String fileDataOriginName;
+	private String originName;
 
 	@NotEmpty
 	@Column(name = "FILE_SAVED_NAME", nullable = false, length = 200)
-	private String fileDataSavedName;
+	private String savedName;
 
 	@Column(name = "FILE_SAVED_PATH", nullable = false, length = 200)
-	private String fileDataSavedPath;
+	private String savedPath;
 
-	@Column(name = " FILE_TYPE", nullable = false, length = 20)
-	private String fileDataType;
+	@Column(name = " FILE_TYPE", nullable = false, length = 30)
+	private String fileType;
 
-	/**
-	 * Requirement parameter in Entity
-	 */
+	@Column(name = " FILE_SIZE", nullable = false)
+	private long size;
+
+	/****** Transient Start *********
+	 * This part not saved into Database
+	 *********************************/
+    @Transient
+    private byte[] bytes;
+
 	@Transient
-	@JsonSerialize
-	@JsonDeserialize
-	private Pagination<FileData> pagination;
+	private List<MultipartFile> multipartFiles;
+
+	/****** Transient End **********/
 
 	//------------Entity Filed finished----------------
 }

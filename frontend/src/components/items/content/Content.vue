@@ -1,5 +1,22 @@
 <template>
   <div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="text-right">
+            <label class="form-inline">리스트 타입을 고르세요.
+              <select class="form-control">
+                <option
+                  v-for="type in listTypes"
+                >
+                  {{ type.value }}
+                </option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
     <common-list
       :listType="listType"
       :results="results"
@@ -24,6 +41,16 @@
     data () {
       return {
         listType: 1,
+        listTypes: [
+          {
+            id: 1,
+            value: 'Card'
+          },
+          {
+            id: 2,
+            value: 'Row'
+          }
+        ],
         // items is Array
         results: {
           items: DummyBlogs,
@@ -36,6 +63,11 @@
           text: '',
           sortBy: 'desc'
         }
+      }
+    },
+    methods: {
+      changeListType (listType) {
+        this.listType = listType
       }
     },
     watch: {

@@ -57,12 +57,7 @@
       }
     },
     methods: {},
-    computed: {},
-    watch: {
-      pageIndex: (value) => {
-        console.log('CardList', value)
-      }
-    }
+    computed: {}
   }
 </script>
 

@@ -1,23 +1,26 @@
 package hi.cord.com.content.main.content.domain;
 
+import hi.cord.com.common.domain.entity.BaseEntity;
 import hi.cord.com.content.main.comment.domain.Comment;
 import hi.cord.com.content.main.file.domain.FileData;
-import hi.cord.com.common.domain.entity.BaseEntity;
+import hi.cord.com.content.main.tag.domain.Tag;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
-@Entity(name = "TB_BLOG_CONTENT")
+@Entity(name = "TB_BLOG")
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
 @Data
@@ -32,7 +35,7 @@ public class BlogContent extends BaseEntity implements Serializable {
     @Column(name = "IDX")
     private long idx;
 
-    @NotNull(message = "SpamType is requirement")
+    @NotNull(message = "ContentType is requirement")
     @Column(name = "CONTENT_TYPE", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private ContentType contentType;
@@ -42,11 +45,8 @@ public class BlogContent extends BaseEntity implements Serializable {
     @Column(name = "TITLE", nullable = false, length = 200)
     private String title;
 
-    //    @OneToMany(mappedBy = "contentInContent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<Tag> tags;
-
     @Lob
-    @NotEmpty(message = "BlogContent is requirement")
+    @NotEmpty(message = "Content is requirement")
     @Length(min = 10, message = "BlogContent is required as min 10 length")
     @Column(name = "CONTENT", nullable = false)
     private String content;
@@ -60,17 +60,35 @@ public class BlogContent extends BaseEntity implements Serializable {
     @Column(name = "COMMENT_DEPTH", length = 10)
     private int depth;
 
-    @OneToMany(mappedBy = "blogContentInComment")
+    // User, How many have Privileges.
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "TB_CONTENT_MATCHING_TAG",
+            foreignKey = @ForeignKey(name = "FK_CONTENT_TAG_REFER"),
+            joinColumns = {@JoinColumn(name = "CONTENT_ID") },
+            inverseForeignKey = @ForeignKey(name = "FK_TAG_CONTENT_REFER"),
+            inverseJoinColumns = {@JoinColumn(name = "TAG_ID") }
+    )
+    private Set<Tag> tags;
+
+    @OneToMany(mappedBy = "contentInComment")
     private List<Comment> comments;
 
     //To Stored Image, Stream
-    @OneToMany(mappedBy = "blogContentInFile")
+    @OneToMany(mappedBy = "contentInFiles")
     private List<FileData> files;
 
     @Version
     @Column(name = "VERSION")
     private long version;
 
+    /****** Transient Start *********
+     * This part not saved into Database
+     *********************************/
+    @Transient
+    private List<MultipartFile> multipartFiles;
+
+    /****** Transient End **********/
 
     public BlogContent() {
 
@@ -82,7 +100,6 @@ public class BlogContent extends BaseEntity implements Serializable {
             this.contentType = ContentType.Essay;
         }
     }
-
 
     /**
      * @Warning : This Field have some issue I think.
