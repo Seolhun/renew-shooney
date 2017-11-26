@@ -1,14 +1,13 @@
-package hi.cord.com.common.service.abs;
+package hi.cord.com.common.service.rest;
 
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-public interface AbstractRestService<E> {
+public interface CommonRestService<E> {
     E insert(E e) throws FileUploadException, IOException;
 
     List<E> findByList();

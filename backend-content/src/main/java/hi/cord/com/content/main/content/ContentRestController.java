@@ -1,7 +1,7 @@
 package hi.cord.com.content.main.content;
 
 import hi.cord.com.common.domain.pagination.Pagination;
-import hi.cord.com.common.service.common.CommonService;
+import hi.cord.com.common.service.CommonService;
 import hi.cord.com.content.main.comment.service.CommentService;
 import hi.cord.com.content.main.content.domain.BlogContent;
 import hi.cord.com.content.main.content.service.BlogContentService;

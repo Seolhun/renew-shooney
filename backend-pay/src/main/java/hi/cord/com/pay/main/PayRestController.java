@@ -2,7 +2,7 @@ package hi.cord.com.pay.main;
 
 import hi.cord.com.pay.main.service.history.PaidHistoryService;
 import hi.cord.com.pay.main.service.price.PriceService;
-import hi.cord.com.common.service.common.CommonService;
+import hi.cord.com.common.service.CommonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

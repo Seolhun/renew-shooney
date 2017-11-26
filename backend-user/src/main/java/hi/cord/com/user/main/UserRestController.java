@@ -1,7 +1,7 @@
 package hi.cord.com.user.main;
 
 import hi.cord.com.common.domain.pagination.Pagination;
-import hi.cord.com.common.service.common.CommonService;
+import hi.cord.com.common.service.CommonService;
 import hi.cord.com.user.main.client.domain.User;
 import hi.cord.com.user.main.client.service.UserService;
 import hi.cord.com.user.main.profile.domain.UserProfile;

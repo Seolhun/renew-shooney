@@ -1,4 +1,4 @@
-package hi.cord.com.common.service.common;
+package hi.cord.com.common.service;
 
 import com.google.gson.JsonObject;
 
