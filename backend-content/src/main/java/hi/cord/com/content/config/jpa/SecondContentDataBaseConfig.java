@@ -22,7 +22,7 @@ import javax.sql.DataSource;
         entityManagerFactoryRef = "shunEntityManagerFactory",
         transactionManagerRef = "shunTransactionManager",
         basePackages = {"hi.cord.com.content.main2"})
-public class SecondDataBaseConfig {
+public class SecondContentDataBaseConfig {
 
     @Bean(name = "shunDataSource")
     @ConfigurationProperties(prefix = "shun.datasource")

@@ -52,7 +52,7 @@ Why develop this project?
 - Codacy
 - Waffle.io
 
-#### Util
+### Util
 - Post Man
 
 ---
@@ -67,5 +67,23 @@ Why develop this project?
 - Log
 
 ---
-## Simple Architecture
+## Architecture
+### BackEnd Service Architecture
 <img src="readme/architecture.png" width="900" height="600">
+
+### FrontEnd Components Architecture
+
+---
+### Reference Link
+##### BackEnd
+- [Spring boot Guide](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/)
+- [Hibernate 5](https://docs.jboss.org/hibernate/orm/5.0/devguide/en-US/html/)
+    - [Hibernate 5 - About Batch](https://docs.jboss.org/hibernate/orm/5.0/devguide/en-US/html/ch04.html)
+- [AWS Documentation](https://aws.amazon.com/ko/documentation/)
+
+---
+##### FrontEnd
+- [Vue](https://kr.vuejs.org/v2/guide/)
+    - [Vue - API](https://kr.vuejs.org/v2/api/)
+- [TypeScript](https://www.typescriptlang.org/docs/handbook/basic-types.html)
+

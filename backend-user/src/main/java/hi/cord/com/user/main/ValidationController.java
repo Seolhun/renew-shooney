@@ -1,6 +1,6 @@
 package hi.cord.com.user.main;
 
-import hi.cord.com.common.service.common.CommonService;
+import hi.cord.com.common.service.CommonService;
 import hi.cord.com.user.main.profile.service.UserProfileService;
 import hi.cord.com.user.main.client.service.UserService;
 import org.slf4j.Logger;

@@ -1,8 +1,12 @@
 package hi.cord.com.content.main.file.service;
 
+import hi.cord.com.common.service.rest.CommonBatchRestService;
 import hi.cord.com.content.main.file.domain.FileData;
 import hi.cord.com.content.main.file.domain.FileDataRepository;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +25,11 @@ import java.util.List;
 import java.util.UUID;
 
 
+/**
+ * The type File data service.
+ */
 @Service("fileDataService")
-public class FileDataServiceImpl implements FileDataService {
+public class FileDataServiceImpl implements FileDataService, CommonBatchRestService<FileData> {
     private static final Logger LOG = LoggerFactory.getLogger(FileDataServiceImpl.class);
 
     @Value("spring.http.multipart.max-request-size")
@@ -30,10 +37,12 @@ public class FileDataServiceImpl implements FileDataService {
     @Value("spring.http.multipart.location")
     private final String FILE_PATH = "";
 
+    private final SessionFactory sessionFactory;
     private final FileDataRepository fileDataRepository;
 
     @Autowired
-    public FileDataServiceImpl(FileDataRepository fileDataRepository) {
+    public FileDataServiceImpl(SessionFactory sessionFactory, FileDataRepository fileDataRepository) {
+        this.sessionFactory = sessionFactory;
         this.fileDataRepository = fileDataRepository;
     }
 
@@ -49,8 +58,7 @@ public class FileDataServiceImpl implements FileDataService {
 
     @Override
     public FileData findById(String id) {
-        FileData fileData = fileDataRepository.findById(id);
-        return fileData;
+        return fileDataRepository.findById(id);
     }
 
     @Override
@@ -67,56 +75,31 @@ public class FileDataServiceImpl implements FileDataService {
     @Override
     public FileData insert(FileData fileData) throws FileUploadException, IOException {
         //유효성 검사.
-        List<FileData> fileDataList = new ArrayList<>();
+        List<FileData> storeFileList = new ArrayList<>();
 
         //MultipartFile에 index 0은 빈값이 온다.(알아보고 처리해야함. 그래서 1로 시작)
         long totalFileSize = 0;
-        FileData tempFile;
         List<MultipartFile> files = fileData.getMultipartFiles();
-        for (MultipartFile file : files) {
-
-            if (!file.isEmpty()) {
-                //파일이름으로 확장자명과 파일이름 나누기.
-                String originName = file.getOriginalFilename();
-                String onlyFileExtension = originName.substring(originName.lastIndexOf("."));
-                String savedName = UUID.randomUUID().toString() + onlyFileExtension;
-
-                String fileDataType = file.getContentType();
-
-                tempFile = new FileData();
-                tempFile.setOriginName(originName);
-                tempFile.setSavedName(savedName);
-//                fileData.setSavedPath(FILE_PATH);
-                tempFile.setFileType(fileDataType);
-                tempFile.setSize(file.getSize());
-                totalFileSize += file.getSize();
-//                 fileData.setCreatedByNickname();
-
-                fileDataList.add(tempFile);
+        for (MultipartFile multipartFile : files) {
+            if (!multipartFile.isEmpty()) {
+                FileData tempFile = this.setMultipartIntoFileData(multipartFile);
+                totalFileSize += multipartFile.getSize();
+                storeFileList.add(tempFile);
             }
         }
 
-        //파일 최대 요청용량 초과시 에러처리.
+        // Check Max File Size
         if (totalFileSize > MAX_UPLOAD_SIZE) {
             throw new FileUploadException();
         }
 
-        for (FileData file : fileDataList) {
-            //폴더 없을시 폴더 만들기.
-            File directory = new File(FILE_PATH);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-
-            File serverFile = new File(directory.getAbsolutePath() + File.separator + file.getSavedName());
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-            byte[] bytes = file.getBytes();
-            stream.write(bytes);
-            stream.close();
-
-            //게시판을 인서트한 후 파일을 인서트한다.
-            fileDataRepository.save(file);
+        // Stored File Into Server
+        for (FileData file : storeFileList) {
+            this.storedFileIntoServer(file);
         }
+
+        //After Stored File and Saved File Info into DataBase
+        fileDataRepository.save(storeFileList);
         return fileData;
     }
 
@@ -165,6 +148,28 @@ public class FileDataServiceImpl implements FileDataService {
     }
 
 
+    /****** Batch Service Part *********
+     * Batch Service Part Start
+     *********************************/
+    @Override
+    public List<FileData> insertBatchByList(List<FileData> list) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        for (int i = 0; i < list.size(); i++) {
+            FileData fileData = new FileData();
+            session.save(fileData);
+            if (i % 20 == 0) {
+                session.flush();
+                session.clear();
+            }
+        }
+        tx.commit();
+        session.close();
+        return list;
+    }
+    /****** Batch Service Part End *******/
+
+
     /**
      * File name validation boolean.
      * Have Error : False
@@ -181,4 +186,43 @@ public class FileDataServiceImpl implements FileDataService {
         return true;
     }
 
+    /**
+     * Get from Multipart file // Set Into FileData Entity.
+     */
+    private FileData setMultipartIntoFileData(MultipartFile multipartFile) throws IOException {
+        //Get File information from Multipart file
+        String originName = multipartFile.getOriginalFilename();
+        String onlyFileExtension = originName.substring(originName.lastIndexOf("."));
+        String savedName = UUID.randomUUID().toString() + onlyFileExtension;
+        String fileDataType = multipartFile.getContentType();
+
+        //Set Information into entity
+        FileData fileData = new FileData();
+        fileData.setBytes(multipartFile.getBytes());
+        fileData.setOriginName(originName);
+        fileData.setSavedName(savedName);
+        // fileData.setSavedPath(FILE_PATH);
+        fileData.setFileType(fileDataType);
+        fileData.setSize(multipartFile.getSize());
+
+        // fileData.setCreatedByNickname();
+        return fileData;
+    }
+
+    /**
+     * Stored File into Server Method
+     */
+    private void storedFileIntoServer(FileData file) throws IOException {
+        //폴더 없을시 폴더 만들기.
+        File directory = new File(FILE_PATH);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        File serverFile = new File(directory.getAbsolutePath() + File.separator + file.getSavedName());
+        BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+        byte[] bytes = file.getBytes();
+        stream.write(bytes);
+        stream.close();
+    }
 }

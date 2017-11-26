@@ -1,6 +1,6 @@
 package hi.cord.com.log.mongo.ask.service;
 
-import hi.cord.com.common.service.common.CommonService;
+import hi.cord.com.common.service.CommonService;
 import hi.cord.com.log.dynamo.nlp.domain.NlpPhrase;
 import hi.cord.com.log.dynamo.nlp.service.NlpPhraseService;
 import hi.cord.com.log.mongo.ask.domain.AskData;

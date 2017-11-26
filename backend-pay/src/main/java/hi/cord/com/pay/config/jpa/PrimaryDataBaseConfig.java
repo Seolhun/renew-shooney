@@ -44,7 +44,7 @@ public class PrimaryDataBaseConfig {
     }
 
     @Primary
-    @Bean(name = "txManager")
+    @Bean(name = "transactionManager")
     public PlatformTransactionManager transactionManager(
             @Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);

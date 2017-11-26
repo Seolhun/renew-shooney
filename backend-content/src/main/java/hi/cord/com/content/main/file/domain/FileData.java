@@ -1,27 +1,24 @@
 package hi.cord.com.content.main.file.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import hi.cord.com.common.domain.entity.BaseEntity;
-import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.content.main.content.domain.BlogContent;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Entity(name = "TB_FILE_DATA")
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
 @Data
+@Entity(name = "TB_FILE_DATA")
 @Table(uniqueConstraints = @UniqueConstraint(name = "UK_FILE_DATA_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_NICKNAME"}))
+@BatchSize(size = 30)
 public class FileData extends BaseEntity implements Serializable {
 	@Id
 	@Column(name = "FILE_ID", length = 120)
