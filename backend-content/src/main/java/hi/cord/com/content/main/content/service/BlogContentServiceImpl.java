@@ -22,7 +22,7 @@ import java.util.List;
 
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED, transactionManager = "shunTransactionManager", noRollbackFor = {NullPointerException.class})
+@Transactional(value = "transactionManager", propagation = Propagation.REQUIRED)
 public class BlogContentServiceImpl implements BlogContentService {
     private static final Logger LOG = LoggerFactory.getLogger(BlogContentServiceImpl.class);
     private BlogContentRepository blogContentRepository;
@@ -99,7 +99,7 @@ public class BlogContentServiceImpl implements BlogContentService {
 
     @Override
     public BlogContent findByIdx(long idx, String nickname) {
-        BlogContent blogContent = blogContentRepository.findByIdxAndCreatedByNickname(idx, nickname);
+        BlogContent blogContent = blogContentRepository.findByIdxAndBaseCreatedByCreatedByNickname(idx, nickname);
         if(blogContent != null){
             List<FileData> fileList = fileDataRepository.findAll();
             List<Comment> commentList = commentRepository.findAll();
@@ -126,7 +126,7 @@ public class BlogContentServiceImpl implements BlogContentService {
 
     @Override
     public boolean deleteById(long idx, String accessBy) {
-        BlogContent dbBlogContent = blogContentRepository.findByIdxAndCreatedByNickname(idx, accessBy);
+        BlogContent dbBlogContent = blogContentRepository.findByIdxAndBaseCreatedByCreatedByNickname(idx, accessBy);
         if (dbBlogContent == null) {
             return false;
         }
@@ -157,7 +157,7 @@ public class BlogContentServiceImpl implements BlogContentService {
 
     @Override
     public long getIdxByNickname(String nickname) {
-        BlogContent blogContent = blogContentRepository.findFirstByCreatedByNicknameOrderByIdxDesc(nickname);
+        BlogContent blogContent = blogContentRepository.findFirstByBaseCreatedByCreatedByNicknameOrderByIdxDesc(nickname);
         if (blogContent == null) {
             return 1;
         }

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED, transactionManager = "shunTransactionManager", noRollbackFor = {NullPointerException.class})
+@Transactional(value = "transactionManager", propagation = Propagation.REQUIRED)
 public class CommentServiceImpl implements CommentService {
 
     private CommentRepository commentRepository;
@@ -72,7 +72,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment findByIdx(long idx, String nickname) {
-        return commentRepository.findByIdxAndCreatedByEntityNickname(idx, nickname);
+        return commentRepository.findByIdxAndBaseCreatedByCreatedByNickname(idx, nickname);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public boolean deleteById(long idx, String accessBy) {
-        Comment dbComment = commentRepository.findByIdxAndCreatedByEntityNickname(idx, accessBy);
+        Comment dbComment = commentRepository.findByIdxAndBaseCreatedByCreatedByNickname(idx, accessBy);
         if (dbComment == null) {
             return false;
         }
@@ -118,7 +118,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public long getIdxByNickname(String nickname) {
-        Comment comment = commentRepository.findFirstByCreatedByEntityNicknameOrderByIdxDesc(nickname);
+        Comment comment = commentRepository.findFirstByBaseCreatedByCreatedByNicknameOrderByIdxDesc(nickname);
         if (comment == null) {
             return 1;
         }

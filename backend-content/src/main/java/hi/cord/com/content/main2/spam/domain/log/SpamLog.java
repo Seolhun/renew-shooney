@@ -25,15 +25,6 @@ public class SpamLog extends BaseEntity implements Serializable {
     @Column(name = "CONTENT", length = 250, nullable = false)
     private String content;
 
-    @CreatedBy
-    @AssociationOverrides({
-            @AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "CREATED_BY"))
-    })
-    @AttributeOverrides({
-            @AttributeOverride(name = "user", column = @Column(name = "CREATED_BY")),
-            @AttributeOverride(name = "nickname", column = @Column(name = "CREATED_NICKNAME", length = 60))
-    })
-
     /**
      * Requirement parameter in Entity
      */

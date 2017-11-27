@@ -1,13 +1,14 @@
 package hi.cord.com.content.main.tag.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import hi.cord.com.common.domain.entity.BaseCreatedBy;
 import hi.cord.com.common.domain.entity.BaseEntity;
-import hi.cord.com.common.domain.pagination.Pagination;
+import hi.cord.com.common.domain.entity.BaseModifiedBy;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,8 +31,17 @@ public class Tag extends BaseEntity implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-	@Transient
-	@JsonSerialize
-	@JsonDeserialize
-	private Pagination<Tag> pagination;
+	@CreatedBy
+	@AttributeOverrides({
+			@AttributeOverride(name = "createdByUserId", column = @Column(name = "CREATED_BY_ID", length = 120)),
+			@AttributeOverride(name = "createdByNickname", column = @Column(name = "CREATED_BY_NICKNAME", length = 60))
+	})
+	private BaseCreatedBy createdBy;
+
+	@LastModifiedBy
+	@AttributeOverrides({
+			@AttributeOverride(name = "modifiedByUserId", column = @Column(name = "MODIFIED_BY_ID", length = 120)),
+			@AttributeOverride(name = "modifiedByNickname", column = @Column(name = "MODIFIED_BY_NICKNAME", length = 60))
+	})
+	private BaseModifiedBy modifiedBy;
 }

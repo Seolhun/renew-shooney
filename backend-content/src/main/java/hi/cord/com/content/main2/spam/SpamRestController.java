@@ -101,7 +101,7 @@ public class SpamRestController {
         Spam spam = spamService.findById(id);
         if (spam == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"spam\" result");
-        } else if (!(spam.getCreatedByNickname().equals(nickname))) {
+        } else if (!(spam.getCreatedBy().getCreatedByNickname().equals(nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
 
@@ -130,7 +130,7 @@ public class SpamRestController {
         spam = spamService.findById(id);
         if (spam == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found \"spam\" result");
-        } else if (!(spam.getCreatedByNickname().equals(nickname))) {
+        } else if (!(spam.getCreatedBy().getCreatedByNickname().equals(nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
 

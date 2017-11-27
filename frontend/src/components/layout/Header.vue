@@ -19,7 +19,7 @@
       <!-- Route Link -->
       <b-navbar-nav>
         <b-nav-item href="#">
-          <router-link tag="li" :to="'/content'">Contents</router-link>
+          <router-link tag="li" :to="'/content'" activeClass="active">Contents</router-link>
         </b-nav-item>
       </b-navbar-nav>
 

@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface CommonRestService<E> {
-    E insert(E e) throws FileUploadException, IOException;
+    E insert(E e);
 
     List<E> findByList();
     

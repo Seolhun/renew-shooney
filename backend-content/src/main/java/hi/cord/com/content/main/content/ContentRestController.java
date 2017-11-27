@@ -97,7 +97,7 @@ public class ContentRestController {
         // Requirement Images >
 
         //Setting Index
-        long idx = blogContentService.getIdxByNickname(blogContent.getCreatedByNickname());
+        long idx = blogContentService.getIdxByNickname(blogContent.getBaseCreatedBy().getCreatedByNickname());
         blogContent.setIdx(idx);
 
         // Insert
@@ -125,7 +125,7 @@ public class ContentRestController {
         BlogContent blogContent = blogContentService.findByIdx(idx, nickname);
         if (blogContent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found blogContent result");
-        } else if (!(blogContent.getCreatedByNickname().equals(nickname))) {
+        } else if (!(blogContent.getBaseCreatedBy().getCreatedByNickname().equals(nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
 
@@ -154,7 +154,7 @@ public class ContentRestController {
         blogContent = blogContentService.findByIdx(idx, nickname);
         if (blogContent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found blogContent result");
-        } else if (!(blogContent.getCreatedByNickname().equals(nickname))) {
+        } else if (!(blogContent.getBaseCreatedBy().getCreatedByNickname().equals(nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
 

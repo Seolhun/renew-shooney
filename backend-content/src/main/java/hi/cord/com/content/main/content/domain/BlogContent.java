@@ -1,6 +1,8 @@
 package hi.cord.com.content.main.content.domain;
 
 import hi.cord.com.common.domain.entity.BaseEntity;
+import hi.cord.com.common.domain.entity.BaseCreatedBy;
+import hi.cord.com.common.domain.entity.BaseModifiedBy;
 import hi.cord.com.content.main.comment.domain.Comment;
 import hi.cord.com.content.main.file.domain.FileData;
 import hi.cord.com.content.main.tag.domain.Tag;
@@ -10,6 +12,8 @@ import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
@@ -20,11 +24,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity(name = "TB_BLOG")
+@Entity(name = "TB_BLOG_CONTENT")
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
 @Data
-@Table(uniqueConstraints = @UniqueConstraint(name = "UK_CONTENT_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_NICKNAME"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "UK_CONTENT_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_BY_NICKNAME"}))
 public class BlogContent extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -82,13 +86,25 @@ public class BlogContent extends BaseEntity implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
+    @CreatedBy
+    @AttributeOverrides({
+            @AttributeOverride(name = "createdByUserId", column = @Column(name = "CREATED_BY_ID", length = 120)),
+            @AttributeOverride(name = "createdByNickname", column = @Column(name = "CREATED_BY_NICKNAME", length = 60))
+    })
+    private BaseCreatedBy baseCreatedBy;
+
+    @LastModifiedBy
+    @AttributeOverrides({
+            @AttributeOverride(name = "modifiedByUserId", column = @Column(name = "MODIFIED_BY_ID", length = 120)),
+            @AttributeOverride(name = "modifiedByNickname", column = @Column(name = "MODIFIED_BY_NICKNAME", length = 60))
+    })
+    private BaseModifiedBy baseModifiedBy;
+
     /****** Transient Start *********
      * This part not saved into Database
      *********************************/
     @Transient
     private List<MultipartFile> multipartFiles;
-
-    /****** Transient End **********/
 
     public BlogContent() {
 

@@ -66,14 +66,12 @@ const router = new Router({
   ],
   mode: 'history',
   scrollBehavior (to, from, savedPosition) {
-    console.log('Global scrollBehavior')
     document.title = 'Hi-Cord : ' + to.name
     // Having SavedPosition
     if (savedPosition) {
       return savedPosition
     } else if (to.hash) {
       // Having to Hash
-      console.log('to hash : ' + to.hash)
       return {
         selector: to.hash
       }

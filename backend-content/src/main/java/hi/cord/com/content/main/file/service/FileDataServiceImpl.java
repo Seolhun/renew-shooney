@@ -14,11 +14,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +29,12 @@ import java.util.UUID;
  * The type File data service.
  */
 @Service("fileDataService")
+@Transactional(value = "transactionManager", propagation = Propagation.REQUIRED)
 public class FileDataServiceImpl implements FileDataService, CommonBatchRestService<FileData> {
     private static final Logger LOG = LoggerFactory.getLogger(FileDataServiceImpl.class);
 
-    @Value("spring.http.multipart.max-request-size")
-    private final long MAX_UPLOAD_SIZE = 0;
+    @Value("shun.multipart.maxFileSize")
+    private final String MAX_UPLOAD_SIZE = "";
     @Value("spring.http.multipart.location")
     private final String FILE_PATH = "";
 
@@ -71,15 +72,24 @@ public class FileDataServiceImpl implements FileDataService, CommonBatchRestServ
         return null;
     }
 
+    @Override
+    public FileData insert(FileData fileData) {
+        return fileData;
+    }
 
     @Override
-    public FileData insert(FileData fileData) throws FileUploadException, IOException {
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED)
+    public FileData insertFile(FileData fileData) throws FileUploadException, IOException {
         //유효성 검사.
         List<FileData> storeFileList = new ArrayList<>();
 
         //MultipartFile에 index 0은 빈값이 온다.(알아보고 처리해야함. 그래서 1로 시작)
         long totalFileSize = 0;
         List<MultipartFile> files = fileData.getMultipartFiles();
+        if (files.size() < 1) {
+            return fileData;
+        }
+
         for (MultipartFile multipartFile : files) {
             if (!multipartFile.isEmpty()) {
                 FileData tempFile = this.setMultipartIntoFileData(multipartFile);
@@ -89,7 +99,7 @@ public class FileDataServiceImpl implements FileDataService, CommonBatchRestServ
         }
 
         // Check Max File Size
-        if (totalFileSize > MAX_UPLOAD_SIZE) {
+        if (totalFileSize > Long.parseLong(MAX_UPLOAD_SIZE)) {
             throw new FileUploadException();
         }
 
@@ -199,12 +209,13 @@ public class FileDataServiceImpl implements FileDataService, CommonBatchRestServ
         //Set Information into entity
         FileData fileData = new FileData();
         fileData.setBytes(multipartFile.getBytes());
+        fileData.setMultipartFile(multipartFile);
+        fileData.setSize(multipartFile.getSize());
+
         fileData.setOriginName(originName);
         fileData.setSavedName(savedName);
         // fileData.setSavedPath(FILE_PATH);
         fileData.setFileType(fileDataType);
-        fileData.setSize(multipartFile.getSize());
-
         // fileData.setCreatedByNickname();
         return fileData;
     }
@@ -219,10 +230,12 @@ public class FileDataServiceImpl implements FileDataService, CommonBatchRestServ
             directory.mkdirs();
         }
 
+        MultipartFile multipartFile = file.getMultipartFile();
         File serverFile = new File(directory.getAbsolutePath() + File.separator + file.getSavedName());
-        BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-        byte[] bytes = file.getBytes();
-        stream.write(bytes);
-        stream.close();
+        multipartFile.transferTo(serverFile);
+        // BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+        // byte[] bytes = file.getBytes();
+        // stream.write(bytes);
+        // stream.close();
     }
 }

@@ -17,8 +17,9 @@ import java.util.Date;
 
 /**
  * The type Common domain For Entity.
- *
+ * <p>
  * AccessType is so important to access from Embedded Class
+ *
  * @Field : CREATED_BY
  * @Property : createdBy
  */
@@ -29,22 +30,6 @@ import java.util.Date;
 @Setter
 @Embeddable
 public class BaseEntity {
-    @CreatedBy
-    @Column(name = "CREATED_BY_USER_ID", length = 120)
-    private String createdByUserId;
-
-    @LastModifiedBy
-    @Column(name = "MODIFIED_BY_USER_ID", length = 120)
-    private String modifiedByUserId;
-
-    @CreatedBy
-    @Column(name = "CREATED_BY_NICKNAME", length = 60)
-    private String createdByNickname;
-
-    @LastModifiedBy
-    @Column(name = "MODIFIED_BY_NICKNAME", length = 60)
-    private String modifiedByNickname;
-
     @CreatedDate
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -57,6 +42,6 @@ public class BaseEntity {
     @Column(name = "MODIFIED_DATE")
     private Date modifiedDate;
 
-    @Column(name = "IS_ACTIVE", nullable=false, columnDefinition = "BIT(1) default 1")
+    @Column(name = "IS_ACTIVE", nullable = false, columnDefinition = "BIT(1) default 1")
     private boolean active;
 }
