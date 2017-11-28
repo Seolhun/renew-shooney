@@ -73,6 +73,7 @@ Why develop this project?
 
 ### FrontEnd Components Architecture
 <img src="frontend/readmeImage/ItemPage.png" width="900" height="600">
+
 ---
 ### Reference Link
 ##### BackEnd
