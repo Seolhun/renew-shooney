@@ -11,10 +11,10 @@ public interface BlogContentRepository extends JpaRepository<BlogContent, String
 
 	BlogContent findById(String id);
 
-    BlogContent findByIdxAndCreatedByNickname(long idx, String nickname);
+    BlogContent findByIdxAndBaseCreatedByCreatedByNickname(long idx, String nickname);
 
     //Get Sequence
-    BlogContent findFirstByCreatedByNicknameOrderByIdxDesc(String nickname);
+    BlogContent findFirstByBaseCreatedByCreatedByNicknameOrderByIdxDesc(String nickname);
 
 	boolean deleteById(String id);
 

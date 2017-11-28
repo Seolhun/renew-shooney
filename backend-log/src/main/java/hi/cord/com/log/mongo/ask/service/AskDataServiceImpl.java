@@ -98,6 +98,11 @@ public class AskDataServiceImpl implements AskDataService {
     }
 
     @Override
+    public AskData updateByIdx(AskData askData, String accessBy) {
+        return null;
+    }
+
+    @Override
     public long count(AskData askData) {
         return 0;
     }

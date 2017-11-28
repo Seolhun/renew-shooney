@@ -96,6 +96,11 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	@Override
+	public UserProfile updateByIdx(UserProfile userProfile, String accessBy) {
+		return null;
+	}
+
+	@Override
 	public long count(UserProfile userProfile) {
 		return 0;
 	}

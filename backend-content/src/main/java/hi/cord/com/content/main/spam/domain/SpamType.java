@@ -1,4 +1,4 @@
-package hi.cord.com.content.main2.spam.domain;
+package hi.cord.com.content.main.spam.domain;
 
 public enum SpamType {
     //향후 더 추가예정 /PathVariable에 쓸 수 있는 객체들을 사용한다.

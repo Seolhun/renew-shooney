@@ -1,13 +1,13 @@
-package hi.cord.com.content.main2.spam.domain;
+package hi.cord.com.content.main.spam.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import hi.cord.com.common.domain.entity.BaseCreatedBy;
 import hi.cord.com.common.domain.entity.BaseEntity;
-import hi.cord.com.common.domain.pagination.Pagination;
+import hi.cord.com.common.domain.entity.BaseModifiedBy;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -32,21 +32,18 @@ public class Spam extends BaseEntity implements Serializable {
     private String content;
 
     @CreatedBy
-    @AssociationOverrides({
-            @AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "CREATED_BY"))
-    })
     @AttributeOverrides({
-            @AttributeOverride(name = "user", column = @Column(name = "CREATED_BY")),
-            @AttributeOverride(name = "nickname", column = @Column(name = "CREATED_NICKNAME", length = 60))
+            @AttributeOverride(name = "createdByUserId", column = @Column(name = "CREATED_BY_ID", length = 120)),
+            @AttributeOverride(name = "createdByNickname", column = @Column(name = "CREATED_BY_NICKNAME", length = 60))
     })
+    private BaseCreatedBy createdBy;
 
-    /**
-     * Requirement parameter in Entity
-     */
-    @Transient
-    @JsonSerialize
-    @JsonDeserialize
-    private Pagination<Spam> pagination;
+    @LastModifiedBy
+    @AttributeOverrides({
+            @AttributeOverride(name = "modifiedByUserId", column = @Column(name = "MODIFIED_BY_ID", length = 120)),
+            @AttributeOverride(name = "modifiedByNickname", column = @Column(name = "MODIFIED_BY_NICKNAME", length = 60))
+    })
+    private BaseModifiedBy modifiedBy;
 
     //------------Entity Filed finished----------------
 }

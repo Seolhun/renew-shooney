@@ -1,5 +1,6 @@
 package hi.cord.com.content.main.comment.domain;
 
+import hi.cord.com.content.main.content.domain.BlogContent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,10 +12,10 @@ public interface CommentRepository extends JpaRepository<Comment, String> {
 
     Comment findById(String id);
 
-    Comment findByIdxAndCreatedByEntityNickname(long idx, String nickname);
+    Comment findByIdxAndBaseCreatedByCreatedByNickname(long idx, String nickname);
 
     //Get Sequence
-    Comment findFirstByCreatedByEntityNicknameOrderByIdxDesc(String nickname);
+    Comment findFirstByBaseCreatedByCreatedByNicknameOrderByIdxDesc(String nickname);
 
     boolean deleteById(String id);
 

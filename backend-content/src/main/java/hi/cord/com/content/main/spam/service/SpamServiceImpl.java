@@ -1,8 +1,8 @@
-package hi.cord.com.content.main2.spam.service;
+package hi.cord.com.content.main.spam.service;
 
 import hi.cord.com.common.domain.pagination.Pagination;
-import hi.cord.com.content.main2.spam.domain.Spam;
-import hi.cord.com.content.main2.spam.domain.SpamRepository;
+import hi.cord.com.content.main.spam.domain.Spam;
+import hi.cord.com.content.main.spam.domain.SpamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED, transactionManager = "shunTransactionManager", noRollbackFor = {NullPointerException.class})
+@Transactional(value = "transactionManager", propagation = Propagation.REQUIRED)
 public class SpamServiceImpl implements SpamService {
 
     private SpamRepository spamRepository;
@@ -70,6 +70,11 @@ public class SpamServiceImpl implements SpamService {
 
     @Override
     public Spam updateById(Spam spam, String accessBy) {
+        return null;
+    }
+
+    @Override
+    public Spam updateByIdx(Spam spam, String accessBy) {
         return null;
     }
 

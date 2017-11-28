@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import contentState from './modules/commonList'
+import content from './modules/content'
+import user from './modules/user'
+import tag from './modules/tag'
+
 
 Vue.use(Vuex)
 export const store = new Vuex.Store({
@@ -9,6 +12,8 @@ export const store = new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
-    contentState
+    user,
+    content,
+    tag
   }
 })

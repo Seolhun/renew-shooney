@@ -1,16 +1,21 @@
 package hi.cord.com.content.main.content.service;
 
+import hi.cord.com.common.domain.pagination.Pagination;
+import hi.cord.com.common.service.CommonService;
 import hi.cord.com.content.main.comment.domain.Comment;
-import hi.cord.com.content.main.comment.domain.CommentRepository;
+import hi.cord.com.content.main.comment.service.CommentService;
 import hi.cord.com.content.main.content.domain.BlogContent;
 import hi.cord.com.content.main.content.domain.BlogContentRepository;
 import hi.cord.com.content.main.file.domain.FileData;
-import hi.cord.com.content.main.file.domain.FileDataRepository;
-import hi.cord.com.common.domain.pagination.Pagination;
+import hi.cord.com.content.main.file.service.FileDataService;
+import hi.cord.com.content.main.spam.domain.Spam;
+import hi.cord.com.content.main.spam.service.SpamService;
+import hi.cord.com.content.main.tag.service.TagService;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,24 +26,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * The type Blog content service.
+ */
 @Service
-@Transactional(propagation = Propagation.REQUIRED, transactionManager = "shunTransactionManager", noRollbackFor = {NullPointerException.class})
+@Transactional(value = "transactionManager", propagation = Propagation.REQUIRED)
 public class BlogContentServiceImpl implements BlogContentService {
     private static final Logger LOG = LoggerFactory.getLogger(BlogContentServiceImpl.class);
     private BlogContentRepository blogContentRepository;
-    private FileDataRepository fileDataRepository;
-    private CommentRepository commentRepository;
+    private FileDataService fileDataService;
+    private CommentService commentService;
+    private CommonService commonService;
+    private TagService tagService;
+    private SpamService spamService;
 
     @Autowired
-    public BlogContentServiceImpl(BlogContentRepository blogContentRepository, FileDataRepository fileDataRepository, CommentRepository commentRepository) {
+    public BlogContentServiceImpl(BlogContentRepository blogContentRepository, FileDataService fileDataService, CommentService commentService, CommonService commonService, TagService tagService, SpamService spamService) {
         this.blogContentRepository = blogContentRepository;
-        this.fileDataRepository = fileDataRepository;
-        this.commentRepository = commentRepository;
+        this.fileDataService = fileDataService;
+        this.commentService = commentService;
+        this.commonService = commonService;
+        this.tagService = tagService;
+        this.spamService = spamService;
     }
 
+    /**
+     * Process
+     * 1. Having Spam contents?
+     * 2. Having Image or File Image??
+     * 3. Having Tags?
+     * 4. Save BlogContent
+     * 5. Send Content into AWS Lambda to analysis Keywords async.
+     */
     @Override
     public BlogContent insert(BlogContent blogContent) {
-        return blogContentRepository.save(blogContent);
+        String content = blogContent.getContent();
+
+        // 1. Having Spam
+        // 2. Having Image or File Image?
+        content = this.beforeInsertValidation(content);
+        blogContent.setContent(content);
+
+        // 3. Having Tags
+        tagService.saveIterable(blogContent.getTags());
+
+        // 4. Save BlogContent
+        blogContentRepository.save(blogContent);
+
+        // 5. Send Content into AWS to analysis Keywords async.
+        return blogContent;
     }
 
     @Override
@@ -52,9 +88,10 @@ public class BlogContentServiceImpl implements BlogContentService {
     }
 
     @Override
-    public Pagination<BlogContent> findAll(BlogContent blogContent, Pageable pageable) {
+    public Pagination<BlogContent> findAll(Example<BlogContent> blogContentExample, Pageable pageable) {
         // Call Repository        
-        Page<BlogContent> contents = blogContentRepository.findAll(pageable);
+        Page<BlogContent> contents = blogContentRepository.findAll(blogContentExample, pageable);
+
         Pagination<BlogContent> pagination = new Pagination<>();
         for (BlogContent dbBlogContent : contents) {
             List<FileData> fileList = new ArrayList<>();
@@ -76,8 +113,8 @@ public class BlogContentServiceImpl implements BlogContentService {
     @Override
     public BlogContent findById(String id) {
         BlogContent blogContent = blogContentRepository.findById(id);
-        List<FileData> fileList = fileDataRepository.findAll();
-        List<Comment> commentList = commentRepository.findAll();
+        List<FileData> fileList = fileDataService.findByList();
+        List<Comment> commentList = commentService.findByList();
         if (fileList != null) {
             blogContent.setFiles(fileList);
         }
@@ -99,10 +136,10 @@ public class BlogContentServiceImpl implements BlogContentService {
 
     @Override
     public BlogContent findByIdx(long idx, String nickname) {
-        BlogContent blogContent = blogContentRepository.findByIdxAndCreatedByNickname(idx, nickname);
-        if(blogContent != null){
-            List<FileData> fileList = fileDataRepository.findAll();
-            List<Comment> commentList = commentRepository.findAll();
+        BlogContent blogContent = blogContentRepository.findByIdxAndBaseCreatedByCreatedByNickname(idx, nickname);
+        if (blogContent != null) {
+            List<FileData> fileList = fileDataService.findByList();
+            List<Comment> commentList = commentService.findByList();
             if (fileList != null) {
                 blogContent.setFiles(fileList);
             }
@@ -116,37 +153,35 @@ public class BlogContentServiceImpl implements BlogContentService {
     @Override
     public boolean deleteById(String id, String accessBy) {
         BlogContent dbBlogContent = blogContentRepository.findById(id);
-        if (dbBlogContent == null) {
-            return false;
-        }
-
-        blogContentRepository.delete(dbBlogContent.getId());
+        this.deleteBlogContent(dbBlogContent, accessBy);
+        // blogContentRepository.delete(dbBlogContent.getId());
         return true;
     }
 
     @Override
-    public boolean deleteById(long idx, String accessBy) {
-        BlogContent dbBlogContent = blogContentRepository.findByIdxAndCreatedByNickname(idx, accessBy);
-        if (dbBlogContent == null) {
-            return false;
-        }
-
-        blogContentRepository.delete(dbBlogContent.getId());
-        return true;
+    public boolean deleteById(long id, String accessBy) {
+        return false;
     }
 
     @Override
     public boolean deleteByIdx(long idx, String accessBy) {
-        return false;
+        BlogContent dbBlogContent = blogContentRepository.findByIdxAndBaseCreatedByCreatedByNickname(idx, accessBy);
+        this.deleteBlogContent(dbBlogContent, accessBy);
+        // blogContentRepository.delete(dbBlogContent.getId());
+        return true;
     }
 
     @Override
     public BlogContent updateById(BlogContent blogContent, String accessBy) {
         BlogContent dbBlogContent = blogContentRepository.findById(blogContent.getId());
-        if (dbBlogContent != null) {
-            dbBlogContent.setTitle(blogContent.getTitle());
-            dbBlogContent.setContent(blogContent.getContent());
-        }
+        this.updatedBlogContent(dbBlogContent, blogContent, accessBy);
+        return dbBlogContent;
+    }
+
+    @Override
+    public BlogContent updateByIdx(BlogContent blogContent, String accessBy) {
+        BlogContent dbBlogContent = blogContentRepository.findByIdxAndBaseCreatedByCreatedByNickname(blogContent.getIdx(), accessBy);
+        this.updatedBlogContent(dbBlogContent, blogContent, accessBy);
         return dbBlogContent;
     }
 
@@ -157,11 +192,46 @@ public class BlogContentServiceImpl implements BlogContentService {
 
     @Override
     public long getIdxByNickname(String nickname) {
-        BlogContent blogContent = blogContentRepository.findFirstByCreatedByNicknameOrderByIdxDesc(nickname);
+        BlogContent blogContent = blogContentRepository.findFirstByBaseCreatedByCreatedByNicknameOrderByIdxDesc(nickname);
         if (blogContent == null) {
             return 1;
         }
 
         return blogContent.getIdx() + 1;
+    }
+
+    private String beforeInsertValidation(String blogContent) {
+        // 1. Having Spam
+        List<Spam> spamList = spamService.findByList();
+        if(spamList != null) {
+            for (Spam spam : spamList) {
+                blogContent = blogContent.replaceAll(spam.getContent(), "");
+            }
+        }
+
+        // 2. Having Image or File Image?
+        List<String> images = commonService.extractImgSrc(blogContent);
+        for (String img : images) {
+            // fileDataService.insert()
+        }
+
+        return blogContent;
+    }
+
+    private void updatedBlogContent(BlogContent dbBlogContent, BlogContent targetContent, String accessBy) {
+        if (dbBlogContent != null) {
+            dbBlogContent.setTitle(targetContent.getTitle());
+            dbBlogContent.setContentType(targetContent.getContentType());
+            dbBlogContent.setContent(targetContent.getContent());
+            dbBlogContent.setTags(targetContent.getTags());
+            dbBlogContent.getBaseModifiedBy().setModifiedByNickname(accessBy);
+        }
+    }
+
+    private void deleteBlogContent(BlogContent dbBlogContent, String accessBy) {
+        if (dbBlogContent != null) {
+            dbBlogContent.setActive(false);
+            dbBlogContent.getBaseModifiedBy().setModifiedByNickname(accessBy);
+        }
     }
 }

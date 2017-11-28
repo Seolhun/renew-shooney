@@ -29,5 +29,6 @@ nbdist/
 
 # Application Properties
 !/.DS_Store
+/backend-*/src/main/resources/application.properties
 /backend-content/src/main/resources/application.properties
 /backend-user/src/main/resourc

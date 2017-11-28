@@ -2,7 +2,9 @@ package hi.cord.com.content.main.comment.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import hi.cord.com.common.domain.entity.BaseCreatedBy;
 import hi.cord.com.common.domain.entity.BaseEntity;
+import hi.cord.com.common.domain.entity.BaseModifiedBy;
 import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.content.main.content.domain.BlogContent;
 import hi.cord.com.content.main.content.domain.ContentType;
@@ -10,6 +12,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,7 +23,7 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
 @Data
-@Table(uniqueConstraints = @UniqueConstraint(name = "UK_COMMENT_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_NICKNAME"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "UK_COMMENT_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_BY_NICKNAME"}))
 public class Comment extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -44,15 +48,19 @@ public class Comment extends BaseEntity implements Serializable {
     @Column(name = "LIKES")
     private int likes;
 
-    /**
-     * Requirement parameter in Entity
-     */
-    @Transient
-    @JsonSerialize
-    @JsonDeserialize
-    private Pagination<Comment> pagination;
+    @CreatedBy
+    @AttributeOverrides({
+            @AttributeOverride(name = "createdByUserId", column = @Column(name = "CREATED_BY_ID", length = 120)),
+            @AttributeOverride(name = "createdByNickname", column = @Column(name = "CREATED_BY_NICKNAME", length = 60))
+    })
+    private BaseCreatedBy baseCreatedBy;
 
-    //------------Entity Filed finished----------------
+    @LastModifiedBy
+    @AttributeOverrides({
+            @AttributeOverride(name = "modifiedByUserId", column = @Column(name = "MODIFIED_BY_ID", length = 120)),
+            @AttributeOverride(name = "modifiedByNickname", column = @Column(name = "MODIFIED_BY_NICKNAME", length = 60))
+    })
+    private BaseModifiedBy baseModifiedBy;
 
     /**
      * @Warning : This Field have some issue I think.

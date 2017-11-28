@@ -19,9 +19,22 @@
 
       <div class="row margin-top-30">
         <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
+          <lable> {{ $tc('content.placeholder.tags') }}
+            <input-tag
+              :on-change="convertTagEntity"
+              :tags="inputTags"
+            >
+
+            </input-tag>
+          </lable>
+        </div>
+      </div>
+
+      <div class="row margin-top-30">
+        <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
           <input
             class="form-control"
-            :placeholder="$tc('editor.placeholder.title')"
+            :placeholder="$t('content.placeholder.title')"
             v-model="blogContent.title"
           >
         </div>
@@ -30,7 +43,7 @@
       <!-- Preview Markdown -->
       <div class="row margin-top-30">
         <div class="col-md-6 col-sm-6 col-xs-12">
-          <p class="font-weight-600">{{ $t('editor.default.rawMarkdown') }}</p>
+          <p class="font-weight-600">{{ $t('editor.view.rawMarkdown') }}</p>
           <textarea
             id="editor"
             class="form-control auto-size"
@@ -40,7 +53,7 @@
           </textarea>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12">
-          <p class="font-weight-600">{{ $t('editor.default.markdown') }}</p>
+          <p class="font-weight-600">{{ $t('editor.view.markdown') }}</p>
           <article
             class="form-control markdown-body"
             v-html="gitMarkdown"
@@ -77,16 +90,22 @@
 </style>
 
 <script>
+  import InputTag from 'vue-input-tag'
+
   export default {
+    components: {
+      'inputTag': InputTag
+    },
     data () {
       return {
-        currentDate: new Date().toLocaleTimeString(),
+        inputTags: [],
         blogContent: {
           title: '',
+          tags: [],
           contentType: 'Qna',
           content: '',
-          createdByEntity: {
-            nickname: 'SeolHun'
+          baseCreatedBy: {
+            createdByNickname: 'SeolHun'
           }
         },
         gitMarkdown: '',
@@ -96,8 +115,15 @@
       }
     },
     methods: {
+      convertTagEntity () {
+        let vm = this
+        this.inputTags.forEach((value) => {
+          this.blogContent.tags.push({name: value})
+        })
+      },
+
       insertContent () {
-        this.$http.post('http://localhost:8000/content', this.blogContent)
+        this.$http.post('http://localhost:5000/content', this.blogContent)
           .then(response => {
             console.log(response.data)
           })
@@ -119,10 +145,8 @@
           })
       }
     },
-    watch: {},
-    computed: {},
     created () {
-      this.$http.get('http://localhost:8000/api/v1/contentType')
+      this.$http.get('http://localhost:5000/api/v1/contentType')
         .then(response => {
           this.types = response.data
         })
@@ -130,9 +154,17 @@
           this.errors.push(e)
         })
 
-      this.$http.get('http://localhost:8000/content')
+      this.$http.get('http://localhost:5000/content')
         .then(response => {
           this.results = response.data
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
+
+      this.$http.get('http://localhost:5000/tag')
+        .then(response => {
+          this.tags = response.data
         })
         .catch(e => {
           this.errors.push(e)

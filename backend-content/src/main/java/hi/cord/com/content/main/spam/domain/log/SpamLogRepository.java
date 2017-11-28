@@ -1,4 +1,4 @@
-package hi.cord.com.content.main2.spam.domain.log;
+package hi.cord.com.content.main.spam.domain.log;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

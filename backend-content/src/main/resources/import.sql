@@ -1,24 +1,25 @@
-CREATE USER 'developer'@'127.0.0.1'
-  IDENTIFIED BY 'developer@';
+CREATE USER 'developer'@'127.0.0.1' IDENTIFIED BY 'developer@';
 
-CREATE DATABASE shooney_blog;
+CREATE DATABASE shooney_content;
 
-GRANT DROP ON shooney_blog.* TO 'developer'@'127.0.0.1';
-GRANT CREATE ON shooney_blog.* TO 'developer'@'127.0.0.1';
-GRANT ALTER ON shooney_blog.* TO 'developer'@'127.0.0.1';
-GRANT SELECT ON shooney_blog.* TO 'developer'@'127.0.0.1';
-GRANT INSERT ON shooney_blog.* TO 'developer'@'127.0.0.1';
-GRANT UPDATE ON shooney_blog.* TO 'developer'@'127.0.0.1';
-GRANT DELETE ON shooney_blog.* TO 'developer'@'127.0.0.1';
+GRANT DROP ON shooney_content.* TO 'developer'@'127.0.0.1';
+GRANT CREATE ON shooney_content.* TO 'developer'@'127.0.0.1';
+GRANT ALTER ON shooney_content.* TO 'developer'@'127.0.0.1';
+GRANT SELECT ON shooney_content.* TO 'developer'@'127.0.0.1';
+GRANT INSERT ON shooney_content.* TO 'developer'@'127.0.0.1';
+GRANT UPDATE ON shooney_content.* TO 'developer'@'127.0.0.1';
+GRANT DELETE ON shooney_content.* TO 'developer'@'127.0.0.1';
 
-CREATE DATABASE shooney_common;
+FLUSH PRIVILEGES;
 
-GRANT DROP ON shooney_common.* TO 'developer'@'127.0.0.1';
-GRANT CREATE ON shooney_common.* TO 'developer'@'127.0.0.1';
-GRANT ALTER ON shooney_common.* TO 'developer'@'127.0.0.1';
-GRANT SELECT ON shooney_common.* TO 'developer'@'127.0.0.1';
-GRANT INSERT ON shooney_common.* TO 'developer'@'127.0.0.1';
-GRANT UPDATE ON shooney_common.* TO 'developer'@'127.0.0.1';
-GRANT DELETE ON shooney_common.* TO 'developer'@'127.0.0.1';
+CREATE DATABASE shooney_spam;
+
+GRANT DROP ON shooney_spam.* TO 'developer'@'127.0.0.1';
+GRANT CREATE ON shooney_spam.* TO 'developer'@'127.0.0.1';
+GRANT ALTER ON shooney_spam.* TO 'developer'@'127.0.0.1';
+GRANT SELECT ON shooney_spam.* TO 'developer'@'127.0.0.1';
+GRANT INSERT ON shooney_spam.* TO 'developer'@'127.0.0.1';
+GRANT UPDATE ON shooney_spam.* TO 'developer'@'127.0.0.1';
+GRANT DELETE ON shooney_spam.* TO 'developer'@'127.0.0.1';
 
 FLUSH PRIVILEGES;

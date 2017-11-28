@@ -1,30 +1,34 @@
 package hi.cord.com.content.main.content.domain;
 
+import hi.cord.com.common.domain.entity.BaseCreatedBy;
 import hi.cord.com.common.domain.entity.BaseEntity;
+import hi.cord.com.common.domain.entity.BaseModifiedBy;
 import hi.cord.com.content.main.comment.domain.Comment;
 import hi.cord.com.content.main.file.domain.FileData;
 import hi.cord.com.content.main.tag.domain.Tag;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
-@Entity(name = "TB_BLOG")
-@EqualsAndHashCode(callSuper = false)
-@ToString(callSuper = true)
-@Data
-@Table(uniqueConstraints = @UniqueConstraint(name = "UK_CONTENT_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_NICKNAME"}))
+@Entity(name = "TB_BLOG_CONTENT")
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = {"multipartFiles"})
+@Table(uniqueConstraints = @UniqueConstraint(name = "UK_CONTENT_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_BY_NICKNAME"}))
 public class BlogContent extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -65,11 +69,11 @@ public class BlogContent extends BaseEntity implements Serializable {
     @JoinTable(
             name = "TB_CONTENT_MATCHING_TAG",
             foreignKey = @ForeignKey(name = "FK_CONTENT_TAG_REFER"),
-            joinColumns = {@JoinColumn(name = "CONTENT_ID") },
+            joinColumns = {@JoinColumn(name = "CONTENT_ID")},
             inverseForeignKey = @ForeignKey(name = "FK_TAG_CONTENT_REFER"),
-            inverseJoinColumns = {@JoinColumn(name = "TAG_ID") }
+            inverseJoinColumns = {@JoinColumn(name = "TAG_ID")}
     )
-    private Set<Tag> tags;
+    private List<Tag> tags;
 
     @OneToMany(mappedBy = "contentInComment")
     private List<Comment> comments;
@@ -82,30 +86,32 @@ public class BlogContent extends BaseEntity implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    /****** Transient Start *********
+    @CreatedBy
+    @AttributeOverrides({
+            @AttributeOverride(name = "createdByUserId", column = @Column(name = "CREATED_BY_ID", length = 120)),
+            @AttributeOverride(name = "createdByNickname", column = @Column(name = "CREATED_BY_NICKNAME", length = 60))
+    })
+    private BaseCreatedBy baseCreatedBy;
+
+    @LastModifiedBy
+    @AttributeOverrides({
+            @AttributeOverride(name = "modifiedByUserId", column = @Column(name = "MODIFIED_BY_ID", length = 120)),
+            @AttributeOverride(name = "modifiedByNickname", column = @Column(name = "MODIFIED_BY_NICKNAME", length = 60))
+    })
+    private BaseModifiedBy baseModifiedBy;
+
+    /****** Transient Part *********
      * This part not saved into Database
      *********************************/
     @Transient
     private List<MultipartFile> multipartFiles;
 
-    /****** Transient End **********/
-
     public BlogContent() {
 
     }
 
-    @PostConstruct
-    public void init() {
-        if (this.contentType == null) {
-            this.contentType = ContentType.Essay;
-        }
-    }
-
-    /**
-     * @Warning : This Field have some issue I think.
-     */
-    @PrePersist
-    public void autoIdInit() {
-        this.setId(UUID.randomUUID().toString());
-    }
+//    @Override
+//    public String toString() {
+//        return new com.google.gson.Gson().toJson(this);
+//    }
 }

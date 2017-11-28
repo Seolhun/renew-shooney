@@ -52,7 +52,6 @@ public class ThreadPoolConfig {
 // Need Test
     @Bean("taskExecutor1")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
-//        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(500, 1000, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(), new ThreadPoolExecutor.DiscardOldestPolicy());
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         taskExecutor.setKeepAliveSeconds(threadTimeout);
         taskExecutor.setCorePoolSize(corePoolSize);
@@ -60,7 +59,4 @@ public class ThreadPoolConfig {
         taskExecutor.setQueueCapacity(queueCapacity);
         return taskExecutor;
     }
-
-
-
 }

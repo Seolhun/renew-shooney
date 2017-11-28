@@ -1,8 +1,8 @@
-package hi.cord.com.content.main2.spam.service;
+package hi.cord.com.content.main.spam.service;
 
 import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.common.service.rest.CommonRestService;
-import hi.cord.com.content.main2.spam.domain.Spam;
+import hi.cord.com.content.main.spam.domain.Spam;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

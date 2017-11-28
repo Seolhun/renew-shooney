@@ -1,9 +1,10 @@
 package hi.cord.com.content.main.tag.service;
 
-import hi.cord.com.content.main.content.domain.BlogContentRepository;
+import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.content.main.tag.domain.Tag;
 import hi.cord.com.content.main.tag.domain.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,21 +14,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED, transactionManager = "shunTransactionManager", noRollbackFor = {NullPointerException.class})
+@Transactional(value = "transactionManager", propagation = Propagation.REQUIRED)
 public class TagServiceImpl implements TagService {
 
-    private TagRepository commentRepository;
-    private BlogContentRepository contentRepository;
+    private TagRepository tagRepository;
 
     @Autowired
-    public TagServiceImpl(TagRepository commentRepository, BlogContentRepository contentRepository) {
-        this.commentRepository = commentRepository;
-        this.contentRepository = contentRepository;
+    public TagServiceImpl(TagRepository tagRepository) {
+        this.tagRepository = tagRepository;
     }
 
     @Override
-    public Tag insert(Tag comment) {
-        return commentRepository.save(comment);
+    public Tag insert(Tag tag) {
+        return tagRepository.save(tag);
     }
 
     @Override
@@ -36,8 +35,8 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Page<Tag> findByPage(Tag comment, Pageable pageable) {
-        return commentRepository.findAll(pageable);
+    public Page<Tag> findByPage(Tag tag, Pageable pageable) {
+        return tagRepository.findAll(pageable);
     }
 
     @Override
@@ -71,6 +70,11 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public Tag updateByIdx(Tag tag, String accessBy) {
+        return null;
+    }
+
+    @Override
     public Tag findByIdx(long idx) {
         return null;
     }
@@ -78,5 +82,27 @@ public class TagServiceImpl implements TagService {
     @Override
     public long count(Tag comment) {
         return 0;
+    }
+
+    @Override
+    public <S extends Tag> List<S> saveIterable(Iterable<S> tags) {
+        return tagRepository.save(tags);
+    }
+
+    @Override
+    public Tag findByName(String tagName) {
+        return tagRepository.findByName(tagName);
+    }
+
+    @Override
+    public Pagination<Tag> findAll(Example<Tag> tagExample, Pageable pageable) {
+        Page<Tag> tags = tagRepository.findAll(tagExample, pageable);
+
+        Pagination<Tag> pagination = new Pagination<>();
+        pagination.setList(tags.getContent());
+        pagination.setTotalCount(tags.getTotalElements());
+        pagination.setPageIndex(pageable.getPageNumber());
+        pagination.setPageSize(pageable.getPageSize());
+        return pagination;
     }
 }

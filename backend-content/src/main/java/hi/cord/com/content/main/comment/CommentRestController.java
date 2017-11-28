@@ -92,8 +92,7 @@ public class CommentRestController {
         //Seting BlogContent relational with Comment
         BlogContent blogContent = new BlogContent();
         blogContent.setIdx(contentIdx);
-        blogContent.setCreatedByNickname(contentCreatedBy);
-        comment.setBlogContentInComment(blogContent);
+        comment.setContentInComment(blogContent);
 
         // Insert
         commentService.insert(comment);
@@ -121,7 +120,7 @@ public class CommentRestController {
         Comment comment = commentService.findByIdx(idx, nickname);
         if (comment == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found comment result");
-        } else if (!(comment.getCreatedByNickname().equals(nickname))) {
+        } else if (!(comment.getBaseCreatedBy().getCreatedByNickname().equals(nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
 
@@ -150,7 +149,7 @@ public class CommentRestController {
         comment = commentService.findByIdx(idx, nickname);
         if (comment == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found comment result");
-        } else if (!(comment.getCreatedByNickname().equals(nickname))) {
+        } else if (!(comment.getBaseCreatedBy().getCreatedByNickname().equals(nickname))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
 
