@@ -6,29 +6,24 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 
 /**
- * The type Common domain For Entity.
- * <p>
- * AccessType is so important to access from Embedded Class
- *
- * @Field : CREATED_BY
- * @Property : createdBy
+ * The type Base entity.
  */
-@Access(AccessType.PROPERTY)
-@EqualsAndHashCode(callSuper = false)
-@ToString
 @Getter
 @Setter
-@Embeddable
+@EqualsAndHashCode
+@ToString
+@MappedSuperclass
 public class BaseEntity {
     @CreatedDate
     @CreationTimestamp

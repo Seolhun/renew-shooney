@@ -1,8 +1,8 @@
 package hi.cord.com.log.mongo.news.service;
 
-import hi.cord.com.log.mongo.news.domain.NewsWebSite;
 import hi.cord.com.log.mongo.news.domain.NewsData;
 import hi.cord.com.log.mongo.news.domain.NewsDataRepository;
+import hi.cord.com.log.mongo.news.domain.NewsWebSite;
 import hi.cord.com.log.mongo.sequence.domain.CustomSequence;
 import hi.cord.com.log.mongo.sequence.domain.SequenceRepository;
 import org.jsoup.Jsoup;
@@ -80,6 +80,11 @@ public class NewsDataServiceImpl implements NewsDataService {
         this.insert(newsData);
 
         return newsData;
+    }
+
+    @Override
+    public NewsData updateByIdx(NewsData newsData, String accessBy) {
+        return null;
     }
 
     @Override

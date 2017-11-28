@@ -22,7 +22,7 @@ import java.util.List;
 @Data
 @Entity(name = "TB_FILE_DATA")
 @Table(uniqueConstraints = @UniqueConstraint(name = "UK_FILE_DATA_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_BY_NICKNAME"}))
-@BatchSize(size = 30)
+@BatchSize(size = 20)
 public class FileData extends BaseEntity implements Serializable {
     @Id
     @Column(name = "FILE_ID", length = 120)
@@ -57,14 +57,14 @@ public class FileData extends BaseEntity implements Serializable {
             @AttributeOverride(name = "createdByUserId", column = @Column(name = "CREATED_BY_ID", length = 120)),
             @AttributeOverride(name = "createdByNickname", column = @Column(name = "CREATED_BY_NICKNAME", length = 60))
     })
-    private BaseCreatedBy createdBy;
+    private BaseCreatedBy baseCreatedBy;
 
     @LastModifiedBy
     @AttributeOverrides({
             @AttributeOverride(name = "modifiedByUserId", column = @Column(name = "MODIFIED_BY_ID", length = 120)),
             @AttributeOverride(name = "modifiedByNickname", column = @Column(name = "MODIFIED_BY_NICKNAME", length = 60))
     })
-    private BaseModifiedBy modifiedBy;
+    private BaseModifiedBy baseModifiedBy;
 
     /****** Transient Start *********
      * This part not saved into Database

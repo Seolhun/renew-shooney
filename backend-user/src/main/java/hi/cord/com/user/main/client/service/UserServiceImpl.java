@@ -97,6 +97,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public User updateByIdx(User user, String accessBy) {
+        return null;
+    }
+
+    @Override
     public User deleteByEmail(String userEmail) {
         LOG.debug("p : deleteUserByEmail : {} ", userEmail);
         return userRepository.deleteByEmail(userEmail);

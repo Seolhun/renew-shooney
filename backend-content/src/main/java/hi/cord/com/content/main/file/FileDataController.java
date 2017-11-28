@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +26,6 @@ public class FileDataController {
     private static final Logger LOG = LoggerFactory.getLogger(FileDataController.class);
 
     private FileDataService fileDataService;
-    private BCryptPasswordEncoder bCrypt;
 
     private final String FILE_PATH = "/Users/hunseol/Desktop/file/";
 

@@ -15,7 +15,6 @@ const mutations = {
    * See {@link @/commponents/items/content/Content.vue} Results
    */
   setSearchedList: (state, payload) => {
-    console.log('vuex mutations', payload)
     // Set State filtered result
     state.searchedResults = payload
     // results: {

@@ -1,5 +1,6 @@
 package hi.cord.com.content.main.file.service;
 
+import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.common.service.rest.CommonBatchRestService;
 import hi.cord.com.content.main.file.domain.FileData;
 import hi.cord.com.content.main.file.domain.FileDataRepository;
@@ -114,6 +115,21 @@ public class FileDataServiceImpl implements FileDataService, CommonBatchRestServ
     }
 
     @Override
+    public long getIdxByNickname(String nickname) {
+        return 0;
+    }
+
+    @Override
+    public Pagination<FileData> findAll(FileData fileData, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public FileData findByIdx(long idx, String nickname) {
+        return null;
+    }
+
+    @Override
     public FileData updateById(FileData fileData, String accessBy) {
         LOG.debug("p : " + fileData.toString());
         FileData dbFileData = fileDataRepository.findById(fileData.getId());
@@ -124,6 +140,11 @@ public class FileDataServiceImpl implements FileDataService, CommonBatchRestServ
             dbFileData.setSavedName(fileData.getSavedName());
         }
         return dbFileData;
+    }
+
+    @Override
+    public FileData updateByIdx(FileData fileData, String accessBy) {
+        return null;
     }
 
 

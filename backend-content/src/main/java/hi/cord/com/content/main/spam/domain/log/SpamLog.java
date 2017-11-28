@@ -1,4 +1,4 @@
-package hi.cord.com.content.main2.spam.domain.log;
+package hi.cord.com.content.main.spam.domain.log;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -7,7 +7,6 @@ import hi.cord.com.common.domain.pagination.Pagination;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
 import java.io.Serializable;

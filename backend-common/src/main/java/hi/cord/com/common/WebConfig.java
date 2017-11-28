@@ -13,7 +13,6 @@ import java.util.List;
 
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport {
-
     @Bean
     public MappingJackson2HttpMessageConverter customJackson2HttpMessageConverter() {
         MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();

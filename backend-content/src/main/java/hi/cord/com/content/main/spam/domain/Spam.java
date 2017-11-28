@@ -1,4 +1,4 @@
-package hi.cord.com.content.main2.spam.domain;
+package hi.cord.com.content.main.spam.domain;
 
 import hi.cord.com.common.domain.entity.BaseCreatedBy;
 import hi.cord.com.common.domain.entity.BaseEntity;

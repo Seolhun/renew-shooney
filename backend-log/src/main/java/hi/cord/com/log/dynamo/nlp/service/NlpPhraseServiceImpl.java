@@ -125,6 +125,11 @@ public class NlpPhraseServiceImpl implements NlpPhraseService {
     }
 
     @Override
+    public NlpPhrase updateByIdx(NlpPhrase nlpPhrase, String accessBy) {
+        return null;
+    }
+
+    @Override
     public long count(NlpPhrase nlpPhrase) {
         return 0;
     }

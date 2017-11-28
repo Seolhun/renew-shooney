@@ -10,6 +10,7 @@ import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -68,7 +68,8 @@ public class ContentRestController {
 
         //Pagination and FindAll
         Pageable pageable = new PageRequest(pageIndex, pageSize);
-        Pagination<BlogContent> contentPagination = blogContentService.findAll(blogContent, pageable);
+        Example<BlogContent> blogContentExample = Example.of(blogContent);
+        Pagination<BlogContent> contentPagination = blogContentService.findAll(blogContentExample, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(contentPagination);
     }
 
@@ -82,19 +83,12 @@ public class ContentRestController {
             @Valid @RequestBody BlogContent blogContent,
             Errors errors
     ) throws FileUploadException {
-        // POST Parameter Checking
+        // POST Parameter Validation
         if (blogContent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found blogContent parameter");
         } else if (errors.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldError().getDefaultMessage());
         }
-
-        //Extract Image src and Saving Images path and information
-        List<String> images = commonService.extractImgSrc(blogContent.getContent());
-        for (String img : images) {
-            //Convert Img > File > return File ID;
-        }
-        // Requirement Images >
 
         //Setting Index
         long idx = blogContentService.getIdxByNickname(blogContent.getBaseCreatedBy().getCreatedByNickname());
@@ -102,7 +96,7 @@ public class ContentRestController {
 
         // Insert
         blogContentService.insert(blogContent);
-        return ResponseEntity.status(HttpStatus.OK).body(blogContent.toString());
+        return ResponseEntity.status(HttpStatus.OK).body(blogContent);
     }
 
 
@@ -125,10 +119,7 @@ public class ContentRestController {
         BlogContent blogContent = blogContentService.findByIdx(idx, nickname);
         if (blogContent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found blogContent result");
-        } else if (!(blogContent.getBaseCreatedBy().getCreatedByNickname().equals(nickname))) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
         }
-
         return ResponseEntity.status(HttpStatus.OK).body(blogContent);
     }
 
@@ -151,14 +142,14 @@ public class ContentRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found BlogContent-Identification path");
         }
 
-        blogContent = blogContentService.findByIdx(idx, nickname);
+        blogContent = blogContentService.updateById(blogContent, nickname);
         if (blogContent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not found blogContent result");
         } else if (!(blogContent.getBaseCreatedBy().getCreatedByNickname().equals(nickname))) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missmatch created by and access user");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("MissMatch created by and access user");
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body("Success");
+        return ResponseEntity.status(HttpStatus.OK).body(blogContent);
     }
 
     /**

@@ -112,6 +112,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public Comment updateByIdx(Comment comment, String accessBy) {
+        return null;
+    }
+
+    @Override
     public long count(Comment comment) {
         return commentRepository.countBy(comment);
     }

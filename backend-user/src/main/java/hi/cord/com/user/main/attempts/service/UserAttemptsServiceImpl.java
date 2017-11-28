@@ -89,6 +89,11 @@ public class UserAttemptsServiceImpl implements UserAttemptsService {
     }
 
     @Override
+    public UserAttempts updateByIdx(UserAttempts userAttempts, String accessBy) {
+        return null;
+    }
+
+    @Override
     public long count(UserAttempts userAttempts) {
         return 0;
     }

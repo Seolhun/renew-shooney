@@ -4,7 +4,7 @@ import App from './App.vue'
 // Router
 import router from './router/route'
 // Vuex
-import { store } from './vuex/state'
+import {store} from './vuex/state'
 // Bootstrap
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'

@@ -1,9 +1,9 @@
-package hi.cord.com.content.main2.spam;
+package hi.cord.com.content.main.spam;
 
 import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.common.service.CommonService;
-import hi.cord.com.content.main2.spam.domain.Spam;
-import hi.cord.com.content.main2.spam.service.SpamService;
+import hi.cord.com.content.main.spam.domain.Spam;
+import hi.cord.com.content.main.spam.service.SpamService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

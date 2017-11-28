@@ -11,6 +11,8 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 
 	Tag findById(long id);
 
+	Tag findByName(String tagName);
+
 	boolean deleteById(long id);
 
 	long countBy(Tag tag);

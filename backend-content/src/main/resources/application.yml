@@ -9,6 +9,17 @@ spring:
 #### Profile Information ####
 #############################
 spring:
+  profiles: dev
+shun:
+  name: Development
+  message: This is a ${shun.name} Profile
+  servers:
+    - www.dev.com
+server:
+  address: 127.0.0.1
+  port: 5000
+---
+spring:
   profiles: qa
 name: qa
 shun:
@@ -16,17 +27,6 @@ shun:
   message: This is a ${shun.name} Profile
   servers:
     - www.qa.com
-server:
-  address: 127.0.0.1
-  port: 5000
----
-spring:
-  profiles: dev
-shun:
-  name: Development
-  message: This is a ${shun.name} Profile
-  servers:
-    - www.dev.com
 server:
   address: 127.0.0.1
   port: 5000
@@ -52,29 +52,6 @@ shun:
     max-pool: 20
     queue-capacity: 25
 ---
-#########################
-#### Custom Database ####
-#########################
-shun:
-  #########################
-  #### MariaDB2 - Blog ####
-  #########################
-  datasource:
-    url: jdbc:mysql://${server.address}:3306/shooney_spam
-    username: developer
-    password: developer@
-    driver-class-name: com.mysql.jdbc.Driver
-    initialize: true
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    # If This false Not workign ddl-auto
-    generate-ddl: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
----
 ######################
 #### Spring       ####
 ######################
@@ -97,19 +74,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-  data:
-  ######################
-  #### MongoDB      ####
-  ######################
-    mongodb:
-      host: 127.0.0.1
-      port: 27017
-      database: shooney
-#      username: shooney
-#      password: blue1220@
-    redis:
-      repositories:
-        enabled: false
   #Redis
 #  redis:
 #    host: 127.0.0.1
@@ -121,16 +85,6 @@ spring:
 #      max-active: 10
 #      max-idle: 8
 #      max-wait: 4
-
-######################
-#### Java Mail    ####
-######################
-  mail:
-    default-encoding: UTF-8
-    host: smtp.gmail.com
-    username: onm10114@gmail.com
-    password: blue1220
-    port: 587
 ---
 #################
 #### Logging ####
@@ -147,33 +101,3 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file: /Users/HunSeol/log/shooney/
----
-##################################
-#### Security Oauth2 FaceBooK ####
-##################################
-#security:
-#  oauth2:
-#    client:
-#      clientId: 233668646673605
-#      clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
-#      accessTokenUri: https://graph.facebook.com/oauth/access_token
-#      userAuthorizationUri: https://www.facebook.com/dialog/oauth
-#      tokenName: oauth_token
-#      authenticationScheme: query
-#      clientAuthenticationScheme: form
-#    resource:
-#      userInfoUri: https://graph.facebook.com/me
-
----
-#################################
-#### Security Oauth2 Github #####
-#################################
-github:
-  client:
-    clientId: bd1c0a783ccdd1c9b9e4
-    clientSecret: 1a9030fbca47a5b2c28e92f19050bb77824b5ad1
-    accessTokenUri: https://github.com/login/oauth/access_token
-    userAuthorizationUri: https://github.com/login/oauth/authorize
-    clientAuthenticationScheme: form
-  resource:
-    userInfoUri: https://api.github.com/user
