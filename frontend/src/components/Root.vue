@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <div class="row margin-30">
-      <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
+      <div class="col-md-12 col-sm-12">
         <h2>{{ msg }}</h2>
       </div>
     </div>
     <div class="row margin-30">
-      <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
+      <div class="col-md-12 col-sm-12">
         <ul>
           <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
           <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="row margin-30">
-      <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
+      <div class="col-md-12 col-sm-12">
         <div class="container unauthenticated">
           <div>
             With Facebook: <a href="/login/facebook">click here</a>
@@ -31,11 +31,11 @@
       </div>
     </div>
     <div>
-      <!-- Vue i18n - Language -->
-      <h1>Vue i18n</h1>
       <div class="container">
         <div class="row">
-          <div class="col-sm-12">
+          <div class="col-md-12 col-sm-12">
+            <!-- Vue i18n - Language -->
+            <h1>Vue i18n</h1>
             <button
               class="el-button el-button--danger"
               @click="changeLang('ko')" w
@@ -55,20 +55,25 @@
               Japan
             </button>
           </div>
-          <div>
+          <div class="col-md-12 col-sm-12">
             <p>{{ $tc('nation', 1) }}</p>
             <p>{{ $tc('nation', 2) }}</p>
             <p>{{ $t('message') }}</p>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <p>getSearchedList : {{ getSearchedList.items }}</p>
+          </div>
+        </div>
       </div>
-      <p>getSearchedList : {{ getSearchedList.items }}</p>
     </div>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import {mapGetters} from 'vuex'
 
   export default {
     data () {
