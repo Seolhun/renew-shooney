@@ -1,7 +1,6 @@
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/Seolhun/renew-shooney.svg?columns=all)](https://waffle.io/Seolhun/renew-shooney)
 ---
-
 # [Hi-Cord FrontEnd](https://github.com/Seolhun/renew-shooney/frontend)
 - Author : [SeolHun](https://github.com/SeolHun)
 - Date : 2017.10.15 
@@ -16,8 +15,7 @@
 - Vuex
 - Style
   - SCSS(Custom CSS)
-  - ElementUI
-  - BootStrap
+  - BootStrap, BootStrap Vue
 
 ---
 ## Goal
@@ -61,17 +59,6 @@ PS. To understand Transition & Animation CSS3
 
 - run all tests
   - npm test
-
----
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
----
-## Reference
-1. [VueJS](https://vuejs.org/)
-2. [Vue Forum](https://forum.vuejs.org/)
-
-
-
 ---
 ## Simple Component Image
 1. Item Component
