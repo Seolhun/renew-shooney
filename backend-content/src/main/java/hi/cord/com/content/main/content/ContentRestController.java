@@ -79,7 +79,7 @@ public class ContentRestController {
      *
      * @return the response entity
      */
-    @Async("contentTaskExecutor")
+    // @Async("contentTaskExecutor")
     @PostMapping("")
     public ResponseEntity insert(
             @Valid @RequestBody BlogContent blogContent,

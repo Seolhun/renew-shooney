@@ -53,10 +53,10 @@
         ],
         // items is Array
         results: {
-          items: DummyBlogs,
-          pageIndex: 1,
-          pageSize: 12,
-          totalCount: DummyBlogs.length
+          items: [],
+          pageIndex: 0,
+          pageSize: 0,
+          totalCount: ''
         },
         filters: {
           type: 1,
@@ -80,6 +80,14 @@
       pageSize (value) {
         console.log('watch pageSize', value)
       }
+    },
+    created () {
+      this.$http.get(`http://localhost:5000/content`).then(response => {
+        console.log(response.data)
+        this.results = response.data
+      }).catch(e => {
+        this.errors.push(e)
+      })
     }
   }
 </script>

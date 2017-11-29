@@ -99,7 +99,7 @@ public class TagServiceImpl implements TagService {
         Page<Tag> tags = tagRepository.findAll(tagExample, pageable);
 
         Pagination<Tag> pagination = new Pagination<>();
-        pagination.setList(tags.getContent());
+        pagination.setItems(tags.getContent());
         pagination.setTotalCount(tags.getTotalElements());
         pagination.setPageIndex(pageable.getPageNumber());
         pagination.setPageSize(pageable.getPageSize());

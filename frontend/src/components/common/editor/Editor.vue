@@ -3,7 +3,7 @@
     <form>
       <div class="row margin-top-30">
         <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
-          <label class="title">
+          <label class="label-title-16">
             {{ $tc('content.label.contentType') }}
           </label>
 
@@ -23,7 +23,7 @@
 
       <div class="row margin-top-30">
         <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
-          <label class="title"> {{ $tc('content.label.tags') }}</label>
+          <label class="label-title-16"> {{ $tc('content.label.tags') }}</label>
           <app-tag-input
             :on-change="convertTagEntity"
             :tags="inputTags"
@@ -37,7 +37,7 @@
 
       <div class="row margin-top-30">
         <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
-          <label class="title"> {{ $tc('content.label.title') }}</label>
+          <label class="label-title-16"> {{ $tc('content.label.title') }}</label>
           <input
             class="form-control"
             :placeholder="$t('content.placeholder.title')"
@@ -52,7 +52,7 @@
         id="writeFullScreen"
       >
         <div class="col-md-6 col-sm-6 col-xs-12">
-          <label class="title">{{ $tc('editor.label.rawMarkdown') }}</label>
+          <label class="label-title-16">{{ $tc('editor.label.rawMarkdown') }}</label>
           <textarea
             id="rawMarkdown"
             class="form-control auto-size"
@@ -64,27 +64,27 @@
           </textarea>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12">
-          <label class="title">
-            {{ $tc('editor.label.gitMarkdown') }}
+          <label class="label-title-16">
+            {{ $tc('editor.label.markdownContent') }}
           </label>
           <button
             v-show="isShowMarkdown == true"
             type="button"
             class="btn-sm btn-royalblue margin-10"
-            @click="changeFullScreen('#gitMarkdown')"
+            @click="changeFullScreen('#markdownContent')"
           >
             {{ $t('common.fullScreen') }}
           </button>
           <div
             v-show="isShowMarkdown == true"
-            id="gitMarkdown"
+            id="markdownContent"
             class="form-control markdown-body"
-            v-html="gitMarkdown"
+            v-html="blogContent.markdownContent"
             @change="autoHeightStyleByEvent($event)"
           >
           </div>
           <div v-show="isShowMarkdown == false">
-            <label>{{ $tc('editor.placeholder.gitMarkdown') }}</label>
+            <label>{{ $tc('editor.placeholder.markdownContent') }}</label>
           </div>
         </div>
       </div>
@@ -118,10 +118,6 @@
   </div>
 </template>
 
-<style lang="scss">
-  @import "../../../assets/scss/common/editor/gitMarkdown";
-</style>
-
 <script>
   import TagInput from '@/components/common/editor/TagInput'
 
@@ -137,12 +133,12 @@
           tags: [],
           contentType: 'Qna',
           content: '',
+          markdownContent: '',
           baseCreatedBy: {
             createdByNickname: 'SeolHun'
           }
         },
         isShowMarkdown: false,
-        gitMarkdown: '',
         results: [],
         types: [],
         errors: []
@@ -154,14 +150,21 @@
           this.blogContent.tags.push({name: value})
         })
       },
+      // If github api over limit.
+      // 1. curl -u "SeolHun" https://api.github.com
+      // 2. curl -i 'https://api.github.com/users/whatever?client_id=xxxx&client_secret=yyyy'
       insertContent () {
-        this.$http.post('http://localhost:5000/content', this.blogContent)
-          .then(response => {
-            console.log(response.data)
-          })
-          .catch(e => {
-            this.errors.push(e)
-          })
+        let vm = this
+        this.$http.post('http://localhost:5000/content', this.blogContent).then(response => {
+          if (response.status === 200) {
+            console.log(response)
+            let nickname = response.data.baseCreatedBy.createdByNickname
+            let contentIdx = response.data.idx
+            vm.$router.push(`/content/${nickname}/${contentIdx}`)
+          }
+        }).catch(e => {
+          this.errors.push(e)
+        })
       },
       renderMarkdown () {
         this.$http.post('https://api.github.com/markdown', {
@@ -169,8 +172,8 @@
           mode: 'gfm',
           context: 'github/gollum'
         }).then(response => {
-          this.changeFullScreen('#writeFullScreen')
-          this.gitMarkdown = response.data
+          //this.changeFullScreen('#writeFullScreen')
+          this.blogContent.markdownContent = response.data
           this.isShowMarkdown = this.blogContent.content.length > 0
         }).catch(e => {
           this.errors.push(e)
@@ -185,19 +188,15 @@
         this.errors.push(e)
       })
 
-      this.$http.get('http://localhost:5000/content')
-        .then(response => {
-          this.results = response.data
-        }).catch(e => {
-        this.errors.push(e)
-      })
-
-      this.$http.get('http://localhost:5000/tag')
-        .then(response => {
-          this.tags = response.data
-        }).catch(e => {
+      this.$http.get('http://localhost:5000/tag').then(response => {
+        this.tags = response.data
+      }).catch(e => {
         this.errors.push(e)
       })
     }
   }
 </script>
+
+<style lang="scss">
+  @import "../../../assets/scss/common/editor/gitMarkdown";
+</style>

@@ -3,17 +3,18 @@
   "common": {
     "submit": "확인",
     "cancel": "취소",
-    "fullScreen": "전체화면"
+    "fullScreen": "전체화면",
+    "search": "검 색"
   },
   "editor": {
     "label": {
       "rawMarkdown": "Markdwon",
-      "gitMarkdown": "GitHub Markdown",
+      "markdownContent": "GitHub Markdown",
       "writeFullScreen": "글쓰기 전체화면"
     },
     "placeholder": {
       "rawMarkdown": "Markdown을 입력해주세요.",
-      "gitMarkdown": "Markdown에 입력하시면, Git-Markdown으로 볼 수 있습니다."
+      "markdownContent": "Markdown에 입력하시면, Git-Markdown으로 볼 수 있습니다."
     }
   },
   "content": {
@@ -21,12 +22,15 @@
       "title": "제 목",
       "contentType": "컨텐츠 종류",
       "tags": "태 그",
-      "search": "검 색"
+      "content": "내 용"
     },
     "placeholder": {
       "title": "컨텐츠의 제목을 입력해주세요.",
       "tags": "블로그와 관련된 태그를 입력해주세요.",
       "search": "검색어를 입력해주세요."
+    },
+    "message": {
+      "insertSuccess": "컨텐츠를 성공적으로 등록하였습니다."
     }
   }
 }

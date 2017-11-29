@@ -3,10 +3,8 @@
     <header-menu>
 
     </header-menu>
-    <div class="margin-top-30 margin-bottom-30">
-      <bread-crumb>
-
-      </bread-crumb>
+    <div class="margin-top-130 margin-bottom-30">
+      <!--<bread-crumb></bread-crumb>-->
     </div>
 
     <div class="margin-top-30 margin-bottom-30">
@@ -30,13 +28,13 @@
 <script>
   import HeaderMenu from './components/layout/Header.vue'
   import FooterMenu from './components/layout/Footer.vue'
-  import BreadCrumb from './components/layout/BreadCrumb.vue'
+//  import BreadCrumb from './components/layout/BreadCrumb.vue'
 
   export default {
     components: {
       HeaderMenu,
-      FooterMenu,
-      BreadCrumb
+      FooterMenu
+//      BreadCrumb
     },
     name: 'app',
     methods: {

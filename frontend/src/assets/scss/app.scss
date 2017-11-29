@@ -104,8 +104,8 @@ textarea.auto-size {
 
     &:hover {
       background: darken($value, 5%);
-      color: darken($value, 5%);
-      font-weight: 500;
+      color: darken($white, 5%);
+      font-weight: 800;
     }
 
     &:active {
@@ -175,16 +175,6 @@ textarea.auto-size {
   &:hover {
     text-decoration: none;
   }
-}
-
-.shadow-box {
-  box-shadow: -10px -10px 10px 10px $gray;
-}
-
-label.title {
-  font-size: 15px;
-  font-weight: 600;
-  margin: 0;
 }
 
 /* ------------------------

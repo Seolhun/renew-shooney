@@ -103,7 +103,7 @@ public class BlogContentServiceImpl implements BlogContentService {
             dbBlogContent.setComments(commentList);
         }
 
-        pagination.setList(contents.getContent());
+        pagination.setItems(contents.getContent());
         pagination.setTotalCount(contents.getTotalElements());
         pagination.setPageIndex(pageable.getPageNumber());
         pagination.setPageSize(pageable.getPageSize());
@@ -138,14 +138,11 @@ public class BlogContentServiceImpl implements BlogContentService {
     public BlogContent findByIdx(long idx, String nickname) {
         BlogContent blogContent = blogContentRepository.findByIdxAndBaseCreatedByCreatedByNickname(idx, nickname);
         if (blogContent != null) {
+            LOG.info("r : blogContent : {}", blogContent.toString());
             List<FileData> fileList = fileDataService.findByList();
             List<Comment> commentList = commentService.findByList();
-            if (fileList != null) {
-                blogContent.setFiles(fileList);
-            }
-            if (commentList != null) {
-                blogContent.setComments(commentList);
-            }
+            blogContent.setFiles(fileList);
+            blogContent.setComments(commentList);
         }
         return blogContent;
     }
@@ -203,7 +200,7 @@ public class BlogContentServiceImpl implements BlogContentService {
     private String beforeInsertValidation(String blogContent) {
         // 1. Having Spam
         List<Spam> spamList = spamService.findByList();
-        if(spamList != null) {
+        if (spamList != null) {
             for (Spam spam : spamList) {
                 blogContent = blogContent.replaceAll(spam.getContent(), "");
             }

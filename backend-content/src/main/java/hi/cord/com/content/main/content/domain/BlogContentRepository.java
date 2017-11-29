@@ -7,8 +7,6 @@ import java.util.List;
 
 @Repository
 public interface BlogContentRepository extends JpaRepository<BlogContent, String>{
-	List<BlogContent> findAllBy(BlogContent blogContent);
-
 	BlogContent findById(String id);
 
     BlogContent findByIdxAndBaseCreatedByCreatedByNickname(long idx, String nickname);
