@@ -73,7 +73,7 @@ public class BlogContent extends BaseEntity implements Serializable {
             inverseForeignKey = @ForeignKey(name = "FK_TAG_CONTENT_REFER"),
             inverseJoinColumns = {@JoinColumn(name = "TAG_ID")}
     )
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     @OneToMany(mappedBy = "contentInComment")
     private List<Comment> comments;

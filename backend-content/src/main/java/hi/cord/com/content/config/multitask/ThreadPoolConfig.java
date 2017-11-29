@@ -50,7 +50,7 @@ public class ThreadPoolConfig {
      * 3. Attatch Main Boot application, @{@link org.springframework.scheduling.annotation.EnableAsync }
      */
 // Need Test
-    @Bean("taskExecutor1")
+    @Bean("contentTaskExecutor")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         taskExecutor.setKeepAliveSeconds(threadTimeout);

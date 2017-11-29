@@ -1,5 +1,6 @@
 package hi.cord.com.content.main.file.service;
 
+import hi.cord.com.common.domain.error.FileSizeOverException;
 import hi.cord.com.common.domain.pagination.Pagination;
 import hi.cord.com.common.service.rest.CommonBatchRestService;
 import hi.cord.com.content.main.file.domain.FileData;
@@ -80,18 +81,16 @@ public class FileDataServiceImpl implements FileDataService, CommonBatchRestServ
 
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED)
-    public FileData insertFile(FileData fileData) throws FileUploadException, IOException {
+    public List<FileData> insertFile(List<MultipartFile> multipartFiles) throws FileUploadException, IOException {
         //유효성 검사.
         List<FileData> storeFileList = new ArrayList<>();
-
         //MultipartFile에 index 0은 빈값이 온다.(알아보고 처리해야함. 그래서 1로 시작)
         long totalFileSize = 0;
-        List<MultipartFile> files = fileData.getMultipartFiles();
-        if (files.size() < 1) {
-            return fileData;
+        if (multipartFiles.size() < 1) {
+            return storeFileList;
         }
 
-        for (MultipartFile multipartFile : files) {
+        for (MultipartFile multipartFile : multipartFiles) {
             if (!multipartFile.isEmpty()) {
                 FileData tempFile = this.setMultipartIntoFileData(multipartFile);
                 totalFileSize += multipartFile.getSize();
@@ -101,7 +100,7 @@ public class FileDataServiceImpl implements FileDataService, CommonBatchRestServ
 
         // Check Max File Size
         if (totalFileSize > Long.parseLong(MAX_UPLOAD_SIZE)) {
-            throw new FileUploadException();
+            throw new FileSizeOverException();
         }
 
         // Stored File Into Server
@@ -111,7 +110,7 @@ public class FileDataServiceImpl implements FileDataService, CommonBatchRestServ
 
         //After Stored File and Saved File Info into DataBase
         fileDataRepository.save(storeFileList);
-        return fileData;
+        return storeFileList;
     }
 
     @Override
@@ -222,6 +221,7 @@ public class FileDataServiceImpl implements FileDataService, CommonBatchRestServ
      */
     private FileData setMultipartIntoFileData(MultipartFile multipartFile) throws IOException {
         //Get File information from Multipart file
+
         String originName = multipartFile.getOriginalFilename();
         String onlyFileExtension = originName.substring(originName.lastIndexOf("."));
         String savedName = UUID.randomUUID().toString() + onlyFileExtension;
@@ -229,13 +229,13 @@ public class FileDataServiceImpl implements FileDataService, CommonBatchRestServ
 
         //Set Information into entity
         FileData fileData = new FileData();
-        fileData.setBytes(multipartFile.getBytes());
+        //fileData.setBytes(multipartFile.getBytes());
         fileData.setMultipartFile(multipartFile);
         fileData.setSize(multipartFile.getSize());
 
         fileData.setOriginName(originName);
         fileData.setSavedName(savedName);
-        // fileData.setSavedPath(FILE_PATH);
+        fileData.setSavedPath(FILE_PATH);
         fileData.setFileType(fileDataType);
         // fileData.setCreatedByNickname();
         return fileData;
@@ -251,8 +251,8 @@ public class FileDataServiceImpl implements FileDataService, CommonBatchRestServ
             directory.mkdirs();
         }
 
-        MultipartFile multipartFile = file.getMultipartFile();
         File serverFile = new File(directory.getAbsolutePath() + File.separator + file.getSavedName());
+        MultipartFile multipartFile = file.getMultipartFile();
         multipartFile.transferTo(serverFile);
         // BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
         // byte[] bytes = file.getBytes();

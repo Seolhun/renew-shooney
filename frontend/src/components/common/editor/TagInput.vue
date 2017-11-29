@@ -2,7 +2,7 @@
   <div
     @click="focusNewTag()"
     :class="{'read-only': readOnly}"
-    class="vue-input-tag-wrapper"
+    class="vue-input-tag-div"
   >
     <span
       v-for="(tag, index) in tags"

@@ -14,7 +14,7 @@
         >
           <div class="text-center">
             <img
-              src="~assets/img/logo2.png"
+              src="~assets/img/logo/logo2.png"
               class="card-img padding-10 max-height-300"
             >
           </div>

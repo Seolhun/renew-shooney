@@ -60,6 +60,8 @@ button.fc-btn {
 textarea.auto-size {
   width: 100%;
   height: 100%;
+  overflow: scroll;
+  min-height: 300px;
   box-sizing: border-box;
   line-height: 1.5;
   padding: 15px 15px;
@@ -177,6 +179,12 @@ textarea.auto-size {
 
 .shadow-box {
   box-shadow: -10px -10px 10px 10px $gray;
+}
+
+label.title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
 }
 
 /* ------------------------

@@ -7,7 +7,9 @@
             :placeholder="$tc('contents.placeholder.search')"
             class="form-control margin-right-10"
             v-model.lazy.prevent="filters.text"/>
-          <button class="btn btn-ocean">Search</button>
+          <button class="btn btn-ocean">
+            Search
+          </button>
         </div>
         <router-link
           tag="button"

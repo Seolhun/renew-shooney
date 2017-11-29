@@ -10,8 +10,9 @@
   color: #24292e;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
-  line-height: 1.5;
+  min-height: 100px;
   word-wrap: break-word;
+  overflow: scroll;
 }
 
 .markdown-body .pl-c {
@@ -651,7 +652,7 @@
 
 .markdown-body pre code {
   display: inline;
-  max-width: auto;
+  max-width: 100%;
   padding: 0;
   margin: 0;
   overflow: visible;

@@ -14,10 +14,16 @@ import VueI18n from 'vue-i18n'
 import messages from './assets/i18n/messages.vue'
 // Axios
 import axios from 'axios'
+// Common Mixin JS
+import {commonMixin} from './assets/js/common'
 
 Vue.config.productionTip = false
 Vue.use(VueI18n)
 Vue.use(BootstrapVue)
+
+Vue.mixin({
+  methods: commonMixin
+});
 
 // Vue-i18n Configuration
 const i18n = new VueI18n({

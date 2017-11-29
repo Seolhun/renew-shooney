@@ -1,17 +1,15 @@
 @import "../../variable";
 
-.vue-input-tag-wrapper {
+.vue-input-tag-div {
   background-color: #fff;
   border: 1px solid #ccc;
   overflow: hidden;
-  padding-left: 4px;
-  padding-top: 4px;
   cursor: text;
   text-align: left;
   -webkit-appearance: textfield;
 }
 
-.vue-input-tag-wrapper .input-tag {
+.vue-input-tag-div .input-tag {
   background-color: $fc-color;
   border-radius: 2px;
   color: $white;
@@ -22,7 +20,7 @@
   margin: 2px;
 }
 
-.vue-input-tag-wrapper > .input-tag > .remove {
+.vue-input-tag-div > .input-tag > .remove {
   cursor: pointer;
   font-weight: bold;
   padding: 5px;
@@ -38,20 +36,20 @@
   }
 }
 
-.vue-input-tag-wrapper .new-tag {
+.vue-input-tag-div .new-tag {
   background: transparent;
   border: 0;
   color: $dark-gray;
   font-size: 14px;
   font-weight: 500;
   outline: none;
-  min-width: 200px;
+  min-width: 250px;
   width: auto;
   max-width: 100%;
   padding: 5px;
   margin: 2px;
 }
 
-.vue-input-tag-wrapper.read-only {
+.vue-input-tag-div.read-only {
   cursor: default;
 }

@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 @Getter
 @ToString
-public class CustomException extends RuntimeException {
+public class ErrorHandlerException extends RuntimeException {
     private int errorCode;
     private String errorClass;
     private String errorMsg;
@@ -23,15 +23,15 @@ public class CustomException extends RuntimeException {
     private Date createdDate;
     private String createdBy;
 
-    public CustomException() {
+    public ErrorHandlerException() {
 
     }
 
-    public CustomException(String errorMsg) {
+    public ErrorHandlerException(String errorMsg) {
         this.errorMsg = errorMsg;
     }
 
-    public CustomException(int httpStatus, String errorMsg) {
+    public ErrorHandlerException(int httpStatus, String errorMsg) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         this.errorCode = httpStatus;
         this.errorMsg = errorMsg;
@@ -39,7 +39,7 @@ public class CustomException extends RuntimeException {
         this.clientIp = (String) request.getSession().getAttribute("clientIp");
     }
 
-    public CustomException(HttpStatus httpStatus, String errorMsg) {
+    public ErrorHandlerException(HttpStatus httpStatus, String errorMsg) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         this.errorCode = httpStatus.value();
         this.errorMsg = errorMsg;
@@ -47,7 +47,7 @@ public class CustomException extends RuntimeException {
         this.clientIp = (String) request.getSession().getAttribute("clientIp");
     }
 
-    public CustomException(HttpStatus status, String errorMsg, String errorClass) {
+    public ErrorHandlerException(HttpStatus status, String errorMsg, String errorClass) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         this.errorCode = status.value();
         this.errorMsg = errorMsg;

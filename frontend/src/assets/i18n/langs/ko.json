@@ -2,15 +2,27 @@
   "nation": "대한민국 | 한국",
   "common": {
     "submit": "확인",
-    "cancel": "취소"
+    "cancel": "취소",
+    "fullScreen": "전체화면"
   },
   "editor": {
-    "view": {
+    "label": {
+      "rawMarkdown": "Markdwon",
+      "gitMarkdown": "GitHub Markdown",
+      "writeFullScreen": "글쓰기 전체화면"
+    },
+    "placeholder": {
       "rawMarkdown": "Markdown을 입력해주세요.",
-      "markdown": "Git-Markdown으로 볼 수 있습니다."
+      "gitMarkdown": "Markdown에 입력하시면, Git-Markdown으로 볼 수 있습니다."
     }
   },
   "content": {
+    "label": {
+      "title": "제 목",
+      "contentType": "컨텐츠 종류",
+      "tags": "태 그",
+      "search": "검 색"
+    },
     "placeholder": {
       "title": "컨텐츠의 제목을 입력해주세요.",
       "tags": "블로그와 관련된 태그를 입력해주세요.",

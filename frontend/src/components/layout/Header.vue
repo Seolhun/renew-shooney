@@ -13,6 +13,7 @@
         tag="route-link"
         :to="'/'"
       >
+
         Hi-Cord
       </b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
