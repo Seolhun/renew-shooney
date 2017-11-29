@@ -129,7 +129,6 @@ Why develop this project?
 
 ---
 ##### FrontEnd
-<<<<<<< HEAD
 - [Vue - Reference Documentation](https://kr.vuejs.org/v2/guide/)
     - [Vue - API - Reference Documentation](https://kr.vuejs.org/v2/api/)
 - [TypeScript - Reference Documentation](https://www.typescriptlang.org/docs/handbook/basic-types.html)
@@ -140,15 +139,3 @@ Why develop this project?
 - Thrid Parties
     - [Axios - Reference Documentation](https://github.com/axios/axios)
     - [Animate CSS - Reference Documentation](https://daneden.github.io/animate.css/)
-=======
-- [Vue](https://kr.vuejs.org/v2/guide/)
-    - [Vue - API](https://kr.vuejs.org/v2/api/)
-- [TypeScript](https://www.typescriptlang.org/docs/handbook/basic-types.html)
-- [ECMA6](http://es6-features.org/#Constants)
-- [Webpack](https://webpack.github.io/)
-- [Babel](https://babeljs.io/)
-
-- ** Thrid Parties **
-    - [Axios](https://github.com/axios/axios)
-    - [Animate CSS](https://daneden.github.io/animate.css/)
->>>>>>> 2562ae58be36876eff6024a73425935bc7cd89fc
