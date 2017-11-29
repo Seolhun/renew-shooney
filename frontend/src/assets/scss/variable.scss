@@ -136,6 +136,7 @@ $h-size: h !default;
     font-weight: 600;
     font-size: 15px + (30 / $i);
     padding: 15px 0px;
+    word-break: break-word;
   }
 }
 
@@ -279,5 +280,27 @@ $margin-left: margin-left- !default;
 @for $i from 1 through 20 {
   .#{$margin-left}#{$i*10} {
     margin-left: (5px * $i);
+  }
+}
+
+/* ------------------------
+  Label Title CSS
+------------------------ */
+$label-title: label-title- !default;
+@for $i from 12 through 30 {
+  .#{$label-title}#{$i} {
+    font-size: 1px * $i;
+    font-weight: 600;
+    word-break: break-word;
+  }
+}
+
+/* ------------------------
+  Shadow Box CSS
+------------------------ */
+$shadow-box: shadow-box- !default;
+@for $i from 1 through 10 {
+  .#{$shadow-box}#{$i} {
+    box-shadow: (1px * $i), (1px * $i), (1px * $i), (1px * $i) $gray
   }
 }

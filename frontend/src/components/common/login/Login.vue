@@ -3,7 +3,7 @@
     <div class="row margin-top-30 text-center">
       <div class="col-xs-12 col-sm-12">
         <img
-          src="~assets/img/logo2.png"
+          src="~assets/img/logo/logo2.png"
           class="max-height-100"
         >
       </div>

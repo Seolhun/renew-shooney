@@ -10,15 +10,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
@@ -27,8 +24,9 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true, exclude = {"multipartFiles"})
+@ToString(callSuper = true)
 @Table(uniqueConstraints = @UniqueConstraint(name = "UK_CONTENT_IDX_CREATED_BY", columnNames = {"IDX", "CREATED_BY_NICKNAME"}))
+@BatchSize(size = 20)
 public class BlogContent extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -37,35 +35,42 @@ public class BlogContent extends BaseEntity implements Serializable {
     private String id;
 
     @Column(name = "IDX")
-    private long idx;
+    private Long idx;
 
-    @NotNull(message = "ContentType is requirement")
-    @Column(name = "CONTENT_TYPE", nullable = false, length = 50)
+    // @NotNull(message = "ContentType is requirement")
+    // @Column(name = "CONTENT_TYPE", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private ContentType contentType;
 
-    @NotEmpty(message = "title is requirement")
-    @Length(min = 5, max = 200, message = "Title is required as min 5 and max 200 length.")
+    // @NotEmpty(message = "title is requirement")
+    // @Length(min = 5, max = 200, message = "Title is required as min 5 and max 200 length.")
     @Column(name = "TITLE", nullable = false, length = 200)
     private String title;
 
     @Lob
-    @NotEmpty(message = "Content is requirement")
-    @Length(min = 10, message = "BlogContent is required as min 10 length")
+    // @NotEmpty(message = "Content is requirement")
+    // @Length(min = 10, message = "BlogContent is required as min 10 length")
     @Column(name = "CONTENT", nullable = false)
     private String content;
 
+    @Lob
+    // @NotEmpty(message = "Content is requirement")
+    // @Length(min = 10, message = "Markdown is required as min 10 length")
+    @Column(name = "MARKDOWN_CONTENT", nullable = false)
+    private String markdownContent;
+
     @Column(name = "HITS", length = 10)
-    private int hits;
+    private Integer hits;
 
     @Column(name = "LIKES", length = 10)
-    private int likes;
+    private Integer likes;
 
     @Column(name = "COMMENT_DEPTH", length = 10)
-    private int depth;
+    private Integer depth;
 
     // User, How many have Privileges.
-    @ManyToMany(fetch = FetchType.EAGER)
+    @BatchSize(size = 20)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "TB_CONTENT_MATCHING_TAG",
             foreignKey = @ForeignKey(name = "FK_CONTENT_TAG_REFER"),
@@ -73,7 +78,7 @@ public class BlogContent extends BaseEntity implements Serializable {
             inverseForeignKey = @ForeignKey(name = "FK_TAG_CONTENT_REFER"),
             inverseJoinColumns = {@JoinColumn(name = "TAG_ID")}
     )
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     @OneToMany(mappedBy = "contentInComment")
     private List<Comment> comments;
@@ -84,7 +89,7 @@ public class BlogContent extends BaseEntity implements Serializable {
 
     @Version
     @Column(name = "VERSION")
-    private long version;
+    private Long version;
 
     @CreatedBy
     @AttributeOverrides({
@@ -99,12 +104,6 @@ public class BlogContent extends BaseEntity implements Serializable {
             @AttributeOverride(name = "modifiedByNickname", column = @Column(name = "MODIFIED_BY_NICKNAME", length = 60))
     })
     private BaseModifiedBy baseModifiedBy;
-
-    /****** Transient Part *********
-     * This part not saved into Database
-     *********************************/
-    @Transient
-    private List<MultipartFile> multipartFiles;
 
     public BlogContent() {
 

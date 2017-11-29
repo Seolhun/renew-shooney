@@ -24,14 +24,14 @@ public class Tag extends BaseEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "TAG_ID")
-	private long id;
+	private Long id;
 
 	@Column(name = "TAG_NAME")
 	private String name;
 
     @Version
     @Column(name = "VERSION")
-    private long version;
+    private Long version;
 
 	@CreatedBy
 	@AttributeOverrides({

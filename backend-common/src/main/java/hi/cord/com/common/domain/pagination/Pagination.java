@@ -12,7 +12,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @Data
 public class Pagination<E> implements Serializable {
-    private List<E> list;
+    private List<E> items;
 
     /** For Pagination Field */
     // current Page

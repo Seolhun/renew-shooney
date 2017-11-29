@@ -1,4 +1,5 @@
-CREATE USER 'developer'@'127.0.0.1' IDENTIFIED BY 'developer@';
+CREATE USER 'developer'@'127.0.0.1'
+  IDENTIFIED BY 'developer@';
 
 CREATE DATABASE shooney_content;
 

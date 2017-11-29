@@ -27,7 +27,7 @@ public class SchedulerExecutorConfig {
      * - @{@link org.springframework.scheduling.annotation.EnableAsync }
      */
 //Cron Factory bean
-    @Bean("schedulerExecutor1")
+    @Bean("schedulerExecutor")
     public ScheduledExecutorFactoryBean schedulerExecutor() {
         ScheduledExecutorFactoryBean schedulerExecutor = new ScheduledExecutorFactoryBean();
         schedulerExecutor.setPoolSize(10);

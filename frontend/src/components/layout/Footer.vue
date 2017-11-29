@@ -4,17 +4,29 @@
       <div class="row text-center">
         <div class="col-sm-6 col-xs-12 footer-div">
           <h4>Contact</h4>
-          <div class="footer-list-div">
+          <div class="footer-list-div text-center">
             <p>
               <a href="https://github.com/Seolhun" target="_blank">
-                <i>(Github Logo)</i>
-                GitHub
+                <span>
+                <img
+                  src="~assets/img/github/mark/PNG/GitHub-Mark-Light-32px.png"
+                  alt="Responsive image"
+                  class="padding-10"
+                />
+                  SeolHun GitHub
+                </span>
               </a>
             </p>
             <p>
               <a href="http://postitforhooney.tistory.com/" target="_blank">
-                <i>(T-Story)</i>
-                T-Story
+                <span>
+                <img
+                  src="~assets/img/github/mark/PNG/GitHub-Mark-Light-32px.png"
+                  alt="Responsive image"
+                  class="padding-10"
+                />
+                  SeolHun T-Story Blog
+                </span>
               </a>
             </p>
           </div>

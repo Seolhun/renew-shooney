@@ -69,21 +69,19 @@ public class FileData extends BaseEntity implements Serializable {
     /****** Transient Start *********
      * This part not saved into Database
      *********************************/
-    @Transient
-    private byte[] bytes;
-
-    @Transient
-    private List<MultipartFile> multipartFiles;
+    //@Transient
+    //private byte[] bytes;
 
     @Transient
     private MultipartFile multipartFile;
+
 
     /****** Constructor With Multipart **********/
     public FileData() {
     }
 
-    public FileData(List<MultipartFile> multipartFiles) {
-        this.multipartFiles = multipartFiles;
+    public FileData(MultipartFile multipartFile) {
+        this.multipartFile = multipartFile;
     }
 
     //------------Entity Filed finished----------------

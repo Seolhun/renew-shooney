@@ -47,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
         Page<Comment> comments = commentRepository.findAll(pageable);
         Pagination<Comment> pagination = new Pagination<>();
 
-        pagination.setList(comments.getContent());
+        pagination.setItems(comments.getContent());
         pagination.setTotalCount(comments.getTotalElements());
         pagination.setPageIndex(pageable.getPageNumber());
         pagination.setPageSize(pageable.getPageSize());

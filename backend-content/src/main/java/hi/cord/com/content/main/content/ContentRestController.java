@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,6 +79,7 @@ public class ContentRestController {
      *
      * @return the response entity
      */
+    // @Async("contentTaskExecutor")
     @PostMapping("")
     public ResponseEntity insert(
             @Valid @RequestBody BlogContent blogContent,

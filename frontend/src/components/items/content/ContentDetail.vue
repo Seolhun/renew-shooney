@@ -1,22 +1,43 @@
 <template>
   <div>
-    <div class="row">
-      <div>
-        <b-img src="https://cdn-images-1.medium.com/max/2000/1*gs2hvSZS09vGYwds-teNqw.jpeg" fluid
-               alt="Responsive image"/>
-      </div>
-    </div>
     <div class="container">
-      <div class="row margin-30">
+      <div class="row">
         <div class="col-md-12 col-sm-12">
-          <h2>Blog Detail</h2>
-          <p>Blog Idx {{ $route.params.idx }}</p>
-          <p>Created By {{ $route.params.nickname }}</p>
+          <h1>
+            {{ blogContent.title }}
+          </h1>
         </div>
       </div>
-      <div class="row margin-30">
+    </div>
+
+    <div class="row">
+      <div>
+        <b-img
+          src="https://cdn-images-1.medium.com/max/2000/1*gs2hvSZS09vGYwds-teNqw.jpeg"
+          fluid
+          alt="Responsive image"
+        />
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
         <div class="col-md-12 col-sm-12">
-          <p>{{ getContentById }}</p>
+          <div
+            class="shadow-box-1"
+          >
+            <span v-for="tag in blogContent.tags">
+              <button class="label-title-16 margin-10 btn btn-edge-ocean">
+                {{ tag.name }}
+              </button>
+            </span>
+          </div>
+
+          <div
+            class="margin-top-30"
+            v-html="blogContent.markdownContent"
+          >
+          </div>
         </div>
       </div>
     </div>
@@ -38,6 +59,16 @@
             q: 100
           },
           hash: '#data'
+        },
+        blogContent: {
+          title: '',
+          tags: [],
+          contentType: 'Qna',
+          content: '',
+          gitMarkdown: '',
+          baseCreatedBy: {
+            createdByNickname: 'SeolHun'
+          }
         }
       }
     },
@@ -49,10 +80,17 @@
         return {'idx': idx, 'nickname': nickname}
       }
     },
-    watch: {}
+    created () {
+      this.$http.get(`http://localhost:5000/content/${this.link.params.nickname}/${this.link.params.idx}`)
+        .then(response => {
+          this.blogContent = response.data
+        }).catch(e => {
+        this.errors.push(e)
+      })
+    }
   }
 </script>
 
 <style lang="scss">
-
+  @import "../../../assets/scss/common/editor/gitMarkdown";
 </style>

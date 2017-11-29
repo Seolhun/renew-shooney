@@ -5,7 +5,7 @@
         class="col-sm-12 col-sm-12 col-md-6 col-lg-6 card-item max-height-800 router-item"
         v-for="item in items"
         :key="item.id"
-        :to="'/content/' + item.createdBy +'/'+ item.idx"
+        :to="'/content/' + item.baseCreatedBy.createdByNickname +'/'+ item.idx"
         @click.stop="onclick()"
       >
         <div
@@ -14,12 +14,12 @@
         >
           <div class="text-center">
             <img
-              src="~assets/img/logo2.png"
+              src="~assets/img/logo/logo2.png"
               class="card-img padding-10 max-height-300"
             >
           </div>
           <div class="padding-20">
-            <span class="content-title">
+            <span class="label-title-24">
               {{ item.title }}
             </span>
             <div class="bottom clearfix text-right">
@@ -27,9 +27,9 @@
                 Created By
                 <a
                   class="router-item content-created-by"
-                  :href="'https://github.com/' + item.createdBy"
+                  :href="'https://github.com/' + item.baseCreatedBy.createdByNickname"
                   target="_blank">
-                  {{ item.createdBy }}
+                  {{ item.baseCreatedBy.createdByNickname }}
                 </a>
               </div>
               <div class="content-else">
