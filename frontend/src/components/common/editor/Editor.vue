@@ -20,23 +20,24 @@
       <div class="row margin-top-30">
         <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
           <lable> {{ $tc('content.placeholder.tags') }}
-            <input-tag
+            <app-tag-input
               :on-change="convertTagEntity"
               :tags="inputTags"
+              :class="'form-control'"
             >
 
-            </input-tag>
+            </app-tag-input>
           </lable>
         </div>
       </div>
 
       <div class="row margin-top-30">
         <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-2">
-          <input
-            class="form-control"
-            :placeholder="$t('content.placeholder.title')"
-            v-model="blogContent.title"
-          >
+            <input
+              class="form-control"
+              :placeholder="$t('content.placeholder.title')"
+              v-model="blogContent.title"
+            >
         </div>
       </div>
 
@@ -56,7 +57,7 @@
           <p class="font-weight-600">{{ $t('editor.view.markdown') }}</p>
           <article
             class="form-control markdown-body"
-            v-html="gitMarkdown"
+            v-html="rawMarkdown"
           >
           </article>
         </div>
@@ -85,16 +86,15 @@
 </template>
 
 <style lang="scss">
-  @import "../../../assets/scss/common/editor/git-markdown";
-  @import "../../../assets/scss/common/editor/editor";
+  @import "../../../assets/scss/common/editor/gitMarkdown";
 </style>
 
 <script>
-  import InputTag from 'vue-input-tag'
+  import TagInput from '@/components/common/editor/TagInput'
 
   export default {
     components: {
-      'inputTag': InputTag
+      'appTagInput': TagInput
     },
     data () {
       return {
@@ -108,7 +108,7 @@
             createdByNickname: 'SeolHun'
           }
         },
-        gitMarkdown: '',
+        rawMarkdown: '',
         results: [],
         types: [],
         errors: []
@@ -116,7 +116,6 @@
     },
     methods: {
       convertTagEntity () {
-        let vm = this
         this.inputTags.forEach((value) => {
           this.blogContent.tags.push({name: value})
         })
