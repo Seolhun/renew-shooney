@@ -22,6 +22,13 @@ Why develop this project?
     - Spring Actuator
     - JPA, Hibernate
 
+- NodeJS
+    - Express
+    - SockerIO
+
+- GraphQL
+    - Apollo
+
 - Cache
     - Redis or Elastic Cache
 
@@ -76,29 +83,39 @@ Why develop this project?
 ---
 ### Job CheckList doing now.
 - Backend
-    - User Module
-        - [ ] Oauth2
-    - Content Module
-        - Content
-            - [X] Content CRUD
-                - [ ] Insert Thread Executor 
-            - [ ] 
-        - Comment
-            - [ ] Comment CRUD          
-        - File
-            - [X] File Upload
-        - Spam
-            - [ ] Spam CRUD
-            - [X] Spam Processing
-        - Tag
-            - [X] Tag Insert with Content
-            - [ ] Tag Visualization Chart   
-    - Log Module
-        - [ ] Common Accessed LOG
+    - Java
+        - User Module
+            - [ ] Oauth2
+
+        - Content Module
+            - Content
+                - [X] Content CRUD
+                    - [ ] Insert Thread Executor 
+                - [ ] 
+            - Comment
+                - [ ] Comment CRUD          
+            - File
+                - [X] File Upload
+            - Spam
+                - [ ] Spam CRUD
+                - [X] Spam Processing
+            - Tag
+                - [X] Tag Insert with Content
+                - [ ] Tag Visualization Chart   
+        - Log Module
+            - [ ] Common Accessed LOG
+
+    - NodeJS
+        - Message
+            - 
+        - Git Hub API
+            - 
+        - Slack API
+        - KaKao API
 
 - Frontend
     - User Module
-        - [ ] Oauth2
+        - [ ] User CRUD
     - Content Module
         - Content
             - [X] Content CRUD
